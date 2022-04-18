@@ -4,7 +4,8 @@
     <div class="center">
       <!-- 给外层包裹div防止脱离文档流 -->
       <sider class="sider"></sider>
-      <keep-alive>
+      <!-- mylove组件不能缓存，否则切换登入时拿取不到歌单详情 -->
+      <keep-alive exclude="mylove">
         <router-view class="view"></router-view>
       </keep-alive>
     </div>

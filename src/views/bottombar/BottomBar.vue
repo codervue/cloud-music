@@ -139,10 +139,9 @@ export default {
         this.$message("暂无歌曲源");
       }
     },
-    //上下一曲随机播放一首（暂且播放我喜欢里的音乐）
+    //上下一曲随机播放一首（暂且播放我歌单列表里的音乐）
     nextClick() {
       if (this.$store.state.songsId) {
-        console.log();
         let num = Math.floor(
           Math.random() * this.$store.state.listDetail.playlist.tracks.length
         ); //可均衡获取0到所有歌曲数的随机整数。

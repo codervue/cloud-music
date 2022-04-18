@@ -6,7 +6,9 @@
         <span class="change">网 抑 云 音 乐</span>
       </div>
       <div class="center">
-        <span class="back" @click="backClick"><img src="@/assets/img/back.svg" alt="" /></span>
+        <span class="back" @click="backClick"
+          ><img src="@/assets/img/back.svg" alt=""
+        /></span>
         <span class="input"
           ><input type="text" placeholder="搜索音乐、歌手、歌词、用户"
         /></span>
@@ -20,7 +22,7 @@
         <div class="user" v-else>
           <img :src="profile.avatarUrl" alt="" />
           <el-dropdown @command="logOut">
-            <span class="el-dropdown-link">{{profile.nickname}}</span>
+            <span class="el-dropdown-link">{{ profile.nickname }}</span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>退出登入</el-dropdown-item>
             </el-dropdown-menu>
@@ -69,11 +71,17 @@ export default {
     //退出登入点击
     logOut() {
       this.$store.commit("isLogin", false);
+      this.$message({
+        message: "退出成功",
+        type: "success",
+      });
+      //页面跳转
+      this.$router.push("/mylove").catch((err) => {});
     },
     //返回点击
-    backClick(){
-      this.$router.go(-1)
-    }
+    backClick() {
+      this.$router.go(-1);
+    },
   },
 };
 </script>

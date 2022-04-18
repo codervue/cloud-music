@@ -27,8 +27,8 @@ export default {
   },
   methods: {
     //请求歌词
-    getLyric() {
-      getLyric(this.$store.state.songsId).then((res) => {
+    getLyric(id) {
+      getLyric(id).then((res) => {
         //处理歌词
         //去除\n
         let arr = res.lrc.lyric.split("\n");
@@ -64,11 +64,10 @@ export default {
   watch: {
     "$store.state.songsId": {
       //立马执行，使第一次传歌曲时能获取到歌词
-      immediate:true,
+      immediate: true,
       //歌词的请求
-      handler:function() {
-        this.getLyric();
-        console.log("---");
+      handler: function (id) {
+        this.getLyric(id);
       },
     },
     //监听当前播放时间

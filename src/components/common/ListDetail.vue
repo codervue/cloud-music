@@ -1,5 +1,5 @@
 <template>
-  <div class="list-detail" v-if="result != ''">
+  <div class="list-detail" v-if="result">
     <div class="top">
       <div class="left">
         <img :src="result.playlist.coverImgUrl" alt="" />
@@ -15,7 +15,7 @@
         </div>
         <div class="three">
           <el-row>
-            <el-button type="primary">播放全部</el-button>
+            <el-button type="primary" @click="allClick">播放全部</el-button>
             <el-button type="success">收藏</el-button>
             <el-button type="info">分享</el-button>
             <el-button type="warning">下载全部</el-button>
@@ -92,11 +92,18 @@ export default {
       //将歌曲id提交到vuex中
       this.$store.commit("songsId", row.id);
     },
+    //播放全部的回调
+    allClick(){
+      
+    }
   },
   watch: {
-    //监测歌单Id改变提交请求歌单详情
-    "$store.state.listDetailId"(id) {
-      this.getListDetail(id);
+    //监听歌单Id改变请求歌单详情
+    "$store.state.listDetailId": {
+      immediate: true,
+      handler: function (id) {
+        this.getListDetail(id);
+      },
     },
   },
 };
