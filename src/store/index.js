@@ -18,7 +18,10 @@ const store = new Vuex.Store({
         songsLoading: false,
         currentTime: "",
         isOpen: false,
-        drawerList: []
+        drawerList: [],
+        playAllFunction: "",
+        searchItem: "",
+        searchFunction: ""
     },
     mutations: {
         //用户个人信息
@@ -77,6 +80,18 @@ const store = new Vuex.Store({
             if (!oldId) {
                 state.drawerList.push(payload)
             }
+        },
+        //播放全部函数
+        playAllFunction(state, payload) {
+            state.playAllFunction = payload
+        },
+        //搜索结果值
+        searchItem(state, payload) {
+            state.searchItem = payload
+        },
+        //搜索函数
+        searchFunction(state, payload) {
+            state.searchFunction = payload
         }
     }
 })

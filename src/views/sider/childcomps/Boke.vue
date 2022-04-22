@@ -1,5 +1,5 @@
 <template>
-  <div>博客</div>
+  <div>播客</div>
 </template>
 
 <script>

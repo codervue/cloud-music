@@ -70,7 +70,7 @@ export default {
   margin: 5px 0;
 }
 /* 样式穿透，修改element-ui的样式 */
-.drawer >>> .el-table .cell {
+/* .drawer >>> .el-table .cell {
   white-space: nowrap;
-}
+} */
 </style>

@@ -16,7 +16,9 @@ import {
     Dropdown,
     DropdownMenu,
     DropdownItem,
-    Drawer
+    Drawer,
+    Autocomplete,
+    Popover
 } from "element-ui"
 
 
@@ -36,6 +38,8 @@ Vue.use(Dropdown);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
 Vue.use(Drawer);
+Vue.use(Autocomplete);
+Vue.use(Popover);
 // Vue.use(Message);//不需要use，只有引用就行，否则弹出空白的消息提示框
 
 

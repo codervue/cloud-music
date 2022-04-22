@@ -5,14 +5,13 @@
         <span><img src="@/assets/img/music.svg" alt="" /></span>
         <span class="change">网 抑 云 音 乐</span>
       </div>
+
       <div class="center">
         <span class="back" @click="backClick"
           ><img src="@/assets/img/back.svg" alt=""
         /></span>
-        <span class="input"
-          ><input type="text" placeholder="搜索音乐、歌手、歌词、用户"
-        /></span>
-        <span class="search"><img src="@/assets/img/search.svg" alt="" /></span>
+        <!-- 搜索框 -->
+        <search></search>
       </div>
 
       <div class="login">
@@ -39,13 +38,14 @@
         <span><img src="@/assets/img/guanbi.svg" alt="" /></span>
       </div>
     </div>
-
+    <!-- 登入框 -->
     <login ref="login"></login>
   </div>
 </template>
 
 <script>
 import Login from "./login/Login.vue";
+import Search from "./search/Search.vue";
 
 export default {
   name: "",
@@ -61,7 +61,7 @@ export default {
       return this.$store.state.isLogin;
     },
   },
-  components: { Login },
+  components: { Login, Search },
 
   methods: {
     //登入点击
@@ -75,6 +75,8 @@ export default {
         message: "退出成功",
         type: "success",
       });
+      //清空歌单
+      this.$store.commit("listDetail", "");
       //页面跳转
       this.$router.push("/mylove").catch((err) => {});
     },
@@ -90,7 +92,7 @@ export default {
 #nav-bar {
   width: 100%;
   height: 50px;
-  background-color: crimson;
+  background-color: #e13e3e;
   display: flex;
 }
 .left {
@@ -113,22 +115,10 @@ export default {
   vertical-align: middle;
   margin-right: 10px;
 }
-.input input {
-  height: 20px;
-  outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.158);
-  background-color: crimson;
-  border-radius: 25px;
-  caret-color: #fff;
-  /* //光标颜色 */
-}
-.search img {
-  height: 25px;
-  vertical-align: middle;
-}
 .center {
   width: 25%;
   line-height: 50px;
+  display: flex;
 }
 .input {
   margin: 0 5px;

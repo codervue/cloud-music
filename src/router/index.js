@@ -75,7 +75,12 @@ const routes = [{
     path: '/listdetail',
     component: () =>
         import("@/components/common/ListDetail")
-}
+},
+{
+    path: '/searchsongs',
+    component: () =>
+        import("@/components/common/SearchSongs")
+},
 
 ]
 

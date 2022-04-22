@@ -1,0 +1,25 @@
+.el-table .cell {
+  white-space: nowrap;
+} 
+
+.el-slider__bar{
+  background-color: #ff4e4e ;
+  border-radius: 0;
+  height: 4px;
+}
+.el-slider__runway{
+  border-radius: 0;
+}
+.el-slider__button-wrapper{
+  display: none;
+}
+.el-slider__runway{
+  height: 4px;
+}
+.el-popover{
+  height: 380px;
+  overflow-y: scroll;
+}
+.el-popover::-webkit-scrollbar {
+  display: none;
+}

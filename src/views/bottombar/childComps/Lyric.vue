@@ -57,7 +57,7 @@ export default {
         this.currentTime < this.lyric[index + 1][0]
       ) {
         //整体歌词向上移动30px
-        this.$refs.lyric.style.top = -(30 * (index - 1)) + "px";
+        this.$refs.lyric.style.top = -(30 * (index - 2)) + "px";
       }
     },
   },
@@ -82,8 +82,6 @@ export default {
 .box {
   height: 180px;
   margin-top: 15px;
-  color: #666666;
-  font-size: 12px;
   overflow-y: scroll;
   position: relative;
 }
@@ -95,21 +93,25 @@ export default {
   width: 100%;
   position: absolute;
   top: 0;
-  transition: all 1s;
 }
 .lyric-item {
   height: 30px;
   line-height: 30px;
+  color: #666666;
+  font-size: 12px;
   overflow: hidden;
   /* 歌词溢出禁止换行 */
   white-space: nowrap;
   /* 溢出部分省略号显示 */
   text-overflow: ellipsis;
+  transition: all 0.5s;
 }
 .highLight {
-  margin: 15px 0;
+  height: 55px;
+  line-height: 55px;
   color: #000000;
   font-size: 15px;
   font-weight: 600;
+  transition: all 0.5s;
 }
 </style>

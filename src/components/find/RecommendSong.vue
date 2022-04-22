@@ -49,7 +49,7 @@ export default {
 }
 .image img {
   height: 150px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .word {
   width: 120px;

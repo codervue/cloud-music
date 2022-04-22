@@ -4,7 +4,7 @@
     <div class="center">
       <!-- 给外层包裹div防止脱离文档流 -->
       <sider class="sider"></sider>
-      <!-- mylove组件不能缓存，否则切换登入时拿取不到歌单详情 -->
+      <!-- mylove组件不能缓存，否则切换登入时拿取不到歌单详情,而且在切换组件后无法实现页面跳转 -->
       <keep-alive exclude="mylove">
         <router-view class="view"></router-view>
       </keep-alive>

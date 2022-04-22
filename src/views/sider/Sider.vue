@@ -13,7 +13,7 @@ export default {
     return {
       value: [
         "发现音乐",
-        "博客",
+        "播客",
         "视频",
         "关注",
         "直播",
@@ -110,5 +110,6 @@ export default {
 .active {
   color: black;
   font-size: 18px;
+  font-weight: 600;
 }
 </style>

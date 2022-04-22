@@ -99,6 +99,7 @@ export default {
   display: flex;
 }
 .record img {
+  width: 170px;
   height: 170px;
 }
 .right {
@@ -129,6 +130,7 @@ export default {
   bottom: 25px;
 }
 .avtar img {
+  width: 120px;
   height: 120px;
   border-radius: 50%;
 }

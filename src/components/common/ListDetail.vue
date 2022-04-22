@@ -74,6 +74,7 @@ export default {
       result: "",
     };
   },
+  mounted() {},
   methods: {
     getListDetail(id) {
       getPlayListDetail(id).then((res) => {
@@ -92,10 +93,10 @@ export default {
       //将歌曲id提交到vuex中
       this.$store.commit("songsId", row.id);
     },
-    //播放全部的回调
-    allClick(){
-      
-    }
+    //播放全部的回调,（调用下一曲函数）
+    allClick() {
+      this.$store.state.playAllFunction();
+    },
   },
   watch: {
     //监听歌单Id改变请求歌单详情
@@ -113,9 +114,6 @@ export default {
 .list-detail {
   width: 780px;
   margin: 0 10px;
-}
-.list-detail::-webkit-scrollbar {
-  display: none;
 }
 .left img {
   height: 200px;
@@ -179,6 +177,13 @@ export default {
 }
 .count {
   margin-left: 170px;
+}
+/* span标签无法设置宽度，所以在父标签设置宽度隐藏文字 */
+.seven {
+  width: 500px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .desc {
   color: rgb(56, 47, 47);

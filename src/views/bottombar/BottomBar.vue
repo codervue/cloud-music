@@ -17,7 +17,7 @@
       </span>
       <span class="song">
         <p class="pop-name">{{ songsDetail.name }}</p>
-        <p class="pop">
+        <p class="pop" @click="popClick">
           {{ songsDetail.ar[0].name }}
         </p>
       </span>
@@ -84,14 +84,13 @@
         <img src="@/assets/img/list.svg" alt="" />
       </span>
     </div>
-
-    <!-- 抽屉 -->
   </div>
 </template>
 
 <script>
 import { getSongsUrl, getSongsDetail } from "@/network/song";
 import { handleMusicTime, returnSecond, s_to_hs } from "@/plugins/utils";
+
 export default {
   name: "",
   data() {
@@ -122,6 +121,9 @@ export default {
   },
   components: {},
 
+  mounted() {
+    this.$store.commit("playAllFunction", this.nextClick);
+  },
   methods: {
     //更新播放状态
     changeState(state) {
@@ -139,15 +141,20 @@ export default {
         this.$message("暂无歌曲源");
       }
     },
-    //上下一曲随机播放一首（暂且播放我歌单列表里的音乐）
+    //上下一曲随机播放一首（暂且播放歌单列表里的音乐）
     nextClick() {
-      if (this.$store.state.songsId) {
+      if (this.$store.state.listDetail) {
         let num = Math.floor(
           Math.random() * this.$store.state.listDetail.playlist.tracks.length
         ); //可均衡获取0到所有歌曲数的随机整数。
         let randomId = this.$store.state.listDetail.privileges[num].id;
         //提交随机歌曲id
         this.$store.commit("songsId", randomId);
+        //如果为传歌单id，播放搜索结果中的歌曲，否则 弹窗暂无播放源
+      } else if (this.$store.state.searchItem) {
+        this.$store.state.searchFunction();
+      } else {
+        this.$message("暂无播放源");
       }
     },
 
@@ -166,7 +173,7 @@ export default {
       //进度条长度
       this.timeProgress = Math.floor((time / this.secondTime) * 100);
     },
-    //拖动进度条事件(由于受播放器不断更新当前时间影响，拖拽事件无法达到预期，所以需要在拉取进度条时禁止播放器更新时间鼠标松开后恢复调用)
+    //拖动进度条事件(由于受播放器不断更新当前时间影响，拖拽事件无法达到预期，所以需要在拉取进度条时禁止播放器更新时间,鼠标松开后恢复调用)
     changeProgress(e) {
       //修改当前播放时间
       this.$refs.audio.currentTime = Math.floor((e / 100) * this.secondTime);
@@ -201,8 +208,15 @@ export default {
       //提交加载状态，实现歌曲详情卡片重置动画的效果，提高用户体验
       this.$store.commit("songsLoading", true);
       getSongsUrl(this.$store.state.songsId).then((res) => {
-        this.$store.commit("songsUrl", res.data[0].url);
-        this.$store.commit("songsLoading", false);
+        if (res.data[0].url != null) {
+          this.$store.commit("songsUrl", res.data[0].url);
+          this.$store.commit("songsLoading", false);
+        } else {
+          this.$message({
+            message: "该歌曲暂无版权",
+            type: "warning",
+          });
+        }
       });
     },
     getSongsDetail() {
@@ -215,9 +229,17 @@ export default {
       });
     },
     //点击抽屉回调
-    tableClick(){
-      this.$store.commit("isOpen")
-    }
+    tableClick() {
+      this.$store.commit("isOpen");
+    },
+    //点击歌手跳转回调
+    popClick() {
+      this.$store.commit(
+        "searchItem",
+        this.$store.state.songsDetail.ar[0].name
+      );
+      this.$router.push("/searchsongs").catch((err) => {});
+    },
   },
   watch: {
     //监听vuex中歌曲id改变
@@ -310,6 +332,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
 }
 .sound {
   display: none;
