@@ -30,8 +30,8 @@
       </span>
     </div>
 
+      <!-- 中间控制栏 -->
     <div class="center">
-      <!-- 控制栏 -->
       <div class="control">
         <span @click="nextClick"
           ><img src="@/assets/img/pre.svg" alt=""
