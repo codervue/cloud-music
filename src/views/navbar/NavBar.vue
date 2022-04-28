@@ -15,8 +15,8 @@
       </div>
 
       <div class="login">
-        <div class="click" v-if="!isLogin" @click="loginClick">
-          <span>登录</span>
+        <div class="click" v-if="!isLogin">
+          <span @click="loginClick">登录</span>
         </div>
         <div class="user" v-else>
           <img :src="profile.avatarUrl" alt="" />
@@ -75,10 +75,6 @@ export default {
         message: "退出成功",
         type: "success",
       });
-      //清空歌单
-      this.$store.commit("listDetail", "");
-      //页面跳转
-      this.$router.push("/mylove").catch((err) => {});
     },
     //返回点击
     backClick() {

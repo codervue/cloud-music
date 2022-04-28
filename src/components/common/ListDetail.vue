@@ -1,63 +1,69 @@
 <template>
-  <div class="list-detail" v-if="result">
-    <div class="top">
-      <div class="left">
-        <img :src="result.playlist.coverImgUrl" alt="" />
+  <div
+    v-loading="loading"
+    element-loading-text="正在加载中"
+    element-loading-spinner="el-icon-loading"
+  >
+    <div class="list-detail" v-if="result">
+      <div class="top">
+        <div class="left">
+          <img :src="result.playlist.coverImgUrl" alt="" />
+        </div>
+        <div class="right">
+          <div class="first">
+            <span class="title-tag">歌单</span>
+            <span class="title-content">{{ result.playlist.name }}</span>
+          </div>
+          <div class="second">
+            <img :src="result.playlist.creator.backgroundUrl" alt="" />
+            <span class="nickname">{{ result.playlist.creator.nickname }}</span>
+          </div>
+          <div class="three">
+            <el-row>
+              <el-button type="primary" @click="allClick">播放全部</el-button>
+              <el-button type="success">收藏</el-button>
+              <el-button type="info">分享</el-button>
+              <el-button type="warning">下载全部</el-button>
+            </el-row>
+          </div>
+          <div class="five">
+            <span class="tags">标签:</span>
+            <span class="tag">{{ result.playlist.tags[0] }}</span>
+            <span class="tag">{{ result.playlist.tags[1] }}</span>
+            <span class="tag">{{ result.playlist.tags[2] }}</span>
+          </div>
+          <div class="six">
+            <span>歌曲:{{ result.playlist.trackCount }}</span>
+            <span class="count">播放量:{{ result.playlist.playCount }}</span>
+          </div>
+          <div class="seven">
+            <span class="desc">简介:</span>
+            <span class="description">{{ result.playlist.description }}</span>
+          </div>
+        </div>
       </div>
-      <div class="right">
-        <div class="first">
-          <span class="title-tag">歌单</span>
-          <span class="title-content">{{ result.playlist.name }}</span>
-        </div>
-        <div class="second">
-          <img :src="result.playlist.creator.backgroundUrl" alt="" />
-          <span class="nickname">{{ result.playlist.creator.nickname }}</span>
-        </div>
-        <div class="three">
-          <el-row>
-            <el-button type="primary" @click="allClick">播放全部</el-button>
-            <el-button type="success">收藏</el-button>
-            <el-button type="info">分享</el-button>
-            <el-button type="warning">下载全部</el-button>
-          </el-row>
-        </div>
-        <div class="five">
-          <span class="tags">标签:</span>
-          <span class="tag">{{ result.playlist.tags[0] }}</span>
-          <span class="tag">{{ result.playlist.tags[1] }}</span>
-          <span class="tag">{{ result.playlist.tags[2] }}</span>
-        </div>
-        <div class="six">
-          <span>歌曲:{{ result.playlist.trackCount }}</span>
-          <span class="count">播放量:{{ result.playlist.playCount }}</span>
-        </div>
-        <div class="seven">
-          <span class="desc">简介:</span>
-          <span class="description">{{ result.playlist.description }}</span>
-        </div>
-      </div>
-    </div>
 
-    <div class="bottom">
-      <h3>歌曲列表:</h3>
-      <!-- 报错显示：请求任务为异步任务，所以在渲染时没有请求到数据，读取不到tracks值，所以加个判断 -->
-      <div class="song" v-if="$store.state.listDetailId">
-        <el-table
-          :data="result.playlist.tracks"
-          stripe
-          lazy
-          style="width: 100%"
-          @row-dblclick="songsClick"
-        >
-          <!-- @row-dblclick双击行绑定事件 -->
-          <el-table-column prop="name" label="标题" width="400">
-          </el-table-column>
-          <el-table-column prop="ar[0].name" label="歌手" width="150">
-          </el-table-column>
-          <el-table-column prop="al.name" label="专辑" width="150">
-          </el-table-column>
-          <el-table-column prop="dt" label="时长" width=""> </el-table-column>
-        </el-table>
+      <div class="bottom">
+        <h3>歌曲列表:</h3>
+        <!-- 报错显示：请求任务为异步任务，所以在渲染时没有请求到数据，读取不到tracks值，所以加个判断 -->
+        <div class="song" v-if="$store.state.listDetailId">
+          <el-table
+            :data="result.playlist.tracks"
+            stripe
+            lazy
+            style="width: 100%"
+            @row-dblclick="songsClick"
+          >
+            <!-- @row-dblclick双击行绑定事件 -->
+            <el-table-column prop="name" label="标题" width="400">
+            </el-table-column>
+            <el-table-column prop="ar[0].name" label="歌手" width="150">
+            </el-table-column>
+            <el-table-column prop="al.name" label="专辑" width="150">
+            </el-table-column>
+            <el-table-column prop="dt" label="时长" width=""> </el-table-column>
+          </el-table>
+        </div>
       </div>
     </div>
   </div>
@@ -72,6 +78,7 @@ export default {
   data() {
     return {
       result: "",
+      loading: false,
     };
   },
   mounted() {},
@@ -103,7 +110,16 @@ export default {
     "$store.state.listDetailId": {
       immediate: true,
       handler: function (id) {
-        this.getListDetail(id);
+        if (id) {
+          //清空结果，实现一个动画过渡效果
+          this.result = "";
+          this.loading = true;
+          setTimeout(() => {
+            this.getListDetail(id);
+            this.loading = false;
+          }, 500);
+        } else {
+        }
       },
     },
   },

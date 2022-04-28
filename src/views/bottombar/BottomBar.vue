@@ -123,6 +123,8 @@ export default {
 
   mounted() {
     this.$store.commit("playAllFunction", this.nextClick);
+    this.$store.commit("playFunction", this.playClick);
+    this.$store.commit("stopFunction", this.stopClick);
   },
   methods: {
     //更新播放状态
@@ -150,10 +152,10 @@ export default {
         let randomId = this.$store.state.listDetail.privileges[num].id;
         //提交随机歌曲id
         this.$store.commit("songsId", randomId);
-        //如果为传歌单id，播放搜索结果中的歌曲，否则 弹窗暂无播放源
       } else if (this.$store.state.searchItem) {
         this.$store.state.searchFunction();
       } else {
+        //如果未传歌单id，播放搜索结果中的歌曲，否则 弹窗暂无播放源
         this.$message("暂无播放源");
       }
     },

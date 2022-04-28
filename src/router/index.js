@@ -19,12 +19,7 @@ const routes = [{
 {
     path: '/boke',
     component: () =>
-        import("@/views/sider/childcomps/Boke")
-},
-{
-    path: '/cloud',
-    component: () =>
-        import("@/views/sider/childcomps/Cloud")
+        import("@/views/sider/childcomps/Boke"),
 },
 {
     path: '/fm',
@@ -32,44 +27,28 @@ const routes = [{
         import("@/views/sider/childcomps/FM")
 },
 {
-    path: '/focus',
-    component: () =>
-        import("@/views/sider/childcomps/Focus")
-},
-{
-    path: '/live',
-    component: () =>
-        import("@/views/sider/childcomps/Live")
-},
-{
-    path: '/local',
-    component: () =>
-        import("@/views/sider/childcomps/Local")
-},
-{
-    path: '/my',
-    component: () =>
-        import("@/views/sider/childcomps/My")
-},
-{
-    path: '/myboke',
-    component: () =>
-        import("@/views/sider/childcomps/MyBoke")
-},
-{
     path: '/mylove',
     component: () =>
         import("@/views/sider/childcomps/MyLove")
 },
 {
-    path: '/now',
-    component: () =>
-        import("@/views/sider/childcomps/Now")
-},
-{
     path: '/video',
     component: () =>
-        import("@/views/sider/childcomps/Video")
+        import("@/views/sider/childcomps/Video"),
+    children: [
+        {
+            path: "",
+            redirect: "videos"
+        },
+        {
+            path: "videos",
+            component: () => import("@/components/video/Videos"),
+        },
+        {
+            path: "mv",
+            component: () => import("@/components/video/MV"),
+        }
+    ]
 },
 {
     path: '/listdetail',
@@ -81,12 +60,21 @@ const routes = [{
     component: () =>
         import("@/components/common/SearchSongs")
 },
-
+{
+    path: '/videodetail',
+    component: () => import("@/components/common/videoDetail")
+}
 ]
-
+//创建路由
 const router = new VueRouter({
     mode: "history",
     routes,
 })
+
+// 解决跳转到当前路由报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch((err) => err)
+}
 
 export default router

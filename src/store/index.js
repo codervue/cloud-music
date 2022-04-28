@@ -21,7 +21,14 @@ const store = new Vuex.Store({
         drawerList: [],
         playAllFunction: "",
         searchItem: "",
-        searchFunction: ""
+        searchFunction: "",
+        djId: "",
+        djDetail: "",
+        videoListId: "",
+        videoId: "",
+        isVideo: false,
+        playFunction: false,
+        stopFunction: false,
     },
     mutations: {
         //用户个人信息
@@ -92,7 +99,35 @@ const store = new Vuex.Store({
         //搜索函数
         searchFunction(state, payload) {
             state.searchFunction = payload
-        }
+        },
+        //电台id
+        djId(state, payload) {
+            state.djId = payload
+        },
+        //电台详情
+        djDetail(state, payload) {
+            state.djDetail = payload
+        },
+        //分类视频id
+        videoListId(state, payload) {
+            state.videoListId = payload
+        },
+        //播放视频id
+        videoId(state, payload) {
+            state.videoId = payload
+        },
+        //video和mv的切换
+        isVideo(state, payload) {
+            state.isVideo = payload
+        },
+        //播放函数
+        playFunction(state, payload) {
+            state.playFunction = payload
+        },
+        //停止函数
+        stopFunction(state, payload) {
+            state.stopFunction = payload
+        },
     }
 })
 

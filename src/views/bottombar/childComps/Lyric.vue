@@ -1,5 +1,10 @@
 <template>
-  <div class="box">
+  <div
+    class="box"
+    v-loading="loading"
+    element-loading-text="正在加载歌词中"
+    element-loading-spinner="el-icon-loading"
+  >
     <div class="lyric" ref="lyric">
       <div
         class="lyric-item"
@@ -21,8 +26,9 @@ import { getLyric } from "@/network/song";
 export default {
   data() {
     return {
-      lyric: "",
+      lyric: [],
       currentTime: "",
+      loading: false,
     };
   },
   methods: {
@@ -57,7 +63,7 @@ export default {
         this.currentTime < this.lyric[index + 1][0]
       ) {
         //整体歌词向上移动30px
-        this.$refs.lyric.style.top = -(30 * (index - 2)) + "px";
+        this.$refs.lyric.style.top = -(45 * (index - 2)) + "px";
       }
     },
   },
@@ -67,7 +73,13 @@ export default {
       immediate: true,
       //歌词的请求
       handler: function (id) {
-        this.getLyric(id);
+        //实现一个动画过渡效果
+        this.lyric = [];
+        this.loading = true;
+        setTimeout(() => {
+          this.getLyric(id);
+          this.loading = false;
+        }, 500);
       },
     },
     //监听当前播放时间
@@ -80,7 +92,7 @@ export default {
 
 <style scoped='scoped'>
 .box {
-  height: 180px;
+  height: 280px;
   margin-top: 15px;
   overflow-y: scroll;
   position: relative;
@@ -93,25 +105,24 @@ export default {
   width: 100%;
   position: absolute;
   top: 0;
+  transition: all 0.5s;
 }
 .lyric-item {
-  height: 30px;
-  line-height: 30px;
+  /* height: 40px; */
+  line-height: 20px;
   color: #666666;
-  font-size: 12px;
+  font-size: 14px;
+  margin: 25px 0px;
   overflow: hidden;
-  /* 歌词溢出禁止换行 */
+  /* 歌词溢出禁止换行  */
   white-space: nowrap;
-  /* 溢出部分省略号显示 */
-  text-overflow: ellipsis;
+  /* 溢出部分省略号显示  */
+  /* text-overflow: ellipsis; */
   transition: all 0.5s;
 }
 .highLight {
-  height: 55px;
-  line-height: 55px;
   color: #000000;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  transition: all 0.5s;
 }
 </style>

@@ -32,6 +32,7 @@ export default {
 <style scoped='scoped'>
 .recommend {
   font-size: 17px;
+  margin-top: 10px;
 }
 .el-image {
   height: 150px;

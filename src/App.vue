@@ -4,8 +4,8 @@
     <div class="center">
       <!-- 给外层包裹div防止脱离文档流 -->
       <sider class="sider"></sider>
-      <!-- mylove组件不能缓存，否则切换登入时拿取不到歌单详情,而且在切换组件后无法实现页面跳转 -->
-      <keep-alive exclude="mylove">
+      <!-- 视频详情不能缓存，否则无法刷新界面 -->
+      <keep-alive exclude="videodetail">
         <router-view class="view"></router-view>
       </keep-alive>
     </div>
@@ -22,7 +22,7 @@ import NavBar from "@/views/navbar/NavBar";
 import Sider from "@/views/sider/Sider";
 import BottomBar from "@/views/bottombar/BottomBar";
 import MusicDetail from "@/views/bottombar/childComps/MusicDetail.vue";
-import Drawer from './views/bottombar/childComps/Drawer.vue';
+import Drawer from "./views/bottombar/childComps/Drawer.vue";
 
 export default {
   name: "App",
@@ -31,7 +31,7 @@ export default {
     Sider,
     BottomBar,
     MusicDetail,
-    Drawer
+    Drawer,
   },
 };
 </script>
@@ -43,7 +43,7 @@ export default {
   border: solid 1px rgba(209, 203, 203, 0.24);
   position: relative;
   user-select: none; /* 禁止用户鼠标在页面上选中文字/图片等 */
-  /* 隐藏歌曲详情 */
+  /* 隐藏歌曲详情卡片*/
   overflow: hidden;
 }
 .center {

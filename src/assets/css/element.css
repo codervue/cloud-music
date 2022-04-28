@@ -23,3 +23,14 @@
 .el-popover::-webkit-scrollbar {
   display: none;
 }
+.el-loading-spinner .el-loading-text{
+  color: black;
+}
+
+.el-loading-spinner i{
+  color: black;
+}
+.el-loading-mask{
+  background-color: unset;
+  z-index: 10;
+}

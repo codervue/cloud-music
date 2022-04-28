@@ -1,5 +1,10 @@
 <template>
-  <div class="search-song">
+  <div
+    class="search-song"
+    v-loading="loading"
+    element-loading-text="正在加载中"
+    element-loading-spinner="el-icon-loading"
+  >
     <div class="top" v-if="detail">
       <p class="text">搜索 {{ $store.state.searchItem }} 的结果</p>
       <p class="funny">你可能感兴趣</p>
@@ -78,6 +83,7 @@ export default {
     return {
       detail: "",
       result: [],
+      loading: false,
     };
   },
   created() {},
@@ -118,8 +124,14 @@ export default {
     "$store.state.searchItem": {
       immediate: true,
       handler: function (item) {
-        this.searchDetail(item);
-        this.searchResult(item);
+        this.detail = "";
+        this.result = "";
+        this.loading = true;
+        setTimeout(() => {
+          this.searchDetail(item);
+          this.searchResult(item);
+          this.loading = false;
+        }, 500);
       },
     },
   },

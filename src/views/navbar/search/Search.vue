@@ -11,6 +11,7 @@
         @focus="hotList"
         @input="changeInput"
         @keyup.enter.native="onSubmit"
+        ref="input"
       ></el-input>
       <!-- 热搜榜模块 -->
       <div class="hot" v-if="!input">
@@ -103,6 +104,7 @@ export default {
     },
     //跳转至详情页
     goDetail(item) {
+      this.isShow = false;
       //提交搜索值
       this.$store.commit("searchItem", item);
       //路由跳转
@@ -111,6 +113,9 @@ export default {
     //键盘enter跳转
     onSubmit(e) {
       if (e.keyCode == 13 && this.input != "") {
+        //点击enter使input框失去焦点
+        this.$refs.input.blur();
+        this.isShow = false;
         this.goDetail(this.input);
       }
     },

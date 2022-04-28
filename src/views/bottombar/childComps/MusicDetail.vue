@@ -27,13 +27,13 @@
         <div class="right">
           <div class="title">
             <div class="name">{{ songsDetail.name }}</div>
-            <div class="album">{{ songsDetail.al.name }}</div>
-            <div class="singer">{{ songsDetail.ar[0].name }}</div>
+            <div class="album">
+              {{ songsDetail.al.name }} - {{ songsDetail.ar[0].name }}
+            </div>
           </div>
           <lyric></lyric>
         </div>
       </div>
-
 
       <div class="bottom">
         <h3>热门评论:</h3>
@@ -108,16 +108,15 @@ export default {
 }
 .name {
   color: #161616;
-  font-size: 20px;
+  font-size: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .album {
   color: #919191;
-  font-size: 15px;
+  font-size: 13px;
   margin: 5px 0;
-}
-.singer {
-  color: #919191;
-  font-size: 15px;
 }
 .record {
   position: relative;
@@ -167,7 +166,7 @@ export default {
   color: #919191;
   font-size: 20px;
 }
-.bottom{
-  margin-top: 90px;
+h3 {
+  margin: 10px 0;
 }
 </style>
