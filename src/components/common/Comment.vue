@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="comment"
-    v-loading="loading"
-    element-loading-text="正在加载歌词中"
-    element-loading-spinner="el-icon-loading"
-  >
+  <div class="comment">
     <!-- 全部评论 -->
     <div v-if="comment.comments">
       <h3>全部评论({{ comment.total }})</h3>
