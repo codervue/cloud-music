@@ -1,27 +1,29 @@
 <template>
-  <div class="fm" v-if="result">
-    <div class="left">
-      <div class="cover"><img :src="result.al.picUrl" alt="" /></div>
-      <div class="image" :class="{ active: $store.state.isPlay }">
-        <img
-          src="@/assets/img/stop.svg"
-          alt=""
-          v-if="!$store.state.isPlay"
-          @click="playClick"
-        />
-        <img src="@/assets/img/play.svg" alt="" v-else @click="stopClick" />
-      </div>
-    </div>
-    <div class="right">
-      <div class="top">
-        <div class="name">
-          {{ result.name }}
-          <span class="tone">标准音质</span>
+  <div>
+    <div class="fm" v-if="result">
+      <div class="left">
+        <div class="cover"><img :src="result.al.picUrl" alt="" /></div>
+        <div class="image" :class="{ active: $store.state.isPlay }">
+          <img
+            src="@/assets/img/stop.svg"
+            alt=""
+            v-if="!$store.state.isPlay"
+            @click="playClick"
+          />
+          <img src="@/assets/img/play.svg" alt="" v-else @click="stopClick" />
         </div>
-        <span class="album">专辑:{{ result.al.name }}</span>
-        <span class="singer">歌手:{{ result.ar[0].name }}</span>
       </div>
-      <lyric></lyric>
+      <div class="right">
+        <div class="top">
+          <div class="name">
+            {{ result.name }}
+            <span class="tone">标准音质</span>
+          </div>
+          <span class="album">专辑:{{ result.al.name }}</span>
+          <span class="singer">歌手:{{ result.ar[0].name }}</span>
+        </div>
+        <lyric></lyric>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +31,7 @@
 <script>
 import { fm } from "@/network/fm";
 import Lyric from "@/views/bottombar/childComps/Lyric";
+
 export default {
   name: "fm",
   data() {

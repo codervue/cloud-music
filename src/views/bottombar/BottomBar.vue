@@ -30,22 +30,24 @@
       </span>
     </div>
 
-      <!-- 中间控制栏 -->
+    <!-- 中间控制栏 -->
     <div class="center">
       <div class="control">
         <span @click="nextClick"
-          ><img src="@/assets/img/pre.svg" alt=""
-        /></span>
-        <span @click="playClick" v-if="!$store.state.isPlay"
-          ><img src="@/assets/img/stop.svg" alt=""
-        /></span>
-        <span @click="stopClick" v-else
-          ><img src="@/assets/img/play.svg" alt=""
-        /></span>
-        <span @click="nextClick"
-          ><img src="@/assets/img/next.svg" alt=""
-        /></span>
+          ><i class="iconfont icon-shangyishou"></i
+        ></span>
+        <span
+          @click="playClick"
+          v-if="!$store.state.isPlay"
+          class="iconfont icon-bofang"
+          ><i></i
+        ></span>
+        <span @click="stopClick" v-else>
+          <i class="iconfont icon-zantingtingzhi"></i
+        ></span>
+        <span @click="nextClick"><i class="iconfont icon-xiayishou"></i></span>
       </div>
+
       <!-- 进度条 -->
       <div class="block">
         <span class="demonstration">{{ currentTime }}</span>
@@ -286,15 +288,21 @@ export default {
   text-align: center;
 }
 .control {
-  text-align: center;
   margin-top: 20px;
 }
-.control span img {
-  height: 20px;
-  margin: 0 15px;
+.control span {
+  display: inline-block;
+  width: 50px;
+}
+.control span i {
+  font-size: 20px;
   cursor: pointer;
 }
-
+.icon-bofang {
+  font-size: 20px;
+  cursor: pointer;
+}
+/* 进度条 */
 .block {
   display: flex;
   justify-content: space-between;

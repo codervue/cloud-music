@@ -118,7 +118,7 @@ export default {
   white-space: nowrap;
   /* 溢出部分省略号显示  */
   /* text-overflow: ellipsis; */
-  transition: all 0.5s;
+  transition: all 1s;
 }
 .highLight {
   color: #000000;

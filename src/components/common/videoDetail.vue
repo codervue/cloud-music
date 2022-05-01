@@ -29,7 +29,12 @@
           }}
         </div>
       </div>
+      <!-- 热门评论 -->
+      <div>
+        <comment :comment="comment"></comment>
+      </div>
     </div>
+
     <!-- 相关-->
     <div class="relate">
       <h4>{{ $store.state.isVideo ? "相关视频" : "相关MV" }}</h4>
@@ -42,7 +47,7 @@
           @click="itemClick(item.vid)"
         >
           <div class="image"><img :src="item.coverUrl" alt="" /></div>
-          <div>
+          <div class="item">
             <div class="r-title">{{ item.title }}</div>
             <div class="r-name">by{{ item.creator[0].userName }}</div>
           </div>
@@ -57,7 +62,7 @@
           @click="itemClick(item.id)"
         >
           <div class="image"><img :src="item.cover" alt="" /></div>
-          <div>
+          <div class="item">
             <div class="r-title">{{ item.name }}</div>
             <div class="r-name">by{{ item.artists[0].name }}</div>
           </div>
@@ -76,6 +81,8 @@ import {
   relateVideo,
   relateMv,
 } from "@/network/video";
+import { getHotComment } from "@/network/comment";
+import Comment from "@/components/common/Comment";
 export default {
   name: "videodetail",
   data() {
@@ -86,8 +93,10 @@ export default {
       mUrl: "",
       relateV: "",
       relateM: "",
+      comment: {},
     };
   },
+  components: { Comment },
   //此组件不能缓存，否则无法刷新数据
   activated() {
     console.log("---");
@@ -135,6 +144,12 @@ export default {
     itemClick(id) {
       this.$store.commit("videoId", id);
     },
+    //热门评论
+    hotComments(id, type) {
+      getHotComment(id, type).then((res) => {
+        this.comment = res;
+      });
+    },
   },
   watch: {
     "$store.state.videoId": {
@@ -144,10 +159,14 @@ export default {
           this.videoDetail(id);
           this.videoUrl(id);
           this.relateVideo(id);
+          //热门评论
+          this.hotComments(id, 5);
         } else {
           this.mvDetail(id);
           this.mvUrl(id);
           this.relateMv(id);
+          //热门评论
+          this.hotComments(id, 1);
         }
       },
     },
@@ -187,7 +206,7 @@ h4 {
 }
 .r-title {
   width: 120px;
-  font-size: 15px;
+  font-size: 13px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -203,5 +222,8 @@ h4 {
 }
 .relate {
   margin-left: 10px;
+}
+.item {
+  margin-left: 5px;
 }
 </style>

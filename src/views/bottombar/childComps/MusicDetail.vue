@@ -36,8 +36,9 @@
       </div>
 
       <div class="bottom">
-        <h3>热门评论:</h3>
-        <div class="comment"></div>
+        <div class="comment">
+          <comment :comment="comment"></comment>
+        </div>
       </div>
     </div>
     <!-- 当无音乐时展示 -->
@@ -47,9 +48,13 @@
 
 <script>
 import Lyric from "./Lyric.vue";
+import Comment from "@/components/common/Comment";
+import { getComment } from "@/network/comment";
 export default {
   data() {
-    return {};
+    return {
+      comment: {},
+    };
   },
   computed: {
     songsDetail() {
@@ -58,8 +63,24 @@ export default {
   },
   components: {
     Lyric,
+    Comment,
   },
-  methods: {},
+  methods: {
+    //评论数据
+    getComment(id) {
+      getComment(id).then((res) => {
+        this.comment = res;
+      });
+    },
+  },
+  watch: {
+    "$store.state.songsId": {
+      immediate: true,
+      handler: function (id) {
+        this.getComment(id);
+      },
+    },
+  },
 };
 </script>
 
@@ -165,8 +186,5 @@ export default {
   line-height: 400px;
   color: #919191;
   font-size: 20px;
-}
-h3 {
-  margin: 10px 0;
 }
 </style>
