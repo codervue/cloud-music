@@ -72,7 +72,7 @@ export default {
         //整体歌词到顶部的距离
         this.$refs.lyric.style.top = -(50 * (index - 2)) + "px";
       }
-      if (this.currentTime >= this.lyric[this.lyric.length - 2][0]) {
+      if (this.currentTime > this.lyric[this.lyric.length - 2][0]) {
         this.$refs.lyric.style.top = -(50 * (this.lyric.length - 4)) + "px";
       }
     },
