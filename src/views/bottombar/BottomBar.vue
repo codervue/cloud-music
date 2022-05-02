@@ -265,8 +265,8 @@ export default {
 #bottom-bar {
   width: 100%;
   height: 80px;
-  border-top: solid 1px rgba(179, 171, 171, 0.336);
   display: flex;
+  border-top: solid 1px rgba(223, 218, 218, 0.932);
   /* 设置定位使得优先级最高，不会被歌曲详情所覆盖 ，且必须设置背景色*/
   position: sticky;
   /* 不能太高否则会覆盖掉登录界面 */

@@ -12,7 +12,10 @@
         :key="index"
         :class="{
           highLight:
-            currentTime > lyric[index][0] && currentTime < lyric[index + 1][0],
+            (currentTime > lyric[index][0] &&
+              currentTime < lyric[index + 1][0]) ||
+            (currentTime > lyric[lyric.length - 2][0] &&
+              index === lyric.length - 2),
         }"
       >
         {{ item[1] }}{{ lyricScroll(index) }}
@@ -37,22 +40,26 @@ export default {
       getLyric(id).then((res) => {
         //处理歌词
         //去除\n
+        // console.log(res);
         let arr = res.lrc.lyric.split("\n");
         let time = "";
         let value = "";
         let result = [];
-        //拆分数组
+        // console.log(arr);
+        // //拆分数组
         arr.forEach((item) => {
           time = item.split("]")[0];
           value = item.split("]")[1];
+          // console.log(time);
           //time是一个字符串
           var t = time.slice(1).split(":");
+          // console.log(t);
           //去除空行并将结果压入数组,
-          if (value != "") {
-            result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
-          }
+          // if (value != "") {
+          result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
         });
         //结果存储
+        // console.log(result);
         this.lyric = result;
       });
     },
@@ -62,8 +69,11 @@ export default {
         this.currentTime > this.lyric[index][0] &&
         this.currentTime < this.lyric[index + 1][0]
       ) {
-        //整体歌词向上移动30px
-        this.$refs.lyric.style.top = -(45 * (index - 2)) + "px";
+        //整体歌词到顶部的距离
+        this.$refs.lyric.style.top = -(50 * (index - 2)) + "px";
+      }
+      if (this.currentTime >= this.lyric[this.lyric.length - 2][0]) {
+        this.$refs.lyric.style.top = -(50 * (this.lyric.length - 4)) + "px";
       }
     },
   },
@@ -108,11 +118,10 @@ export default {
   transition: all 0.5s;
 }
 .lyric-item {
-  /* height: 40px; */
-  line-height: 20px;
+  height: 50px;
+  line-height: 50px;
   color: #666666;
   font-size: 14px;
-  margin: 25px 0px;
   overflow: hidden;
   /* 歌词溢出禁止换行  */
   white-space: nowrap;

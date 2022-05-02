@@ -53,7 +53,7 @@ export default {
   height: 425px;
   z-index: 100;
   width: 300px;
-  border: solid 1px rgba(179, 171, 171, 0.336);
+  border-left: solid 1px rgba(223, 218, 218, 0.932);
   background-color: #fff;
   transition: all 0.5s ease;
   overflow-y: scroll;
@@ -62,7 +62,7 @@ export default {
   display: none;
 }
 .hide {
-  right: -302px;
+  right: -301px;
 }
 .list {
   color: #919191;

@@ -40,14 +40,14 @@ export default {
 #app {
   width: 1000px;
   margin: 50px auto;
-  border: solid 1px rgba(209, 203, 203, 0.24);
   position: relative;
   user-select: none; /* 禁止用户鼠标在页面上选中文字/图片等 */
   /* 隐藏歌曲详情卡片*/
   overflow: hidden;
+  /* 盒子阴影 */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
 }
 .center {
-  widows: 100%;
   height: 425px;
 }
 .sider {
