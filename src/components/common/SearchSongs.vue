@@ -26,7 +26,11 @@
             </div>
           </div>
         </div>
-        <div class="card second" v-if="detail.playlist">
+        <div
+          class="card second"
+          v-if="detail.playlist"
+          @click="cardClick(detail.playlist[0].id)"
+        >
           <span class="left">
             <img :src="detail.playlist[0].coverImgUrl" alt="" />
           </span>
@@ -118,6 +122,11 @@ export default {
       let randomId = this.result[num].id;
       //提交随机歌曲id
       this.$store.commit("songsId", randomId);
+    },
+    //点击歌单回调
+    cardClick(id) {
+      this.$store.commit("listDetailId", id);
+      this.$router.push("/listdetail").catch((error) => {});
     },
   },
   watch: {

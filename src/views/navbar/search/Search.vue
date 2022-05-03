@@ -29,6 +29,12 @@
       </div>
       <!-- 搜索建议 -->
       <div class="suggest" v-else>
+        <div v-if="songs[0]">
+          <h4>猜你想搜</h4>
+          <div class="box-item" @click="goDetail(songs[0].name)">
+            {{ songs[0].name }}
+          </div>
+        </div>
         <div class="song">
           <h4>单曲</h4>
           <ul class="box" v-for="(item, index) in songs" :key="index">
@@ -105,6 +111,7 @@ export default {
     //跳转至详情页
     goDetail(item) {
       this.isShow = false;
+      this.input = item;
       //提交搜索值
       this.$store.commit("searchItem", item);
       //路由跳转

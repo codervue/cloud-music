@@ -16,8 +16,10 @@
         ><img :src="songsDetail.al.picUrl" alt="" />
       </span>
       <span class="song">
-        <p class="pop-name">{{ songsDetail.name }}</p>
-        <p class="pop" @click="popClick">
+        <p class="pop-name" @click="popClick(songsDetail.name)">
+          {{ songsDetail.name }}
+        </p>
+        <p class="pop" @click="popClick(songsDetail.ar[0].name)">
           {{ songsDetail.ar[0].name }}
         </p>
       </span>
@@ -236,12 +238,9 @@ export default {
     tableClick() {
       this.$store.commit("isOpen");
     },
-    //点击歌手跳转回调
-    popClick() {
-      this.$store.commit(
-        "searchItem",
-        this.$store.state.songsDetail.ar[0].name
-      );
+    //点击歌名、歌手回调
+    popClick(item) {
+      this.$store.commit("searchItem", item);
       this.$router.push("/searchsongs").catch((err) => {});
     },
   },
@@ -334,6 +333,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
 }
 .pop {
   width: 120px;
