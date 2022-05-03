@@ -70,10 +70,10 @@ export default {
         this.currentTime < this.lyric[index + 1][0]
       ) {
         //整体歌词到顶部的距离
-        this.$refs.lyric.style.top = -(50 * (index - 2)) + "px";
+        this.$refs.lyric.style.top = -(40 * (index - 2)) + "px";
       }
       if (this.currentTime > this.lyric[this.lyric.length - 2][0]) {
-        this.$refs.lyric.style.top = -(50 * (this.lyric.length - 4)) + "px";
+        this.$refs.lyric.style.top = -(40 * (this.lyric.length - 4)) + "px";
       }
     },
   },
@@ -102,7 +102,7 @@ export default {
 
 <style scoped='scoped'>
 .box {
-  height: 280px;
+  height: 263px;
   margin-top: 15px;
   overflow-y: scroll;
   position: relative;
@@ -115,19 +115,19 @@ export default {
   width: 100%;
   position: absolute;
   top: 0;
-  transition: all 0.5s;
+  transition: all 1s;
 }
 .lyric-item {
-  height: 50px;
-  line-height: 50px;
+  height: 40px;
+  line-height: 40px;
   color: #666666;
-  font-size: 14px;
+  font-size: 15px;
   overflow: hidden;
   /* 歌词溢出禁止换行  */
   white-space: nowrap;
   /* 溢出部分省略号显示  */
   /* text-overflow: ellipsis; */
-  transition: all 1s;
+  /* transition: all 1s; */
 }
 .highLight {
   color: #000000;

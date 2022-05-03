@@ -43,6 +43,21 @@
     </div>
     <!-- 当无音乐时展示 -->
     <div class="null" v-else>暂无播放音乐</div>
+    <!-- 相似音乐 -->
+    <div class="simi">
+      <h5>喜欢这首歌的人也听</h5>
+      <div class="simi-songs">
+        <div
+          class="simi-song"
+          v-for="(item, index) in songs"
+          :key="index"
+          @click="itemClick(item.id)"
+        >
+          <div><img :src="item.album.picUrl" alt="" /></div>
+          <div class="word">{{ item.name }} - {{ item.artists[0].name }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -50,10 +65,12 @@
 import Lyric from "./Lyric.vue";
 import Comment from "@/components/common/Comment";
 import { getComment } from "@/network/comment";
+import { simiSongs } from "@/network/song";
 export default {
   data() {
     return {
       comment: {},
+      songs: [],
     };
   },
   computed: {
@@ -72,12 +89,23 @@ export default {
         this.comment = res;
       });
     },
+    //相似歌曲
+    simiSongs(id) {
+      simiSongs(id).then((res) => {
+        this.songs = res.songs;
+      });
+    },
+    //点击播放相似歌曲的回调
+    itemClick(id) {
+      this.$store.commit("songsId", id);
+    },
   },
   watch: {
     "$store.state.songsId": {
       immediate: true,
       handler: function (id) {
         this.getComment(id);
+        this.simiSongs(id);
       },
     },
   },
@@ -186,5 +214,37 @@ export default {
   line-height: 400px;
   color: #919191;
   font-size: 20px;
+}
+.bottom {
+  margin-top: 30px;
+}
+.simi {
+  position: absolute;
+  right: 0;
+  width: 200px;
+  left: 780px;
+  top: 20%;
+}
+.simi-song {
+  height: 35px;
+  display: flex;
+  margin: 5px 0;
+  cursor: pointer;
+  line-height: 35px;
+}
+.simi-song:hover {
+  background-color: rgba(179, 171, 171, 0.336);
+}
+.simi-song img {
+  height: 27px;
+  border-radius: 5px;
+  margin-top: 4px;
+}
+.word {
+  font-size: 12px;
+  margin-left: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

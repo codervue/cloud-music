@@ -59,3 +59,12 @@ export function getLyric(id) {
         }
     })
 }
+//相似歌曲
+export function simiSongs(id) {
+    return request({
+        url: "/simi/song",
+        params: {
+            id
+        }
+    })
+}
