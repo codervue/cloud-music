@@ -165,4 +165,7 @@ h3 {
   padding: 5px 0;
   cursor: pointer;
 }
+.more:hover{
+  color: #5a8ab9;
+}
 </style>

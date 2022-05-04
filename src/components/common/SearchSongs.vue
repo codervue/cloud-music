@@ -9,7 +9,11 @@
       <p class="text">搜索 {{ $store.state.searchItem }} 的结果</p>
       <p class="funny">你可能感兴趣</p>
       <div class="singer">
-        <div class="card first" v-if="detail.artist">
+        <div
+          class="card first"
+          v-if="detail.artist"
+          @click="singerClick(detail.artist[0].name)"
+        >
           <span class="left">
             <img :src="detail.artist[0].picUrl" alt="" />
           </span>
@@ -123,6 +127,10 @@ export default {
       //提交随机歌曲id
       this.$store.commit("songsId", randomId);
     },
+    //点击歌手的回调
+    singerClick(item) {
+      this.$store.commit("searchItem", item);
+    },
     //点击歌单回调
     cardClick(id) {
       this.$store.commit("listDetailId", id);
@@ -187,7 +195,7 @@ export default {
   margin: 7px;
 }
 .name {
-  width: 100px;
+  /* width: 150px; */
   font-size: 13px;
   overflow: hidden;
   white-space: nowrap;

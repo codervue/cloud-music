@@ -96,9 +96,12 @@ export default {
       //如果input框有值才去调用
       if (this.input) {
         searchSug(item).then((res) => {
-          this.songs = res.result.songs;
-          this.singer = res.result.artists;
-          this.playlists = res.result.playlists;
+          //防止接口拿不到数据时报错
+          if (res.result) {
+            this.songs = res.result.songs;
+            this.singer = res.result.artists;
+            this.playlists = res.result.playlists;
+          }
         });
       }
     },
