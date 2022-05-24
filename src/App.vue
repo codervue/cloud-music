@@ -9,9 +9,10 @@
         <router-view class="view"></router-view>
       </keep-alive>
     </div>
+    <!-- 底部控制栏 -->
     <bottom-bar></bottom-bar>
     <!--歌曲详情卡片  -->
-    <music-detail class="music-detail"></music-detail>
+    <music-detail></music-detail>
     <!-- 抽屉 -->
     <drawer></drawer>
   </div>
@@ -51,11 +52,12 @@ export default {
   height: 425px;
 }
 .sider {
+  width: 20%;
   float: left;
 }
 .view {
   float: right;
-  width: 800px;
+  width: 80%;
   height: 425px;
   overflow-y: scroll;
   /*竖直滚动 */

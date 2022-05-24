@@ -3,7 +3,9 @@ import App from './App.vue'
 import router from "./router"
 import store from "./store/index"
 import 'default-passive-events'//使用elementui提示需要安装这个插件
+//element组件的使用
 import "@/plugins/element"
+//全局样式引入
 import "@/assets/css/base.css"
 
 

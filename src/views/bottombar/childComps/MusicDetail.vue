@@ -44,7 +44,7 @@
     <!-- 当无音乐时展示 -->
     <div class="null" v-else>暂无播放音乐</div>
     <!-- 相似音乐 -->
-    <div class="simi">
+    <div class="simi" v-if="$store.state.songsDetail">
       <h5>喜欢这首歌的人也听</h5>
       <div class="simi-songs">
         <div

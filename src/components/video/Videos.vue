@@ -59,11 +59,13 @@ export default {
   },
   mounted() {},
   methods: {
+    //tabbar切换点击
     tabClick(index) {
       this.currentIndex = index;
       this.currentItem = this.arr[this.currentIndex].name;
       this.$store.commit("videoListId", this.arr[this.currentIndex].id);
     },
+    //video分类数据的请求
     videoGroup(id) {
       videoGroup(id).then((res) => {
         this.videos = res.datas;
