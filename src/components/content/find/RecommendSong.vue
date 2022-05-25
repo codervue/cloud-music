@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     itemClick(index) {
-      //提交歌单id至index
+      //提交歌单id至vuex
       this.$store.commit("listDetailId", this.recommend[index].id);
       this.$router.push("/listdetail").catch((err) => {});
     },

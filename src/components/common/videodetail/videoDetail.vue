@@ -82,7 +82,7 @@ import {
   relateMv,
 } from "@/network/video";
 import { getHotComment } from "@/network/comment";
-import Comment from "@/components/common/Comment";
+import Comment from "@/components/common/comment/Comment";
 export default {
   name: "videodetail",
   data() {
@@ -176,9 +176,11 @@ export default {
 
 <style scoped='scoped'>
 .detail {
-  width: 780px;
-  margin: 0 10px;
   display: flex;
+  justify-content: space-between;
+}
+.video-detail {
+  width: 500px;
 }
 h4 {
   margin: 10px 0;
@@ -203,27 +205,30 @@ h4 {
   height: 90px;
   border-radius: 5px;
   cursor: pointer;
+  vertical-align: middle;
 }
 .r-title {
-  width: 120px;
   font-size: 13px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-top: 20px;
 }
 .r-name {
   font-size: 12px;
   color: #666666;
-  margin: 10px 0;
 }
 .relate-item {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
 }
 .relate {
-  margin-left: 10px;
+  width: 270px;
 }
 .item {
-  margin-left: 5px;
+  width: 115px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 </style>

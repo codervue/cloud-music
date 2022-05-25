@@ -6,7 +6,6 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        getProfile: '',
         listDetailId: "",
         listDetail: "",
         songsId: "",
@@ -31,10 +30,6 @@ const store = new Vuex.Store({
         stopFunction: false,
     },
     mutations: {
-        //用户个人信息
-        getProfile(state, payload) {
-            state.getProfile = payload
-        },
         //歌单详情id
         listDetailId(state, payload) {
             state.listDetailId = payload

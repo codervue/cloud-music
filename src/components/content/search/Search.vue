@@ -118,7 +118,7 @@ export default {
       //提交搜索值
       this.$store.commit("searchItem", item);
       //路由跳转
-      this.$router.push("/searchsongs").catch((err) => {});
+      this.$router.push("/searchresult").catch((err) => {});
     },
     //键盘enter跳转
     onSubmit(e) {

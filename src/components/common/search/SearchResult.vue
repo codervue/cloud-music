@@ -49,34 +49,14 @@
       </div>
       <!-- elementui -->
       <div class="three">
-        <el-row>
-          <el-button type="primary" @click="allClick">播放全部</el-button>
-          <el-button type="success">收藏</el-button>
-          <el-button type="info">分享</el-button>
-          <el-button type="warning">下载全部</el-button>
-        </el-row>
+        <row-list @allClick="allClick"></row-list>
       </div>
     </div>
     <!-- 歌曲列表 -->
     <div class="bottom">
       <!-- 报错显示：请求任务为异步任务，所以在渲染时没有请求到数据，读取不到tracks值，所以加个判断 -->
       <div class="song" v-if="result">
-        <el-table
-          :data="result"
-          stripe
-          lazy
-          style="width: 100%"
-          @row-dblclick="songsClick"
-        >
-          <!-- @row-dblclick双击行绑定事件 -->
-          <el-table-column prop="name" label="标题" width="400">
-          </el-table-column>
-          <el-table-column prop="ar[0].name" label="歌手" width="150">
-          </el-table-column>
-          <el-table-column prop="al.name" label="专辑" width="150">
-          </el-table-column>
-          <el-table-column prop="dt" label="时长" width=""> </el-table-column>
-        </el-table>
+        <table-list :result="result" :length1="400" :length2="150"></table-list>
       </div>
     </div>
   </div>
@@ -85,6 +65,8 @@
 <script>
 import { searchResult, searchDetail } from "@/network/search";
 import { handleMusicTime } from "@/plugins/utils";
+import TableList from "../elementui/TableList.vue";
+import RowList from "../elementui/RowList.vue";
 
 export default {
   data() {
@@ -93,6 +75,10 @@ export default {
       result: [],
       loading: false,
     };
+  },
+  components: {
+    TableList,
+    RowList,
   },
   created() {},
   mounted() {
@@ -114,11 +100,6 @@ export default {
           this.result[index].dt = handleMusicTime(item.dt);
         });
       });
-    },
-    //双击歌曲实现播放
-    songsClick(row) {
-      //将歌曲id提交到vuex中
-      this.$store.commit("songsId", row.id);
     },
     //播放全部的回调
     allClick() {
@@ -156,10 +137,6 @@ export default {
 </script>
 
 <style scoped='scoped'>
-.search-song {
-  width: 780px;
-  margin: 0 10px;
-}
 .top {
   margin: 10px 0;
 }
@@ -195,7 +172,6 @@ export default {
   margin: 7px;
 }
 .name {
-  /* width: 150px; */
   font-size: 13px;
   overflow: hidden;
   white-space: nowrap;
@@ -207,7 +183,10 @@ export default {
   color: #666;
 }
 .right {
-  margin-top: 10px;
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .three {
   margin-top: 15px;

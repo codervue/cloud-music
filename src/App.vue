@@ -2,7 +2,6 @@
   <div id="app">
     <nav-bar></nav-bar>
     <div class="center">
-      <!-- 给外层包裹div防止脱离文档流 -->
       <sider class="sider"></sider>
       <!-- 视频详情不能缓存，否则无法刷新界面 -->
       <keep-alive exclude="videodetail">
@@ -22,8 +21,8 @@
 import NavBar from "@/views/navbar/NavBar";
 import Sider from "@/views/sider/Sider";
 import BottomBar from "@/views/bottombar/BottomBar";
-import MusicDetail from "@/views/bottombar/childComps/MusicDetail.vue";
-import Drawer from "./views/bottombar/childComps/Drawer.vue";
+import MusicDetail from "@/components/common/musicdetail/MusicDetail.vue";
+import Drawer from "@/components/common/drawer/Drawer.vue";
 
 export default {
   name: "App",
@@ -33,6 +32,12 @@ export default {
     BottomBar,
     MusicDetail,
     Drawer,
+  },
+  created() {
+    //浏览器刷新后回到首页 （浏览器刷新是刷新当前页面，所以加上判断）
+    if (this.$router.path !== "/find") {
+      this.$router.replace("/find");
+    }
   },
 };
 </script>
@@ -46,21 +51,20 @@ export default {
   /* 隐藏歌曲详情卡片*/
   overflow: hidden;
   /* 盒子阴影 */
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 .center {
   height: 425px;
+  display: flex;
 }
 .sider {
   width: 20%;
-  float: left;
 }
 .view {
-  float: right;
   width: 80%;
-  height: 425px;
-  overflow-y: scroll;
   /*竖直滚动 */
+  overflow-y: scroll;
+  padding: 10px;
 }
 .view::-webkit-scrollbar {
   display: none;

@@ -12,18 +12,22 @@
     ></audio>
     <!-- 左边栏歌曲信息 -->
     <div class="left" v-if="$store.state.songsDetail">
-      <span class="img" @click="$store.commit('isShowSongsDetail')"
-        ><img :src="songsDetail.al.picUrl" alt="" />
-      </span>
-      <span class="song">
-        <p class="pop-name" @click="popClick(songsDetail.name)">
-          {{ songsDetail.name }}
-        </p>
-        <p class="pop" @click="popClick(songsDetail.ar[0].name)">
-          {{ songsDetail.ar[0].name }}
-        </p>
-      </span>
-      <span class="love"></span>
+      <div class="img" @click="$store.commit('isShowSongsDetail')">
+        <img :src="songsDetail.al.picUrl" alt="" />
+      </div>
+      <div class="song">
+        <div class="pop-name common">
+          <span @click="popClick(songsDetail.name)">
+            {{ songsDetail.name }}
+          </span>
+        </div>
+        <div class="pop common">
+          <span @click="popClick(songsDetail.ar[0].name)">
+            {{ songsDetail.ar[0].name }}
+          </span>
+        </div>
+      </div>
+      <!-- <span class="love"></span> -->
     </div>
 
     <div class="left" v-else>
@@ -241,7 +245,7 @@ export default {
     //点击歌名、歌手回调
     popClick(item) {
       this.$store.commit("searchItem", item);
-      this.$router.push("/searchsongs").catch((err) => {});
+      this.$router.push("/searchresult").catch((err) => {});
     },
   },
   watch: {
@@ -274,20 +278,26 @@ export default {
 }
 .left {
   display: flex;
-  width: 300px;
+  width: 290px;
 }
-.left span img {
+.img img {
   height: 60px;
   cursor: pointer;
   margin: 10px;
   border-radius: 10px;
 }
+.song {
+  width: 210px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .center {
   width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   text-align: center;
-}
-.control {
-  margin-top: 20px;
 }
 .control span {
   display: inline-block;
@@ -304,6 +314,7 @@ export default {
 /* 进度条 */
 .block {
   display: flex;
+  /* flex-direction: column; */
   justify-content: space-between;
 }
 .slider {
@@ -317,8 +328,9 @@ export default {
   color: rgba(132, 132, 150, 0.87);
 }
 .right {
+  text-align: center;
+  width: 210px;
   line-height: 81px;
-  margin-left: 60px;
   z-index: 10000;
 }
 .right span img {
@@ -326,22 +338,19 @@ export default {
   margin: 0 15px;
   cursor: pointer;
 }
-.pop-name {
-  width: 120px;
+.common {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pop-name span {
   color: rgba(15, 0, 0, 0.802);
   font-size: 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   cursor: pointer;
 }
-.pop {
-  width: 120px;
+.pop span {
   font-size: 12px;
   color: #919191;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   cursor: pointer;
 }
 .sound {

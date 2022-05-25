@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="fm" v-if="result">
+  <div class="fm">
+    <div class="box" v-if="result">
       <div class="left">
         <div class="cover"><img :src="result.al.picUrl" alt="" /></div>
         <div class="image" :class="{ active: $store.state.isPlay }">
@@ -19,9 +19,13 @@
             {{ result.name }}
             <span class="tone">标准音质</span>
           </div>
-          <span class="album">专辑:{{ result.al.name }}</span>
-          <span class="singer">歌手:{{ result.ar[0].name }}</span>
+          <div class="bottom">
+            <div class="album common">专辑:{{ result.al.name }}</div>
+            <div class="singer common">歌手:{{ result.ar[0].name }}</div>
+          </div>
         </div>
+
+        <!-- 歌词 -->
         <lyric></lyric>
       </div>
     </div>
@@ -30,7 +34,7 @@
 
 <script>
 import { fm } from "@/network/fm";
-import Lyric from "@/views/bottombar/childComps/Lyric";
+import Lyric from "@/components/common/lyric/Lyric.vue";
 
 export default {
   name: "fm",
@@ -99,15 +103,17 @@ export default {
 
 <style scoped='scoped'>
 .fm {
-  width: 700px;
-  margin: 0 50px;
+  display: flex;
+  justify-content: center;
+}
+.box {
   display: flex;
 }
 .left {
   width: 300px;
   height: 300px;
   position: relative;
-  margin-top: 50px;
+  margin: 50px 0;
 }
 .cover img {
   width: 300px;
@@ -127,35 +133,35 @@ export default {
 }
 .image img {
   height: 30px;
-  margin: 10px 11px;
+  margin: 10px;
 }
 .active {
   right: 5%;
   bottom: 5%;
 }
 .right {
-  width: 400px;
-  margin: 20px 40px;
+  width: 300px;
+  margin: 30px;
 }
 .name {
   font-size: 20px;
-}
-.album {
-  font-size: 12px;
-  color: #919191;
-  width: 170px;
-  display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  vertical-align: middle;
 }
-.singer {
+.bottom {
+  display: flex;
+  margin: 5px 0;
+}
+.common {
   font-size: 12px;
   color: #919191;
-  vertical-align: middle;
-  margin-left: 10px;
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
 .tone {
   font-size: 12px;
   border: solid 1px rgba(255, 0, 0, 0.66);

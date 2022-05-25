@@ -14,4 +14,14 @@ export function phoneLogin(phone, password, timestamp) {
         }
     })
 }
+//获取用户信息
+export function getUserInfo(uid){
+    return request({
+        url: "/user/detail",
+        method: "post",
+        params: {
+           uid
+        }
+    })
+}
 

@@ -62,8 +62,8 @@
 </template>
 
 <script>
-import Lyric from "./Lyric.vue";
-import Comment from "@/components/common/Comment";
+import Lyric from "@/components/common/lyric/Lyric.vue";
+import Comment from "@/components/common/comment/Comment";
 import { getComment } from "@/network/comment";
 import { simiSongs } from "@/network/song";
 export default {

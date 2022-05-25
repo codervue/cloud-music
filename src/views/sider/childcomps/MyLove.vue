@@ -1,12 +1,12 @@
 <template>
   <div class="mylove">
-    <list-detail v-if="$store.state.isLogin"></list-detail>
+    <list-detail></list-detail>
   </div>
 </template>
 
 <script>
 import { getUserPlayList } from "@/network/song";
-import ListDetail from "@/components/common/ListDetail";
+import ListDetail from "@/components/common/listdetail/ListDetail";
 export default {
   name: "mylove",
   data() {
@@ -15,22 +15,18 @@ export default {
   created() {},
   activated() {
     //组件激活需调用歌单id，否则数据被其他歌单占用
-    if (this.$store.state.isLogin) {
-      this.getUserPlayList();
-    } else {
-      this.$message.error("请先登入哦");
-    }
+    this.getUserPlayList();
   },
   components: { ListDetail },
 
   methods: {
+    //获取用户歌单
     getUserPlayList() {
-      getUserPlayList(this.$store.state.getProfile.profile.userId).then(
-        (res) => {
-          //提交用户歌单id（目前只做了第一个歌单的展示）
-          this.$store.commit("listDetailId", res.playlist[0].id);
-        }
-      );
+      let userId = localStorage.getItem("userId");
+      getUserPlayList(userId).then((res) => {
+        //提交用户歌单id（目前只做了第一个歌单的展示）
+        this.$store.commit("listDetailId", res.playlist[0].id);
+      });
     },
   },
   watch: {
@@ -49,7 +45,7 @@ export default {
 
 <style scoped='scoped'>
 /* 给插件高度，否则加载动画定位不准确 */
-.mylove >>> .el-loading-mask{
+.mylove >>> .el-loading-mask {
   height: 425px;
 }
 </style>

@@ -98,10 +98,10 @@ export default {
             });
             //登入框消失
             this.dialogVisible = false;
-            //将用户信息提交到vuex中
-            this.$store.commit("getProfile", res);
-            //将登入状态提交到vuex
-            this.$store.commit("isLogin", true);
+            //将用户id传给navbar
+            this.$emit("getUserInfo",res.profile.userId)
+            //存储用户id到本地
+            window.localStorage.setItem("userId", res.profile.userId);
           } else {
             this.$message.error("密码错误");
           }

@@ -8,6 +8,13 @@
     >
       <span>{{ item }}</span>
     </div>
+    <div
+      v-if="$store.state.isLogin"
+      @click="itemClick(4)"
+      :class="{ active: currentIndex === 4 }"
+    >
+      我喜欢的音乐
+    </div>
   </div>
 </template>
 
@@ -16,7 +23,7 @@ export default {
   name: "",
   data() {
     return {
-      value: ["发现音乐", "播客", "视频", "私人FM", "我喜欢的音乐"],
+      value: ["发现音乐", "播客", "视频", "私人FM"],
       path: "",
       currentIndex: 0,
     };
@@ -57,15 +64,12 @@ export default {
 
 <style scoped="scoped">
 .sider {
-  width: 199px;
-  height: 425px;
   border-right: solid 1px rgba(179, 171, 171, 0.336);
-  /* 因为宽度问题导致我找了一晚上。。。浮动元素宽度大于父亲宽度所引起下一行显示 */
 }
 .sider div {
   height: 30px;
   line-height: 30px;
-  margin: 5px 10px;
+  margin: 10px;
   color: rgb(68, 64, 64);
   cursor: pointer;
 }

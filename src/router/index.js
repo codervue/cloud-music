@@ -42,27 +42,27 @@ const routes = [{
         },
         {
             path: "videos",
-            component: () => import("@/components/video/Videos"),
+            component: () => import("@/components/content/video/Videos"),
         },
         {
             path: "mv",
-            component: () => import("@/components/video/MV"),
+            component: () => import("@/components/content/video/MV"),
         }
     ]
 },
 {
     path: '/listdetail',
     component: () =>
-        import("@/components/common/ListDetail")
+        import("@/components/common/listdetail/ListDetail")
 },
 {
-    path: '/searchsongs',
+    path: '/searchresult',
     component: () =>
-        import("@/components/common/SearchSongs")
+        import("@/components/common/search/SearchResult")
 },
 {
     path: '/videodetail',
-    component: () => import("@/components/common/videoDetail")
+    component: () => import("@/components/common/videodetail/videoDetail")
 }
 ]
 //创建路由
@@ -71,10 +71,6 @@ const router = new VueRouter({
     routes,
 })
 
-// 解决跳转到当前路由报错问题
-const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push(location) {
-    return originalPush.call(this, location).catch((err) => err)
-}
+
 
 export default router

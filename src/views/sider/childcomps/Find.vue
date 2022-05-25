@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Swipe from "@/components/find/Swipe";
-import RecommendSong from "@/components/find/RecommendSong";
+import Swipe from "@/components/content/find/Swipe";
+import RecommendSong from "@/components/content/find/RecommendSong";
 export default {
   name: "",
   data() {
@@ -21,8 +21,5 @@ export default {
 </script>
 
 <style scoped='scoped'>
-#find {
-  width: 780px;
-  margin: 0 10px;
-}
+
 </style>

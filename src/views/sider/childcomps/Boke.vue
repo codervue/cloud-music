@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Banner from "@/components/boke/Banner";
-import Recommend from "@/components/boke/Recommend";
+import Banner from "@/components/content/boke/Banner";
+import Recommend from "@/components/content/boke/Recommend";
 export default {
   name: "",
   data() {
@@ -21,9 +21,5 @@ export default {
 </script>
 
 <style scoped='scoped'>
-#boke {
-  width: 780px;
-  margin: 0 10px;
-}
 
 </style>

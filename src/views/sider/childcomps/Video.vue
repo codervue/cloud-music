@@ -51,13 +51,9 @@ export default {
 </script>
 
 <style scoped='scoped'>
-.box {
-  width: 780px;
-  margin: 0 10px;
-}
 .video {
   display: flex;
-  margin: 10px 5px;
+  margin: 10px 0;
 }
 .word {
   margin-right: 20px;

@@ -39,24 +39,28 @@
       </div>
     </div>
     <!-- 登入框 -->
-    <login ref="login"></login>
+    <login ref="login" @getUserInfo="getUserInfo"></login>
   </div>
 </template>
 
 <script>
-import Login from "./login/Login.vue";
-import Search from "./search/Search.vue";
+import Login from "@/components/content/login/Login.vue";
+import Search from "@/components/content/search/Search.vue";
+import { getUserInfo } from "@/network/login";
 
 export default {
   name: "",
   data() {
-    return {};
+    return {
+      profile: "",
+    };
   },
-  created() {},
+  created() {
+    //从本地读取用户信息
+    let userId = localStorage.getItem("userId");
+    this.getUserInfo(userId);
+  },
   computed: {
-    profile() {
-      return this.$store.state.getProfile.profile;
-    },
     isLogin() {
       return this.$store.state.isLogin;
     },
@@ -64,12 +68,22 @@ export default {
   components: { Login, Search },
 
   methods: {
+    getUserInfo(userId) {
+      if (!userId) return;
+      getUserInfo(userId).then((res) => {
+        this.profile = res.profile;
+        //将登入状态提交到vuex
+        this.$store.commit("isLogin", true);
+      });
+    },
     //登入点击
     loginClick() {
       this.$refs.login.dialogVisible = true;
     },
     //退出登入点击
     logOut() {
+      //删除本地用户id
+      window.localStorage.removeItem("userId");
       this.$store.commit("isLogin", false);
       this.$message({
         message: "退出成功",
@@ -86,7 +100,6 @@ export default {
 
 <style scoped="scoped">
 #nav-bar {
-  width: 100%;
   height: 50px;
   background-color: #e13e3e;
   display: flex;
@@ -104,7 +117,6 @@ export default {
 }
 .left span {
   color: #fff;
-  vertical-align: middle;
 }
 .back img {
   height: 25px;
@@ -119,15 +131,10 @@ export default {
 .input {
   margin: 0 5px;
 }
-input::-webkit-input-placeholder {
-  color: rgba(229, 182, 182, 0.808);
-  font-size: 7px;
-  /* placeholder字体颜色 */
-}
+
 .right {
   width: 25%;
   line-height: 50px;
-  vertical-align: middle;
 }
 .right img {
   height: 20px;

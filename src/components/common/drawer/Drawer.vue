@@ -2,35 +2,28 @@
   <div class="drawer" :class="[$store.state.isOpen ? '' : 'hide']">
     <!-- 播放列表 -->
     <div class="list">播放列表</div>
-    <el-table
-      stripe
-      style="width: 100%"
-      :data="$store.state.drawerList"
-      @row-dblclick="songsClick"
-    >
-      <el-table-column prop="name" label="标题" width="100px">
-      </el-table-column>
-      <el-table-column prop="ar[0].name" label="歌手" width="100px">
-      </el-table-column>
-      <el-table-column prop="dt" label="时长"> </el-table-column>
-    </el-table>
+    <table-list :result="result" :length1="70" :length2="70"></table-list>
   </div>
 </template>
 
 <script>
 import { handleMusicTime } from "@/plugins/utils";
+import TableList from "../elementui/TableList.vue";
+
 
 export default {
   data() {
     return {};
   },
-  methods: {
-    //双击歌曲实现播放
-    songsClick(row) {
-      //将歌曲id提交到vuex中
-      this.$store.commit("songsId", row.id);
+  computed: {
+    result() {
+      return this.$store.state.drawerList;
     },
   },
+  components: {
+    TableList,
+  },
+  methods: {},
   watch: {
     //监听歌曲详情改变，如果监听歌曲id改变因为异步问题无法拿到第一首歌的歌曲详情
     "$store.state.songsDetail"(result) {
