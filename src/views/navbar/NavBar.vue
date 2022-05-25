@@ -84,6 +84,11 @@ export default {
     logOut() {
       //删除本地用户id
       window.localStorage.removeItem("userId");
+      //清空歌单
+      this.$store.commit("listDetail","")
+      //路由跳转
+      this.$router.replace("/find")
+      //提交退出状态
       this.$store.commit("isLogin", false);
       this.$message({
         message: "退出成功",
