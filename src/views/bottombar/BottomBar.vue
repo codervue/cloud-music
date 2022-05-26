@@ -71,26 +71,28 @@
     </div>
     <!-- 音量 -->
     <div class="right">
-      <el-slider
-        ref="slider"
-        class="sound"
-        v-model="soundProgress"
-        @input="changeSound"
-        vertical
-        height="100px"
-      ></el-slider>
-      <span
+      <div class="sound">
+        <el-slider
+          v-model="soundProgress"
+          @input="changeSound"
+          vertical
+          height="100px"
+          :show-tooltip="false"
+        ></el-slider>
+      </div>
+      <div
         v-if="soundProgress == 0"
         @mouseover="appearSound"
         @click="returnClick"
-        ><img src="@/assets/img/mute.svg" alt=""
-      /></span>
-      <span v-else @mouseover="appearSound" @click="muteClick"
-        ><img src="@/assets/img/listen.svg" alt=""
-      /></span>
-      <span @click="tableClick" title="播放列表">
+      >
+        <img src="@/assets/img/mute.svg" alt="" />
+      </div>
+      <div v-else @mouseover="appearSound" @click="muteClick">
+        <img src="@/assets/img/listen.svg" alt="" />
+      </div>
+      <div @click="tableClick" title="播放列表">
         <img src="@/assets/img/list.svg" alt="" />
-      </span>
+      </div>
     </div>
   </div>
 </template>
@@ -192,10 +194,11 @@ export default {
     },
     //鼠标移入显示声音
     appearSound() {
-      this.$refs.slider.$el.style.display = "block";
+      let div = document.getElementsByClassName("sound")[0];
+      div.style.display = "block";
       //3s后消失，(移出消失效果有点不优雅，暂且搁置)
       setTimeout(() => {
-        this.$refs.slider.$el.style.display = "none";
+        div.style.display = "none";
       }, 3000);
     },
     //音量回调
@@ -332,8 +335,10 @@ export default {
   width: 210px;
   line-height: 81px;
   z-index: 10000;
+  display: flex;
+  justify-content: center;
 }
-.right span img {
+.right div img {
   height: 20px;
   margin: 0 15px;
   cursor: pointer;
@@ -355,8 +360,8 @@ export default {
 }
 .sound {
   display: none;
-  float: right;
-  bottom: 80px;
-  right: 90px;
+  position: absolute;
+  bottom: 60px;
+  right: 111px;
 }
 </style>
