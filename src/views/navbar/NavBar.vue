@@ -30,12 +30,21 @@
       </div>
 
       <div class="right">
-        <span><img src="@/assets/img/close.svg" alt="" /></span>
+        <span @click="changColorClick" title="更换主题颜色"
+          ><img src="@/assets/img/close.svg" alt=""
+        /></span>
         <span><img src="@/assets/img/set.svg" alt="" /></span>
         <span><img src="@/assets/img/message.svg" alt="" /></span>
         <span><img src="@/assets/img/zuixiaohua.svg" alt="" /></span>
         <span><img src="@/assets/img/zuidahua.svg" alt="" /></span>
         <span><img src="@/assets/img/guanbi.svg" alt="" /></span>
+      </div>
+
+      <!-- 换肤框 -->
+      <div class="clothes" v-if="isShowClothes">
+        <div class="red" title="红色" @click="redClick"></div>
+        <div class="blue" title="蓝色" @click="blueClick"></div>
+        <div class="gray" title="灰色" @click="grayClick"></div>
       </div>
     </div>
     <!-- 登入框 -->
@@ -53,6 +62,7 @@ export default {
   data() {
     return {
       profile: "",
+      isShowClothes: false,
     };
   },
   created() {
@@ -85,9 +95,9 @@ export default {
       //删除本地用户id
       window.localStorage.removeItem("userId");
       //清空歌单
-      this.$store.commit("listDetail","")
+      this.$store.commit("listDetail", "");
       //路由跳转
-      this.$router.replace("/find")
+      this.$router.replace("/find");
       //提交退出状态
       this.$store.commit("isLogin", false);
       this.$message({
@@ -99,6 +109,26 @@ export default {
     backClick() {
       this.$router.go(-1);
     },
+    //点击颜色框的显隐
+    changColorClick() {
+      this.isShowClothes = !this.isShowClothes;
+    },
+
+    //变色回调
+    redClick(){
+      var bgc = document.getElementById("nav-bar")
+      bgc.style.backgroundColor = "#e13e3e"
+    },
+    blueClick(){
+      var bgc = document.getElementById("nav-bar")
+      bgc.style.backgroundColor = "#3e8fe1d7"
+    },
+    grayClick(){
+      var bgc = document.getElementById("nav-bar")
+      bgc.style.backgroundColor = "grey"
+    },
+
+    
   },
 };
 </script>
@@ -182,5 +212,37 @@ span {
 }
 .change:hover {
   color: rgb(126, 57, 8);
+}
+.clothes {
+  position: absolute;
+  top: 55px;
+  right: 180px;
+  width: 100px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px rgb(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100000;
+}
+.red {
+  width: 25px;
+  height: 25px;
+  background-color: #e13e3e;
+  border-radius: 3px;
+}
+.blue {
+  width: 25px;
+  height: 25px;
+  background-color: #3e8fe1d7;
+  border-radius: 3px;
+}
+.gray {
+  width: 25px;
+  height: 25px;
+  background-color: grey;
+  border-radius: 3px;
 }
 </style>
