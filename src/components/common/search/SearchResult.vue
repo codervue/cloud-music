@@ -56,7 +56,7 @@
     <div class="bottom">
       <!-- 报错显示：请求任务为异步任务，所以在渲染时没有请求到数据，读取不到tracks值，所以加个判断 -->
       <div class="song" v-if="result">
-        <table-list :result="result" :length1="400" :length2="150"></table-list>
+        <table-list :result="result"></table-list>
       </div>
     </div>
   </div>

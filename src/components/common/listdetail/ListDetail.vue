@@ -44,8 +44,6 @@
         <div class="song" v-if="$store.state.listDetailId">
           <table-list
             :result="result.playlist.tracks"
-            :length1="400"
-            :length2="150"
           ></table-list>
         </div>
       </div>

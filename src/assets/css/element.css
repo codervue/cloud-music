@@ -1,6 +1,11 @@
 .el-table .cell {
   white-space: nowrap;
+  /* font-size: 13px; */
 } 
+
+.active-row{
+  color: #d61e1e;
+}
 
 .el-slider__bar{
   background-color: #ff4e4e ;

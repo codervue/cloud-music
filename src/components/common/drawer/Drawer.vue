@@ -1,8 +1,8 @@
 <template>
   <div class="drawer" :class="[$store.state.isOpen ? '' : 'hide']">
     <!-- 播放列表 -->
-    <div class="list">播放列表</div>
-    <table-list :result="result" :length1="70" :length2="70"></table-list>
+    <div class="list">播放列表({{$store.state.drawerList.length}})</div>
+    <table-list :result="result" :length1="90" :length2="90" :isShow="false"></table-list>
   </div>
 </template>
 
