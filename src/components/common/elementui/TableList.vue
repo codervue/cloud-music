@@ -26,8 +26,10 @@
         label="标题"
         :width="length1"
       ></el-table-column>
+
       <el-table-column prop="ar[0].name" label="歌手" :width="length2">
       </el-table-column>
+
       <el-table-column
         prop="al.name"
         label="专辑"
@@ -35,6 +37,7 @@
         v-if="isShow"
       >
       </el-table-column>
+      
       <el-table-column prop="dt" label="时长" width=""></el-table-column>
     </el-table>
   </div>

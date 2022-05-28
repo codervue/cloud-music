@@ -1,139 +1,81 @@
 <template>
   <div>
     <el-dialog title="登录" :visible.sync="dialogVisible" center width="20%">
-      <el-form
-        label-width="auto"
-        class="demo-ruleForm"
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        status-icon
-      >
-        <el-form-item label="手机号" prop="user">
-          <el-input
-            placeholder="请输入手机号"
-            v-model.number="ruleForm.user"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-
-        <el-form-item label="密码" prop="pass">
-          <el-input
-            placeholder="请输入密码"
-            type="password"
-            v-model="ruleForm.pass"
-            autocomplete="off"
-          ></el-input>
-        </el-form-item>
-      </el-form>
-
-      <div class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >登 录</el-button
+      <div class="login">
+        <div
+          class="phone-login common"
+          @click="phoneLoginClick"
+          :class="{ active: isShow }"
         >
+          手机号登录
+        </div>
+        <div>|</div>
+        <div
+          class="code-login common"
+          @click="codeLoginClick"
+          :class="{ active: !isShow }"
+        >
+          验证码登录
+        </div>
+      </div>
+
+      <!-- 输入框 -->
+      <div class="box">
+        <child-login
+          :is-show="isShow"
+          @isShowDialog="isShowDialog"
+          @getUserInfo="getUserInfo"
+        ></child-login>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { phoneLogin } from "@/network/login";
+import ChildLogin from "./childcomps/ChildLogin.vue";
 export default {
   name: "",
   data() {
-    var validatePass = (rule, value, callback) => {
-      //如果没输入值，出现提示信息
-      if (!value) {
-        callback(new Error("请输入密码"));
-      } else {
-        //否则执行回调
-        callback();
-      }
-    };
-    var validateUser = (rule, value, callback) => {
-      //如果不输入值，提示手机号为空
-      if (!value) {
-        callback(new Error("手机号不能为空"));
-      } else {
-        //正则判断手机号为正确的手机号
-        const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
-        //如果输入的手机号无误执行回调函数
-        if (reg.test(value)) {
-          callback();
-        } else {
-          //否则出现提示信息
-          callback(new Error("请输入正确手机号"));
-        }
-      }
-    };
     return {
-      ruleForm: {
-        user: "",
-        pass: "",
-      },
-      rules: {
-        user: [
-          { validator: validateUser, trigger: "blur" },
-          { type: "number", message: "手机号必须为数字" },
-        ],
-        pass: [{ validator: validatePass, trigger: "blur" }],
-      },
       dialogVisible: false,
+      isShow: true,
     };
   },
-
-  components: {},
+  components: { ChildLogin },
 
   methods: {
-    //发送手机登入网络请求
-    phoneLogin(data) {
-      phoneLogin(data.user, data.pass)
-        .then((res) => {
-          if (res.code === 200) {
-            //登入成功的提示
-            this.$message({
-              message: "恭喜你,登入成功",
-              type: "success",
-            });
-            //登入框消失
-            this.dialogVisible = false;
-            //将用户id传给navbar
-            this.$emit("getUserInfo",res.profile.userId)
-            //存储用户id到本地
-            window.localStorage.setItem("userId", res.profile.userId);
-          } else {
-            this.$message.error("密码错误");
-          }
-        })
-        .catch((error) => {
-          this.$message({
-            message: "账号不存在",
-            type: "warning",
-          });
-        });
+    phoneLoginClick() {
+      this.isShow = true;
     },
-    submitForm(ruleForm) {
-      this.$refs[ruleForm].validate((valid) => {
-        //验证通过发送登录请求
-        if (valid) {
-          let data = {
-            user: this.ruleForm.user,
-            pass: this.ruleForm.pass,
-          };
-          //调用手机登录网络请求
-          this.phoneLogin(data);
-        } else {
-          return false;
-        }
-      });
+    codeLoginClick() {
+      this.isShow = false;
+    },
+    //登框消失
+    isShowDialog() {
+      this.dialogVisible = false;
+    },
+    //发送用户id
+    getUserInfo(userId) {
+      this.$emit("getUserInfo", userId);
     },
   },
 };
 </script>
 
 <style scoped="scoped">
-.dialog-footer {
-  text-align: center;
+.login {
+  display: flex;
+  justify-content: space-evenly;
+}
+.common:hover {
+  color: rgb(0, 128, 255);
+  cursor: pointer;
+}
+.box {
+  margin: 30px 0;
+}
+.active {
+  /* font-size: 15px; */
+  font-weight: 600;
 }
 </style>

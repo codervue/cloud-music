@@ -5,7 +5,18 @@ import VueRouter from "vue-router"
 //使用路由
 Vue.use(VueRouter)
 
-
+const Find = () => import("@/views/sider/childcomps/Find")
+const Boke = () => import("@/views/sider/childcomps/Boke")
+const FM = () => import("@/views/sider/childcomps/FM")
+const MyLove = () => import("@/views/sider/childcomps/MyLove")
+const Video = () => import("@/views/sider/childcomps/Video")
+const Videos = () => import("@/components/content/video/Videos")
+const MV = () => import("@/components/content/video/MV")
+const ListDetail = () => import("@/components/common/listdetail/ListDetail")
+const SearchResult = () => import("@/components/common/search/SearchResult")
+const VideoDetail = () => import("@/components/common/videodetail/VideoDetail")
+// const PhoneLogin = () => import("@/components/content/login/childcomps/PhoneLogin")
+// const CodeLogin = () => import("@/components/content/login/childcomps/CodeLogin")
 
 const routes = [{
     path: '',
@@ -13,28 +24,23 @@ const routes = [{
 },
 {
     path: '/find',
-    component: () =>
-        import("@/views/sider/childcomps/Find"),
+    component: Find
 },
 {
     path: '/boke',
-    component: () =>
-        import("@/views/sider/childcomps/Boke"),
+    component: Boke
 },
 {
     path: '/fm',
-    component: () =>
-        import("@/views/sider/childcomps/FM")
+    component: FM
 },
 {
     path: '/mylove',
-    component: () =>
-        import("@/views/sider/childcomps/MyLove")
+    component: MyLove
 },
 {
     path: '/video',
-    component: () =>
-        import("@/views/sider/childcomps/Video"),
+    component: Video,
     children: [
         {
             path: "",
@@ -42,29 +48,40 @@ const routes = [{
         },
         {
             path: "videos",
-            component: () => import("@/components/content/video/Videos"),
+            component: Videos
         },
         {
             path: "mv",
-            component: () => import("@/components/content/video/MV"),
+            component: MV
         }
     ]
 },
 {
     path: '/listdetail',
-    component: () =>
-        import("@/components/common/listdetail/ListDetail")
+    component: ListDetail
 },
 {
     path: '/searchresult',
-    component: () =>
-        import("@/components/common/search/SearchResult")
+    component: SearchResult
 },
 {
     path: '/videodetail',
-    component: () => import("@/components/common/videodetail/videoDetail")
-}
+    component: VideoDetail
+},
+// {
+//     path: "",
+//     redirect: "/phonelogin"
+// },
+// {
+//     path: '/phonelogin',
+//     component: PhoneLogin
+// },
+// {
+//     path: '/codelogin',
+//     component: CodeLogin
+// },
 ]
+
 //创建路由
 const router = new VueRouter({
     mode: "history",
