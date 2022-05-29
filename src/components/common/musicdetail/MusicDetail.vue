@@ -135,6 +135,9 @@ export default {
 .hide {
   bottom: -346px;
 }
+.needle{
+  margin-top: 30px;
+}
 .needle img {
   height: 70px;
   margin-left: 85px;
@@ -226,23 +229,22 @@ export default {
   top: 20%;
 }
 .simi-song {
-  height: 35px;
   display: flex;
-  margin: 5px 0;
   cursor: pointer;
-  line-height: 35px;
 }
 .simi-song:hover {
   background-color: rgba(179, 171, 171, 0.336);
 }
 .simi-song img {
+  width: 27px;
   height: 27px;
-  border-radius: 5px;
-  margin-top: 4px;
+  border-radius: 10px;
+  vertical-align: middle;
+  padding: 5px;
 }
 .word {
+  line-height: 37px;
   font-size: 12px;
-  margin-left: 3px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
