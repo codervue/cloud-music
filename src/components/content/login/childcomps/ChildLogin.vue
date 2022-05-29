@@ -144,6 +144,7 @@ export default {
           });
         });
     },
+    //登录点击回调
     submitForm(ruleForm) {
       this.$refs[ruleForm].validate((valid) => {
         //验证通过发送登录请求
@@ -160,6 +161,7 @@ export default {
         }
       });
     },
+    //验证码发送回调
     getCodes(ruleForm) {
       this.$refs[ruleForm].validateField("user", (valid) => {
         //效验通过才进行的操作

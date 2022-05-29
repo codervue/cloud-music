@@ -15,8 +15,7 @@ const MV = () => import("@/components/content/video/MV")
 const ListDetail = () => import("@/components/common/listdetail/ListDetail")
 const SearchResult = () => import("@/components/common/search/SearchResult")
 const VideoDetail = () => import("@/components/common/videodetail/VideoDetail")
-// const PhoneLogin = () => import("@/components/content/login/childcomps/PhoneLogin")
-// const CodeLogin = () => import("@/components/content/login/childcomps/CodeLogin")
+
 
 const routes = [{
     path: '',
@@ -68,18 +67,6 @@ const routes = [{
     path: '/videodetail',
     component: VideoDetail
 },
-// {
-//     path: "",
-//     redirect: "/phonelogin"
-// },
-// {
-//     path: '/phonelogin',
-//     component: PhoneLogin
-// },
-// {
-//     path: '/codelogin',
-//     component: CodeLogin
-// },
 ]
 
 //创建路由
