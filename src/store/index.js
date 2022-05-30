@@ -1,5 +1,6 @@
 import Vue from "vue"
 import Vuex from "vuex"
+import { getLikedMusicList } from "@/network/song"
 
 
 Vue.use(Vuex)
@@ -28,6 +29,7 @@ const store = new Vuex.Store({
         isVideo: false,
         playFunction: false,
         stopFunction: false,
+        likedMusicList: [],
     },
     mutations: {
         //歌单详情id
@@ -122,6 +124,28 @@ const store = new Vuex.Store({
         //停止函数
         stopFunction(state, payload) {
             state.stopFunction = payload
+        },
+        //用户喜欢的音乐
+        getLikedMusic(state, payload) {
+            state.likedMusicList = payload
+        },
+        //喜欢、取消喜欢音乐
+        setMusic(state, payload) {
+            if (payload.type === "喜欢") {
+                state.likedMusicList.unshift(payload.data)
+            } else if (payload.type === "取消喜欢") {
+                state.likedMusicList.splice(
+                    state.likedMusicList.indexOf(payload.data), 1
+                )
+            }
+        },
+    },
+    actions: {
+        likedMusic(context) {
+            let userId = localStorage.getItem("userId")
+            getLikedMusicList(userId).then(res => {
+                context.commit("getLikedMusic", res.ids)
+            })
         },
     }
 })

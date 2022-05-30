@@ -84,6 +84,8 @@ export default {
         this.profile = res.profile;
         //将登入状态提交到vuex
         this.$store.commit("isLogin", true);
+        //获取用户喜欢音乐列表
+        this.$store.dispatch("likedMusic")
       });
     },
     //登入点击

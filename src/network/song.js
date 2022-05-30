@@ -68,3 +68,22 @@ export function simiSongs(id) {
         }
     })
 }
+//用户喜欢的音乐
+export function getLikedMusicList(uid) {
+    return request({
+        url: "/likelist",
+        params: {
+            uid
+        }
+    })
+}
+//喜欢该音乐
+export function likeThisMusic(id, like) {
+    return request({
+        url: "/like",
+        params: {
+            id,
+            like
+        }
+    })
+}

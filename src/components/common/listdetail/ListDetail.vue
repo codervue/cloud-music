@@ -118,7 +118,6 @@ export default {
 }
 .top {
   display: flex;
-  margin-top: 10px;
 }
 .title-tag {
   border: solid 1px #ec4141;

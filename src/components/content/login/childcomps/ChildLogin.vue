@@ -133,6 +133,8 @@ export default {
             this.$emit("getUserInfo", res.profile.userId);
             //存储用户id到本地
             window.localStorage.setItem("userId", res.profile.userId);
+            //存储用户喜欢歌曲列表
+            this.$store.dispatch("likedMusic")
           } else {
             this.$message.error("密码错误");
           }

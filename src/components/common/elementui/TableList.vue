@@ -21,6 +21,24 @@
         </template>
       </el-table-column>
 
+      <!-- 爱心 -->
+      <el-table-column label="" width="40" v-if="isShow">
+        <template slot-scope="scope">
+          <!-- 未喜欢-->
+          <span
+            v-if="!isLiked(scope.row.id)"
+            class="icon aixin"
+            @click="likedMusic(scope.row.id)"
+          >
+            <i class="iconfont icon-02"></i>
+          </span>
+          <!-- 喜欢 -->
+          <span v-else class="icon aixin" @click="likedMusic(scope.row.id)">
+            <i class="iconfont icon-aixin"></i>
+          </span>
+        </template>
+      </el-table-column>
+
       <el-table-column
         prop="name"
         label="标题"
@@ -37,13 +55,14 @@
         v-if="isShow"
       >
       </el-table-column>
-      
+
       <el-table-column prop="dt" label="时长" width=""></el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
+import { likeThisMusic } from "@/network/song";
 export default {
   props: {
     result: {
@@ -51,7 +70,7 @@ export default {
     },
     length1: {
       type: Number,
-      default: 350,
+      default: 310,
     },
     length2: {
       type: Number,
@@ -65,6 +84,7 @@ export default {
   data() {
     return {};
   },
+  computed: {},
   methods: {
     //双击歌曲实现播放
     songsClick(row) {
@@ -86,13 +106,36 @@ export default {
         return "active-row";
       }
     },
+    isLiked(id) {
+      return this.$store.state.likedMusicList.find((uid) => uid === id);
+    },
+    //喜欢、取消喜欢该音乐回调
+    likedMusic(id) {
+      if (!this.$store.state.isLogin) return this.$message.error("请先登录哦");
+      let liked = this.isLiked(id);
+      likeThisMusic(id, !liked).then((res) => {
+        if (res.code === 200)
+          return this.$message.success(`${liked ? "取消喜欢" : "喜欢"}成功`);
+      });
+      if (!liked) {
+        this.$store.commit("setMusic", { type: "喜欢", data: id });
+      } else {
+        this.$store.commit("setMusic", { type: "取消喜欢", data: id });
+      }
+    },
   },
 };
 </script>
 
 <style scoped='scoped'>
-.icon i{
+.icon i {
   /* 图片居中 */
   vertical-align: middle;
+}
+.icon-aixin {
+  color: #d61e1e;
+}
+.aixin {
+  cursor: pointer;
 }
 </style>

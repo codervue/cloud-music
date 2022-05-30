@@ -29,17 +29,6 @@ export default {
       });
     },
   },
-  watch: {
-    //监听登入状态，使得登入就能获取到数据
-    "$store.state.isLogin": {
-      immediate: true,
-      handler: function (login) {
-        if (login) {
-          this.getUserPlayList();
-        }
-      },
-    },
-  },
 };
 </script>
 
