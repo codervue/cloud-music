@@ -17,9 +17,9 @@
       </div>
       <div class="song">
         <div class="pop-name">
-          <div @click="popClick(songsDetail.name)">
+          <span class="p-name common" @click="popClick(songsDetail.name)">
             {{ songsDetail.name }}
-          </div>
+          </span>
 
           <!-- 未喜欢-->
           <span
@@ -36,7 +36,7 @@
         </div>
 
         <div class="pop">
-          <span @click="popClick(songsDetail.ar[0].name)">
+          <span class="common" @click="popClick(songsDetail.ar[0].name)">
             {{ songsDetail.ar[0].name }}
           </span>
         </div>
@@ -366,12 +366,14 @@ export default {
   margin: 0 15px;
   cursor: pointer;
 }
-.pop-name{
+.pop-name {
   display: flex;
 }
-.pop-name div {
-  color: rgba(15, 0, 0, 0.802);
-  font-size: 16px;
+.p-name {
+  color: black;
+  font-size: 15px;
+}
+.common{
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -380,10 +382,6 @@ export default {
 .pop span {
   font-size: 12px;
   color: #919191;
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 .sound {
   display: none;
