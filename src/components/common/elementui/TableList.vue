@@ -84,6 +84,10 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    //存储喜欢函数（底部导航栏能调用）
+    this.$store.commit("likedFunction", this.likedMusic);
+  },
   computed: {},
   methods: {
     //双击歌曲实现播放

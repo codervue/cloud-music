@@ -16,12 +16,26 @@
         <img :src="songsDetail.al.picUrl" alt="" />
       </div>
       <div class="song">
-        <div class="pop-name common">
-          <span @click="popClick(songsDetail.name)">
+        <div class="pop-name">
+          <div @click="popClick(songsDetail.name)">
             {{ songsDetail.name }}
+          </div>
+
+          <!-- 未喜欢-->
+          <span
+            v-if="!isLiked(songsDetail.id)"
+            class="icon aixin"
+            @click="likedMusic(songsDetail.id)"
+          >
+            <i class="iconfont icon-02"></i>
+          </span>
+          <!-- 喜欢 -->
+          <span v-else class="icon aixin" @click="likedMusic(songsDetail.id)">
+            <i class="iconfont icon-aixin"></i>
           </span>
         </div>
-        <div class="pop common">
+
+        <div class="pop">
           <span @click="popClick(songsDetail.ar[0].name)">
             {{ songsDetail.ar[0].name }}
           </span>
@@ -250,6 +264,14 @@ export default {
       this.$store.commit("searchItem", item);
       this.$router.push("/searchresult").catch((err) => {});
     },
+    //是否点亮爱心
+    isLiked(id) {
+      return this.$store.state.likedMusicList.find((uid) => uid === id);
+    },
+    //喜欢音乐回调
+    likedMusic(id) {
+      this.$store.state.likedFunction(id);
+    },
   },
   watch: {
     //监听vuex中歌曲id改变
@@ -284,6 +306,7 @@ export default {
   width: 290px;
 }
 .img img {
+  width: 60px;
   height: 60px;
   cursor: pointer;
   margin: 10px;
@@ -343,25 +366,35 @@ export default {
   margin: 0 15px;
   cursor: pointer;
 }
-.common {
+.pop-name{
+  display: flex;
+}
+.pop-name div {
+  color: rgba(15, 0, 0, 0.802);
+  font-size: 16px;
+  cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.pop-name span {
-  color: rgba(15, 0, 0, 0.802);
-  font-size: 15px;
-  cursor: pointer;
 }
 .pop span {
   font-size: 12px;
   color: #919191;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .sound {
   display: none;
   position: absolute;
   bottom: 60px;
   right: 111px;
+}
+.icon-aixin {
+  color: #d61e1e;
+}
+.aixin {
+  cursor: pointer;
 }
 </style>

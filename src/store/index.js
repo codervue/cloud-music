@@ -30,6 +30,7 @@ const store = new Vuex.Store({
         playFunction: false,
         stopFunction: false,
         likedMusicList: [],
+        likedFunction: {}
     },
     mutations: {
         //歌单详情id
@@ -139,6 +140,10 @@ const store = new Vuex.Store({
                 )
             }
         },
+        //喜欢音乐函数
+        likedFunction(state, payload) {
+            state.likedFunction = payload
+        }
     },
     actions: {
         likedMusic(context) {
