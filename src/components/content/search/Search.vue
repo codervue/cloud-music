@@ -77,6 +77,7 @@ export default {
       singer: [],
       playlists: [],
       isShow: false,
+      timer: null,
     };
   },
   methods: {
@@ -93,17 +94,21 @@ export default {
     },
     //搜索建议
     changeInput(item) {
+      //防抖处理
+      clearTimeout(this.timer);
       //如果input框有值才去调用
-      if (this.input) {
-        searchSug(item).then((res) => {
-          //防止接口拿不到数据时报错
-          if (res.result) {
-            this.songs = res.result.songs;
-            this.singer = res.result.artists;
-            this.playlists = res.result.playlists;
-          }
-        });
-      }
+      this.timer = setTimeout(() => {
+        if (this.input) {
+          searchSug(item).then((res) => {
+            //防止接口拿不到数据时报错
+            if (res.result) {
+              this.songs = res.result.songs;
+              this.singer = res.result.artists;
+              this.playlists = res.result.playlists;
+            }
+          });
+        }
+      }, 500);
     },
     //点击热搜榜回调
     itemClick(item) {
