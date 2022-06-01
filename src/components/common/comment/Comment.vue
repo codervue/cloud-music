@@ -252,6 +252,10 @@ h3 {
   white-space: nowrap;
   cursor: pointer;
 }
+.word {
+  /* 解决非文字文本不自动换行的问题 */
+  word-break: break-all;
+}
 .right {
   width: 95%;
   margin-left: 10px;
