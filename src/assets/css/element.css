@@ -39,3 +39,6 @@
   background-color: unset;
   z-index: 10;
 }
+.el-dialog__wrapper{
+  top: 50px;
+}

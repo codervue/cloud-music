@@ -31,7 +31,11 @@
       </div>
       <!-- 热门评论 -->
       <div>
-        <comment :comment="comment"></comment>
+        <comment
+          :comment="comment"
+          :commentType="$store.state.isVideo ? 5 : 1"
+          :typeId="$store.state.isVideo ? result.vid : data.id"
+        ></comment>
       </div>
     </div>
 

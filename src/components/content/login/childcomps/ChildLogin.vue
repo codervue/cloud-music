@@ -24,9 +24,10 @@
           type="password"
           v-model="ruleForm.pass"
           autocomplete="off"
+          :show-password="true"
         >
           <template slot="append">
-            <div></div>
+            <i class="iconfont icon-mima"></i>
           </template>
         </el-input>
       </el-form-item>

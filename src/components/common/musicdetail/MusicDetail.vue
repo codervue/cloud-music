@@ -34,10 +34,14 @@
           <lyric></lyric>
         </div>
       </div>
-
+      <!-- 评论 -->
       <div class="bottom">
         <div class="comment">
-          <comment :comment="comment"></comment>
+          <comment
+            :comment="comment"
+            :typeId="$store.state.songsId"
+            :commentType="0"
+          ></comment>
         </div>
       </div>
     </div>
@@ -135,7 +139,7 @@ export default {
 .hide {
   bottom: -346px;
 }
-.needle{
+.needle {
   margin-top: 30px;
 }
 .needle img {

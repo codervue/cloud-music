@@ -19,7 +19,7 @@ import {
     Drawer,
     Autocomplete,
     Popover,
-    Loading
+    Loading,
 } from "element-ui"
 
 
@@ -42,6 +42,7 @@ Vue.use(Drawer);
 Vue.use(Autocomplete);
 Vue.use(Popover);
 Vue.use(Loading);
+// Vue.use(MessageBox);
 // Vue.use(Message);//不需要use，只有引用就行，否则弹出空白的消息提示框
 
 
