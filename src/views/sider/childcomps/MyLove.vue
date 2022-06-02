@@ -12,10 +12,10 @@ export default {
   data() {
     return {};
   },
-  created() {},
-  activated() {
-    //组件激活需调用歌单id，否则数据被其他歌单占用
+  created() {
     this.getUserPlayList();
+  },
+  activated() {
   },
   components: { ListDetail },
 

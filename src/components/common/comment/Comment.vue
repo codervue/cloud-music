@@ -54,11 +54,13 @@
             <div class="icon">
               <div class="count">
                 <i
+                  title="点赞"
                   class="iconfont icon-dianzan"
                   v-if="!item.liked"
                   @click="zanClick(index, item.commentId, item.liked, true)"
                 ></i>
                 <i
+                  title="取消点赞"
                   class="iconfont icon-dianzan_kuai"
                   v-else
                   @click="zanClick(index, item.commentId, item.liked, true)"
@@ -67,6 +69,7 @@
               </div>
               <div class="other"><i class="iconfont icon-fenxiang"></i></div>
               <div
+                title="回复"
                 class="other"
                 @click="
                   (visible = true), (tType = 2), (commentId = item.commentId)
@@ -85,6 +88,7 @@
     <!-- 外层需包裹一个div否则会因为：key中的index相同而报错 -->
     <div>
       <h3>热门评论</h3>
+
       <div
         class="content"
         v-for="(item, index) in comment.hotComments"
@@ -101,11 +105,13 @@
             <div class="icon">
               <div class="count">
                 <i
+                  title="点赞"
                   class="iconfont icon-dianzan"
                   v-if="!item.liked"
                   @click="zanClick(index, item.commentId, item.liked, false)"
                 ></i>
                 <i
+                  title="取消点赞"
                   class="iconfont icon-dianzan_kuai"
                   v-else
                   @click="zanClick(index, item.commentId, item.liked, false)"
@@ -113,7 +119,7 @@
                 <span>{{ item.likedCount }}</span>
               </div>
               <div class="other"><i class="iconfont icon-fenxiang"></i></div>
-              <div class="other" @click="hotComClick">
+              <div class="other" @click="hotComClick" title="回复">
                 <i class="iconfont icon-pinglun"></i>
               </div>
             </div>
