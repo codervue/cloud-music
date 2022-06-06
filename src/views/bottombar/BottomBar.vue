@@ -389,5 +389,6 @@ export default {
 }
 .aixin {
   cursor: pointer;
+  margin-left: 5px;
 }
 </style>
