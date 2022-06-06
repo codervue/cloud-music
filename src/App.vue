@@ -4,7 +4,7 @@
     <div class="center">
       <sider class="sider"></sider>
       <!-- 视频详情不能缓存，否则无法刷新界面 -->
-      <keep-alive exclude="videodetail,mylove">
+      <keep-alive exclude="videodetail">
         <router-view class="view"></router-view>
       </keep-alive>
     </div>

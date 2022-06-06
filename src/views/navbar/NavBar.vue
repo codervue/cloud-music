@@ -85,7 +85,7 @@ export default {
         //将登入状态提交到vuex
         this.$store.commit("isLogin", true);
         //获取用户喜欢音乐列表
-        this.$store.dispatch("likedMusic")
+        this.$store.dispatch("likedMusic");
       });
     },
     //登入点击
@@ -96,8 +96,6 @@ export default {
     logOut() {
       //删除本地用户id
       window.localStorage.removeItem("userId");
-      //清空歌单
-      this.$store.commit("listDetail", "");
       //路由跳转
       this.$router.replace("/find");
       //提交退出状态
@@ -117,20 +115,18 @@ export default {
     },
 
     //变色回调
-    redClick(){
-      var bgc = document.getElementById("nav-bar")
-      bgc.style.backgroundColor = "#e13e3e"
+    redClick() {
+      var bgc = document.getElementById("nav-bar");
+      bgc.style.backgroundColor = "#e13e3e";
     },
-    blueClick(){
-      var bgc = document.getElementById("nav-bar")
-      bgc.style.backgroundColor = "#3e8fe1d7"
+    blueClick() {
+      var bgc = document.getElementById("nav-bar");
+      bgc.style.backgroundColor = "#3e8fe1d7";
     },
-    grayClick(){
-      var bgc = document.getElementById("nav-bar")
-      bgc.style.backgroundColor = "grey"
+    grayClick() {
+      var bgc = document.getElementById("nav-bar");
+      bgc.style.backgroundColor = "grey";
     },
-
-    
   },
 };
 </script>

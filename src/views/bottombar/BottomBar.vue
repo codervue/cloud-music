@@ -167,11 +167,10 @@ export default {
     },
     //上下一曲随机播放一首（暂且播放歌单列表里的音乐）
     nextClick() {
-      if (this.$store.state.listDetail) {
-        let num = Math.floor(
-          Math.random() * this.$store.state.listDetail.playlist.tracks.length
-        ); //可均衡获取0到所有歌曲数的随机整数。
-        let randomId = this.$store.state.listDetail.privileges[num].id;
+      let listDetail = this.$store.state.listDetail;
+      if (listDetail) {
+        let num = Math.floor(Math.random() * listDetail.playlist.tracks.length); //可均衡获取0到所有歌曲数的随机整数。
+        let randomId = listDetail.privileges[num].id;
         //提交随机歌曲id
         this.$store.commit("songsId", randomId);
       } else if (this.$store.state.searchItem) {
@@ -229,11 +228,10 @@ export default {
       this.soundProgress = this.currentVolumn;
     },
     //请求歌曲相关
-    getSongsUrl() {
-      getSongsUrl(this.$store.state.songsId).then((res) => {
+    getSongsUrl(id) {
+      getSongsUrl(id).then((res) => {
         if (res.data[0].url != null) {
           this.$store.commit("songsUrl", res.data[0].url);
-          this.$store.commit("songsLoading", false);
         } else {
           this.$message({
             message: "该歌曲暂无版权",
@@ -242,8 +240,8 @@ export default {
         }
       });
     },
-    getSongsDetail() {
-      getSongsDetail(this.$store.state.songsId).then((res) => {
+    getSongsDetail(id) {
+      getSongsDetail(id).then((res) => {
         this.$store.commit("songsDetail", res.songs[0]);
         //处理时长(时间戳)
         this.totalTime = handleMusicTime(res.songs[0].dt);
@@ -271,13 +269,13 @@ export default {
   },
   watch: {
     //监听vuex中歌曲id改变
-    "$store.state.songsId"() {
+    "$store.state.songsId"(id) {
       //先暂停当前歌曲播放，一个播放效果动画
       this.$refs.audio.pause();
       //通过id获取歌曲url
-      this.getSongsUrl();
+      this.getSongsUrl(id);
       //获取歌曲详情
-      this.getSongsDetail();
+      this.getSongsDetail(id);
       //提交播放状态
       this.$store.commit("isPlay", true);
     },
@@ -369,7 +367,7 @@ export default {
   color: black;
   font-size: 15px;
 }
-.common{
+.common {
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;

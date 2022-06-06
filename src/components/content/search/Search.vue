@@ -177,4 +177,8 @@ export default {
   font-weight: 600;
   color: black;
 }
+.search >>> .el-input__inner {
+  border-radius: 25px;
+  border: none;
+}
 </style>

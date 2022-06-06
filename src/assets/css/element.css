@@ -6,10 +6,6 @@
 .active-row{
   color: #d61e1e;
 }
-.el-input__inner {
-  border-radius: 25px;
-  border: none;
-}
 .el-slider__bar{
   background-color: #ff4e4e ;
   border-radius: 0;

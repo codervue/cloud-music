@@ -15,15 +15,12 @@ const store = new Vuex.Store({
         isPlay: false,
         isLogin: false,
         isShowSongsDetail: false,
-        songsLoading: false,
         currentTime: "",
         isOpen: false,
         drawerList: [],
         playAllFunction: "",
         searchItem: "",
         searchFunction: "",
-        djId: "",
-        djDetail: "",
         videoListId: "",
         videoId: "",
         isVideo: false,
@@ -63,10 +60,6 @@ const store = new Vuex.Store({
         isShowSongsDetail(state) {
             state.isShowSongsDetail = !state.isShowSongsDetail
         },
-        //歌曲加载状态
-        songsLoading(state, payload) {
-            state.songsLoading = payload
-        },
         //当前播放时间
         currentTime(state, payload) {
             state.currentTime = payload
@@ -95,14 +88,6 @@ const store = new Vuex.Store({
         //搜索函数
         searchFunction(state, payload) {
             state.searchFunction = payload
-        },
-        //电台id
-        djId(state, payload) {
-            state.djId = payload
-        },
-        //电台详情
-        djDetail(state, payload) {
-            state.djDetail = payload
         },
         //分类视频id
         videoListId(state, payload) {
