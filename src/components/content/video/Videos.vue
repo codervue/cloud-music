@@ -16,12 +16,7 @@
     </div>
 
     <!-- 视频 -->
-    <div
-      class="box"
-      v-loading="loading"
-      element-loading-text="正在加载中"
-      element-loading-spinner="el-icon-loading"
-    >
+    <div class="box">
       <div class="card" v-for="(item, index) in videos" :key="index">
         <img
           :src="item.data.coverUrl + '?param=250y140'"
@@ -44,7 +39,6 @@ export default {
       currentIndex: 0,
       currentItem: "现场",
       videos: [],
-      loading: false,
     };
   },
   created() {
@@ -83,10 +77,8 @@ export default {
     "$store.state.videoListId": {
       handler: function (id) {
         this.videos = "";
-        this.loading = true;
         setTimeout(() => {
           this.videoGroup(id);
-          this.loading = false;
         }, 500);
       },
     },

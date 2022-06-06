@@ -2,7 +2,7 @@
   <div
     class="search-song"
     v-loading="loading"
-    element-loading-text="正在加载中"
+    element-loading-text="载入中..."
     element-loading-spinner="el-icon-loading"
   >
     <div class="top" v-if="detail">
@@ -125,11 +125,21 @@ export default {
         this.detail = "";
         this.result = "";
         this.loading = true;
-        setTimeout(() => {
+        // let loading = null;
+        //使用nextTick函数：在首次加载时，并不是局部加载，因为DOM未加载完成无法拿取到search-song节点，从而在第一次加载的是整页加载
+        //因颜色问题，还是采用DOM方式引入加载样式
+        // this.$nextTick(() => {
+        //   loading = Loading.service({
+        //     target: ".search-song",
+        //     text: "载入中...",
+        //     spinner: "el-icon-loading",
+        //   });
+        // });
+        let timer = setTimeout(() => {
           this.searchDetail(item);
           this.searchResult(item);
           this.loading = false;
-        }, 500);
+        }, 300);
       },
     },
   },

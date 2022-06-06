@@ -86,9 +86,8 @@
 
     <!-- 热门评论 -->
     <!-- 外层需包裹一个div否则会因为：key中的index相同而报错 -->
-    <div>
+    <div v-if="comment.hotComments">
       <h3>热门评论</h3>
-
       <div
         class="content"
         v-for="(item, index) in comment.hotComments"
@@ -147,10 +146,10 @@ export default {
       type: [String, Number],
     },
   },
+  components: {},
   created() {},
   data() {
     return {
-      loading: false,
       visible: false,
       textarea: "",
       //发送或回复评论

@@ -27,11 +27,11 @@
             class="icon aixin"
             @click="likedMusic(songsDetail.id)"
           >
-            <i class="iconfont icon-02"></i>
+            <i class="iconfont icon-aixin1"></i>
           </span>
           <!-- 喜欢 -->
           <span v-else class="icon aixin" @click="likedMusic(songsDetail.id)">
-            <i class="iconfont icon-aixin"></i>
+            <i class="iconfont icon-aixin2"></i>
           </span>
         </div>
 
@@ -147,8 +147,6 @@ export default {
 
   mounted() {
     this.$store.commit("playAllFunction", this.nextClick);
-    this.$store.commit("playFunction", this.playClick);
-    this.$store.commit("stopFunction", this.stopClick);
   },
   methods: {
     //更新播放状态
@@ -232,8 +230,6 @@ export default {
     },
     //请求歌曲相关
     getSongsUrl() {
-      //提交加载状态，实现歌曲详情卡片重置动画的效果，提高用户体验
-      this.$store.commit("songsLoading", true);
       getSongsUrl(this.$store.state.songsId).then((res) => {
         if (res.data[0].url != null) {
           this.$store.commit("songsUrl", res.data[0].url);
@@ -389,7 +385,7 @@ export default {
   bottom: 60px;
   right: 111px;
 }
-.icon-aixin {
+.icon-aixin2 {
   color: #d61e1e;
 }
 .aixin {

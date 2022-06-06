@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="box"
-    v-loading="loading"
-    element-loading-text="正在加载歌词中"
-    element-loading-spinner="el-icon-loading"
-  >
+  <div class="box">
     <div class="lyric" ref="lyric">
       <div
         class="lyric-item"
@@ -25,44 +20,18 @@
 </template>
 
 <script>
-import { getLyric } from "@/network/song";
 export default {
+  props: {
+    lyric: {
+      type: Array,
+    },
+  },
   data() {
     return {
-      lyric: [],
       currentTime: "",
-      loading: false,
     };
   },
   methods: {
-    //请求歌词
-    getLyric(id) {
-      getLyric(id).then((res) => {
-        //处理歌词
-        //去除\n
-        // console.log(res);
-        let arr = res.lrc.lyric.split("\n");
-        let time = "";
-        let value = "";
-        let result = [];
-        // console.log(arr);
-        // //拆分数组
-        arr.forEach((item) => {
-          time = item.split("]")[0];
-          value = item.split("]")[1];
-          // console.log(time);
-          //time是一个字符串
-          var t = time.slice(1).split(":");
-          // console.log(t);
-          //去除空行并将结果压入数组,
-          // if (value != "") {
-          result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
-        });
-        //结果存储
-        // console.log(result);
-        this.lyric = result;
-      });
-    },
     //歌词滚动
     lyricScroll(index) {
       if (
@@ -78,20 +47,6 @@ export default {
     },
   },
   watch: {
-    "$store.state.songsId": {
-      //立马执行，使第一次传歌曲时能获取到歌词
-      immediate: true,
-      //歌词的请求
-      handler: function (id) {
-        //实现一个动画过渡效果
-        this.lyric = [];
-        this.loading = true;
-        setTimeout(() => {
-          this.getLyric(id);
-          this.loading = false;
-        }, 500);
-      },
-    },
     //监听当前播放时间
     "$store.state.currentTime"(currentTime) {
       this.currentTime = currentTime;

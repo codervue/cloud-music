@@ -27,8 +27,6 @@ const store = new Vuex.Store({
         videoListId: "",
         videoId: "",
         isVideo: false,
-        playFunction: false,
-        stopFunction: false,
         likedMusicList: [],
         likedFunction: {}
     },
@@ -117,14 +115,6 @@ const store = new Vuex.Store({
         //video和mv的切换
         isVideo(state, payload) {
             state.isVideo = payload
-        },
-        //播放函数
-        playFunction(state, payload) {
-            state.playFunction = payload
-        },
-        //停止函数
-        stopFunction(state, payload) {
-            state.stopFunction = payload
         },
         //用户喜欢的音乐
         getLikedMusic(state, payload) {

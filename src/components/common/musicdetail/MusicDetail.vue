@@ -31,11 +31,16 @@
               {{ songsDetail.al.name }} - {{ songsDetail.ar[0].name }}
             </div>
           </div>
-          <lyric></lyric>
+          <lyric :lyric="lyric"></lyric>
         </div>
       </div>
       <!-- 评论 -->
-      <div class="bottom">
+      <div
+        class="bottom"
+        v-loading="loading"
+        element-loading-text="载入中..."
+        element-loading-spinner="el-icon-loading"
+      >
         <div class="comment">
           <comment
             :comment="comment"
@@ -62,19 +67,27 @@
         </div>
       </div>
     </div>
+
+    <!-- 回到顶部 -->
+    <!-- <go-top></go-top> -->
   </div>
 </template>
 
 <script>
 import Lyric from "@/components/common/lyric/Lyric.vue";
 import Comment from "@/components/common/comment/Comment";
+import GoTop from "../goTop/GoTop.vue";
+
 import { getComment } from "@/network/comment";
-import { simiSongs } from "@/network/song";
+import { getLyric, simiSongs } from "@/network/song";
 export default {
   data() {
     return {
+      lyric: [],
       comment: {},
       songs: [],
+      timer: "",
+      loading: false,
     };
   },
   computed: {
@@ -85,8 +98,37 @@ export default {
   components: {
     Lyric,
     Comment,
+    GoTop,
   },
   methods: {
+    //请求歌词
+    getLyric(id) {
+      getLyric(id).then((res) => {
+        //处理歌词
+        //去除\n
+        // console.log(res);
+        let arr = res.lrc.lyric.split("\n");
+        let time = "";
+        let value = "";
+        let result = [];
+        // console.log(arr);
+        // //拆分数组
+        arr.forEach((item) => {
+          time = item.split("]")[0];
+          value = item.split("]")[1];
+          // console.log(time);
+          //time是一个字符串
+          var t = time.slice(1).split(":");
+          // console.log(t);
+          //去除空行并将结果压入数组,
+          // if (value != "") {
+          result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
+        });
+        //结果存储
+        // console.log(result);
+        this.lyric = result;
+      });
+    },
     //评论数据
     getComment(id) {
       getComment(id).then((res) => {
@@ -103,13 +145,52 @@ export default {
     itemClick(id) {
       this.$store.commit("songsId", id);
     },
+    //清空内容
+    clearContent() {
+      this.lyric = [];
+      this.comment = {};
+      this.songs = [];
+    },
+    //请求数据
+    getData(id) {
+      this.getLyric(id);
+      this.getComment(id);
+      this.simiSongs(id);
+    },
   },
   watch: {
     "$store.state.songsId": {
       immediate: true,
       handler: function (id) {
-        this.getComment(id);
-        this.simiSongs(id);
+        let show = this.$store.state.isShowSongsDetail;
+        //当音乐卡片未打开时，不请求内容,提升性能
+        if (id && show) {
+          //清空内容
+          this.clearContent();
+          this.loading = true;
+          setTimeout(() => {
+            this.getData(id);
+            this.loading = false;
+          }, 1000);
+        }
+      },
+    },
+    "$store.state.isShowSongsDetail": {
+      immediate: true,
+      handler: function (show) {
+        //清除上一个定时器，防止内容被删除
+        clearTimeout(this.timer);
+        let id = this.$store.state.songsId;
+        //立即监听，在id不为空时，才去请求内容，所以先做判断
+        if (id && show) {
+          this.getData(id);
+        } else {
+          //当卡片关闭时，3s后删除内容
+          this.timer = setTimeout(() => {
+            //不能是"",否则子组件props传过来的值会报错值类型
+            this.clearContent();
+          }, 3000);
+        }
       },
     },
   },

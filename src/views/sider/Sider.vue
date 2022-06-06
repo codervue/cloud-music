@@ -10,8 +10,8 @@
     </div>
     <div
       v-if="$store.state.isLogin"
-      @click="itemClick(4)"
-      :class="{ active: currentIndex === 4 }"
+      @click="itemClick(3)"
+      :class="{ active: currentIndex === 3 }"
     >
       我喜欢的音乐
     </div>
@@ -23,7 +23,7 @@ export default {
   name: "",
   data() {
     return {
-      value: ["发现音乐", "播客", "视频", "私人FM"],
+      value: ["发现音乐", "播客", "视频"],
       path: "",
       currentIndex: 0,
     };
@@ -49,10 +49,6 @@ export default {
           this.$router.replace(this.path).catch((err) => {});
           break;
         case 3:
-          this.path = "/fm";
-          this.$router.replace(this.path).catch((err) => {});
-          break;
-        case 4:
           this.path = "/mylove";
           this.$router.replace(this.path).catch((err) => {});
           break;

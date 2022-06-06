@@ -30,11 +30,11 @@
             class="icon aixin"
             @click="likedMusic(scope.row.id)"
           >
-            <i class="iconfont icon-02"></i>
+            <i class="iconfont icon-aixin1"></i>
           </span>
           <!-- 喜欢 -->
           <span v-else class="icon aixin" @click="likedMusic(scope.row.id)">
-            <i class="iconfont icon-aixin"></i>
+            <i class="iconfont icon-aixin2"></i>
           </span>
         </template>
       </el-table-column>
@@ -136,7 +136,7 @@ export default {
   /* 图片居中 */
   vertical-align: middle;
 }
-.icon-aixin {
+.icon-aixin2 {
   color: #d61e1e;
 }
 .aixin {

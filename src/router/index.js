@@ -7,7 +7,6 @@ Vue.use(VueRouter)
 
 const Find = () => import("@/views/sider/childcomps/Find")
 const Boke = () => import("@/views/sider/childcomps/Boke")
-const FM = () => import("@/views/sider/childcomps/FM")
 const MyLove = () => import("@/views/sider/childcomps/MyLove")
 const Video = () => import("@/views/sider/childcomps/Video")
 const Videos = () => import("@/components/content/video/Videos")
@@ -28,10 +27,6 @@ const routes = [{
 {
     path: '/boke',
     component: Boke
-},
-{
-    path: '/fm',
-    component: FM
 },
 {
     path: '/mylove',

@@ -152,10 +152,6 @@ export default {
 </script>
 
 <style scoped='scoped'>
-.search >>> .el-input__inner {
-  border-radius: 25px;
-  border: none;
-}
 .box {
   padding: 0;
   list-style: none;

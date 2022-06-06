@@ -1,51 +1,43 @@
 <template>
-  <div
-    v-loading="loading"
-    element-loading-text="正在加载中"
-    element-loading-spinner="el-icon-loading"
-  >
-    <div class="list-detail" v-if="result">
-      <div class="top">
-        <div class="left">
-          <img :src="result.playlist.coverImgUrl" alt="" />
+  <div class="list-detail" v-if="result">
+    <div class="top">
+      <div class="left">
+        <img :src="result.playlist.coverImgUrl" alt="" />
+      </div>
+      <div class="right">
+        <div class="first">
+          <span class="title-tag">歌单</span>
+          <span class="title-content">{{ result.playlist.name }}</span>
         </div>
-        <div class="right">
-          <div class="first">
-            <span class="title-tag">歌单</span>
-            <span class="title-content">{{ result.playlist.name }}</span>
-          </div>
-          <div class="second">
-            <img :src="result.playlist.creator.backgroundUrl" alt="" />
-            <span class="nickname">{{ result.playlist.creator.nickname }}</span>
-          </div>
-          <div class="three">
-            <row-list @allClick="allClick"></row-list>
-          </div>
-          <div class="five">
-            <span class="tags">标签:</span>
-            <span class="tag">{{ result.playlist.tags[0] }}</span>
-            <span class="tag">{{ result.playlist.tags[1] }}</span>
-            <span class="tag">{{ result.playlist.tags[2] }}</span>
-          </div>
-          <div class="six">
-            <span>歌曲:{{ result.playlist.trackCount }}</span>
-            <span class="count">播放量:{{ result.playlist.playCount }}</span>
-          </div>
-          <div class="seven">
-            <span class="desc">简介:</span>
-            <span class="description">{{ result.playlist.description }}</span>
-          </div>
+        <div class="second">
+          <img :src="result.playlist.creator.backgroundUrl" alt="" />
+          <span class="nickname">{{ result.playlist.creator.nickname }}</span>
+        </div>
+        <div class="three">
+          <row-list @allClick="allClick"></row-list>
+        </div>
+        <div class="five">
+          <span class="tags">标签:</span>
+          <span class="tag">{{ result.playlist.tags[0] }}</span>
+          <span class="tag">{{ result.playlist.tags[1] }}</span>
+          <span class="tag">{{ result.playlist.tags[2] }}</span>
+        </div>
+        <div class="six">
+          <span>歌曲:{{ result.playlist.trackCount }}</span>
+          <span class="count">播放量:{{ result.playlist.playCount }}</span>
+        </div>
+        <div class="seven">
+          <span class="desc">简介:</span>
+          <span class="description">{{ result.playlist.description }}</span>
         </div>
       </div>
+    </div>
 
-      <div class="bottom">
-        <h3>歌曲列表:</h3>
-        <!-- 报错显示：请求任务为异步任务，所以在渲染时没有请求到数据，读取不到tracks值，所以加个判断 -->
-        <div class="song" v-if="$store.state.listDetailId">
-          <table-list
-            :result="result.playlist.tracks"
-          ></table-list>
-        </div>
+    <div class="bottom">
+      <h3>歌曲列表:</h3>
+      <!-- 报错显示：请求任务为异步任务，所以在渲染时没有请求到数据，读取不到tracks值，所以加个判断 -->
+      <div class="song" v-if="$store.state.listDetailId">
+        <table-list :result="result.playlist.tracks"></table-list>
       </div>
     </div>
   </div>
@@ -62,7 +54,6 @@ export default {
   data() {
     return {
       result: "",
-      loading: false,
     };
   },
   components: {
@@ -94,13 +85,9 @@ export default {
       immediate: true,
       handler: function (id) {
         if (id) {
-          //清空结果，实现一个动画过渡效果
+          //清空结果
           this.result = "";
-          this.loading = true;
-          setTimeout(() => {
-            this.getListDetail(id);
-            this.loading = false;
-          }, 500);
+          this.getListDetail(id);
         }
       },
     },
@@ -186,7 +173,7 @@ export default {
   font-size: 12px;
   color: #666666;
 }
-h3{
+h3 {
   margin-bottom: 0;
 }
 </style>

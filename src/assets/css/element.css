@@ -6,7 +6,10 @@
 .active-row{
   color: #d61e1e;
 }
-
+.el-input__inner {
+  border-radius: 25px;
+  border: none;
+}
 .el-slider__bar{
   background-color: #ff4e4e ;
   border-radius: 0;
@@ -28,17 +31,14 @@
 .el-popover::-webkit-scrollbar {
   display: none;
 }
-.el-loading-spinner .el-loading-text{
-  color: black;
-}
-
-.el-loading-spinner i{
-  color: black;
-}
-.el-loading-mask{
-  background-color: unset;
-  z-index: 10;
-}
 .el-dialog__wrapper{
   top: 50px;
 }
+.el-loading-spinner .el-loading-text{
+  color: black;
+  font-weight: 300;
+}
+.el-icon-loading::before{
+  color: black;
+}
+
