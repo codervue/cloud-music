@@ -2,7 +2,7 @@
   <div>
     <div id="nav-bar">
       <div class="left">
-        <span><img src="@/assets/img/music.svg" alt="" /></span>
+        <span><i class="iconfont icon-wangyiyunyinle"></i></span>
         <span class="change">网 抑 云 音 乐</span>
       </div>
 
@@ -242,5 +242,9 @@ span {
   height: 25px;
   background-color: grey;
   border-radius: 3px;
+}
+.iconfont{
+  font-size: 25px;
+  margin-left: 20px;
 }
 </style>

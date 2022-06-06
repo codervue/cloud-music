@@ -26,6 +26,7 @@
             v-if="!isLiked(songsDetail.id)"
             class="icon aixin"
             @click="likedMusic(songsDetail.id)"
+            title="喜欢"
           >
             <i class="iconfont icon-aixin1"></i>
           </span>
