@@ -13,7 +13,7 @@ module.exports = {
     lintOnSave: false,
     devServer: {
         //手机连接电脑热点即可访问，ip地址通过ipconfig查看
-        host: '192.168.0.110',
+        // host: '192.168.0.110',
         port: 8080,
         https: false,
         open: false,
