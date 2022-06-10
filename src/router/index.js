@@ -6,7 +6,6 @@ import VueRouter from "vue-router"
 Vue.use(VueRouter)
 
 const Find = () => import("@/views/sider/childcomps/Find")
-const Boke = () => import("@/views/sider/childcomps/Boke")
 const Video = () => import("@/views/sider/childcomps/Video")
 const Videos = () => import("@/components/content/video/Videos")
 const MV = () => import("@/components/content/video/MV")
@@ -22,10 +21,6 @@ const routes = [{
 {
     path: '/find',
     component: Find
-},
-{
-    path: '/boke',
-    component: Boke
 },
 {
     path: '/video',

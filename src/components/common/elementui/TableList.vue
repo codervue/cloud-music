@@ -6,7 +6,6 @@
       lazy
       style="width: 100%"
       @row-dblclick="songsClick"
-      :highlight-current-row="true"
       :row-class-name="activeRow"
     >
       <!-- 序号 -->
@@ -85,7 +84,7 @@ export default {
     return {};
   },
   mounted() {
-    //存储喜欢函数（底部导航栏能调用）
+    //存储喜欢函数（底部导航栏需调用）
     this.$store.commit("likedFunction", this.likedMusic);
   },
   computed: {},

@@ -22,7 +22,7 @@ export default {
   name: "",
   data() {
     return {
-      value: ["发现音乐", "播客", "视频"],
+      value: ["发现音乐", "视频"],
       path: "",
       currentIndex: 0,
     };
@@ -44,10 +44,6 @@ export default {
           this.$router.replace(this.path).catch((err) => {});
           break;
         case 1:
-          this.path = "/boke";
-          this.$router.replace(this.path).catch((err) => {});
-          break;
-        case 2:
           this.path = "/video";
           this.$router.replace(this.path).catch((err) => {});
           break;

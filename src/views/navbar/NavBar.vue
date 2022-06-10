@@ -3,7 +3,7 @@
     <div id="nav-bar">
       <div class="left">
         <span><i class="iconfont icon-wangyiyunyinle"></i></span>
-        <span class="change">网 抑 云 音 乐</span>
+        <span class="change" @click="refreshClick">网 抑 云 音 乐</span>
       </div>
 
       <div class="center">
@@ -109,6 +109,12 @@ export default {
     backClick() {
       this.$router.go(-1);
     },
+    //logo点击回调
+    refreshClick() {
+      if (this.$router.path !== "/find") {
+        this.$router.replace("/find");
+      }
+    },
     //点击颜色框的显隐
     changColorClick() {
       this.isShowClothes = !this.isShowClothes;
@@ -208,9 +214,6 @@ span {
 .click span:hover {
   color: rgb(221, 150, 159);
 }
-.change:hover {
-  color: rgb(126, 57, 8);
-}
 .clothes {
   position: absolute;
   top: 55px;
@@ -243,7 +246,7 @@ span {
   background-color: grey;
   border-radius: 3px;
 }
-.iconfont{
+.iconfont {
   font-size: 25px;
   margin-left: 20px;
 }
