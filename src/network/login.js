@@ -1,30 +1,32 @@
 import { request } from "./index";
 
-//登录请求手机号和密码
-export function goLogin(phone, password, captcha, timestamp) {
-    //添加时间戳，避免缓存
-    var timestamp = Date.parse(new Date());
+//手机密码登录请求
+export function passLogin(phone, password, timestamp = Date.now()) {
     return request({
         url: "/login/cellphone",
+        // 登录接口需post请求，否则浏览器报错
         method: "post",
         params: {
             phone,
             password,
+            timestamp,
+        }
+    })
+}
+//验证码登录请求
+export function codeLogin(phone, captcha, timestamp = Date.now()) {
+    return request({
+        url: "/login/cellphone",
+        // 登录接口需post请求，否则浏览器报错
+        method: "post",
+        params: {
+            phone,
             captcha,
             timestamp,
         }
     })
 }
-//获取用户信息
-export function getUserInfo(uid) {
-    return request({
-        url: "/user/detail",
-        method: "post",
-        params: {
-            uid
-        }
-    })
-}
+
 //发送验证码
 export function getCode(phone) {
     return request({

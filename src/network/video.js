@@ -4,10 +4,10 @@ import { request } from "./index"
 //视频标签
 export function videoList() {
     return request({
-        url: "/video/group/list"
+        url: "/video/category/list"
     })
 }
-//标签视频
+//标签下的视频
 export function videoGroup(id) {
     return request({
         url: "/video/group",

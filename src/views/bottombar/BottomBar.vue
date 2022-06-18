@@ -13,7 +13,7 @@
     <!-- 左边栏歌曲信息 -->
     <div class="left" v-if="$store.state.songsDetail">
       <div class="img" @click="$store.commit('isShowSongsDetail')">
-        <img :src="songsDetail.al.picUrl" alt="" />
+        <img v-lazy="songsDetail.al.picUrl" alt="" />
       </div>
       <div class="song">
         <div class="pop-name">
@@ -37,7 +37,7 @@
         </div>
 
         <div class="pop">
-          <span class="common" @click="popClick(songsDetail.ar[0].name)">
+          <span class="common" @click="singerClick(songsDetail.ar[0].name)">
             {{ songsDetail.ar[0].name }}
           </span>
         </div>
@@ -71,7 +71,9 @@
 
       <!-- 进度条 -->
       <div class="block">
-        <span class="demonstration">{{ currentTime }}</span>
+        <span class="demonstration">{{
+          $store.state.currentTime | timeFormat
+        }}</span>
         <span class="slider"
           ><el-slider
             v-model="timeProgress"
@@ -81,7 +83,7 @@
             @mouseup.native="isChange = false"
           ></el-slider
         ></span>
-        <span class="demonstration">{{ totalTime }}</span>
+        <span class="demonstration">{{ (totalTime / 1000) | timeFormat }}</span>
       </div>
     </div>
     <!-- 音量 -->
@@ -114,20 +116,16 @@
 
 <script>
 import { getSongsUrl, getSongsDetail } from "@/network/song";
-import { handleMusicTime, returnSecond, s_to_hs } from "@/plugins/utils";
 
 export default {
   name: "",
   data() {
     return {
-      //当前时间
-      currentTime: "00.00",
+      songsUrl: "",
       //总时长
       totalTime: "00.00",
-      //总时长（s）
-      secondTime: "0",
       //当前进程
-      timeProgress: 0, //必须设置个初始值
+      timeProgress: 0,
       //进度条是否被拖拽
       isChange: false,
       //音量进程
@@ -137,17 +135,9 @@ export default {
     };
   },
   computed: {
-    songsUrl() {
-      return this.$store.state.songsUrl;
-    },
     songsDetail() {
       return this.$store.state.songsDetail;
     },
-  },
-  components: {},
-
-  mounted() {
-    this.$store.commit("playAllFunction", this.nextClick);
   },
   methods: {
     //更新播放状态
@@ -166,20 +156,14 @@ export default {
         this.$message("暂无歌曲源");
       }
     },
-    //上下一曲随机播放一首（暂且播放歌单列表里的音乐）
+    // 上下一曲随机播放(播放列表)
     nextClick() {
-      let listDetail = this.$store.state.listDetail;
-      if (listDetail) {
-        let num = Math.floor(Math.random() * listDetail.playlist.tracks.length); //可均衡获取0到所有歌曲数的随机整数。
-        let randomId = listDetail.privileges[num].id;
-        //提交随机歌曲id
-        this.$store.commit("songsId", randomId);
-      } else if (this.$store.state.searchItem) {
-        this.$store.state.searchFunction();
-      } else {
-        //如果未传歌单id，播放搜索结果中的歌曲，否则 弹窗暂无播放源
-        this.$message("暂无播放源");
-      }
+      let playList = this.$store.state.playList;
+      if (!playList.length) return this.$message("当前列表没有预播放歌曲");
+      let num = Math.floor(Math.random() * playList.length);
+      let randomId = playList[num].id;
+      // 提交随机歌曲id;
+      this.$store.commit("songsId", randomId);
     },
 
     //进度条相关
@@ -192,15 +176,15 @@ export default {
       this.$store.commit("currentTime", time);
       //取整
       time = Math.floor(time);
-      //将time传给当前时间展示
-      this.currentTime = s_to_hs(time); //将秒转换成分处理
-      //进度条长度
-      this.timeProgress = Math.floor((time / this.secondTime) * 100);
+      //百分比化
+      let percent = ((time * 1000) / this.totalTime) * 100;
+      percent = Math.floor(percent);
+      this.timeProgress = percent;
     },
     //拖动进度条事件(由于受播放器不断更新当前时间影响，拖拽事件无法达到预期，所以需要在拉取进度条时禁止播放器更新时间,鼠标松开后恢复调用)
     changeProgress(e) {
       //修改当前播放时间
-      this.$refs.audio.currentTime = Math.floor((e / 100) * this.secondTime);
+      this.$refs.audio.currentTime = ((e / 100) * this.totalTime) / 1000;
       //当进度条松开时，拖拽状态为false
       this.isChange = false;
     },
@@ -232,7 +216,7 @@ export default {
     getSongsUrl(id) {
       getSongsUrl(id).then((res) => {
         if (res.data[0].url != null) {
-          this.$store.commit("songsUrl", res.data[0].url);
+          this.songsUrl = res.data[0].url;
         } else {
           this.$message({
             message: "该歌曲暂无版权",
@@ -244,21 +228,25 @@ export default {
     getSongsDetail(id) {
       getSongsDetail(id).then((res) => {
         this.$store.commit("songsDetail", res.songs[0]);
-        //处理时长(时间戳)
-        this.totalTime = handleMusicTime(res.songs[0].dt);
-        //将歌曲总时长(分)转换为秒数
-        this.secondTime = returnSecond(this.totalTime);
+        //存储时长(时间戳)
+        this.totalTime = res.songs[0].dt;
       });
     },
     //点击抽屉回调
     tableClick() {
-      this.$store.commit("isOpen");
+      this.$store.commit("isShowSongsDetail", {
+        isShow: true,
+        type: "playlist",
+        direction: "rtl",
+        size: "30%",
+      });
     },
-    //点击歌名、歌手回调
+    //点击歌名回调
     popClick(item) {
-      this.$store.commit("searchItem", item);
-      this.$router.push("/searchresult").catch((err) => {});
+      // this.$router.push("/searchdetail/" + item).catch((err) => {});
     },
+    //点击歌手的回调
+    singerClick(item) {},
     //是否点亮爱心
     isLiked(id) {
       return this.$store.state.likedMusicList.find((uid) => uid === id);
@@ -280,6 +268,15 @@ export default {
       //提交播放状态
       this.$store.commit("isPlay", true);
     },
+    //监听歌单详情，提交最近播放
+    "$store.state.songsDetail": {
+      immediate: true,
+      handler: function (result) {
+        if (!result) return;
+        //存储歌曲信息
+        this.$store.commit("recentList", result);
+      },
+    },
   },
 };
 </script>
@@ -287,25 +284,21 @@ export default {
 <style scoped="scoped">
 #bottom-bar {
   width: 100%;
-  height: 80px;
+  height: 70px;
   display: flex;
   border-top: solid 1px rgba(223, 218, 218, 0.932);
-  /* 设置定位使得优先级最高，不会被歌曲详情所覆盖 ，且必须设置背景色*/
-  position: sticky;
-  /* 不能太高否则会覆盖掉登录界面 */
-  z-index: 1000;
   background-color: #fff;
 }
 .left {
   display: flex;
-  width: 290px;
+  width: 30%;
 }
 .img img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   margin: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .song {
   width: 210px;
@@ -313,8 +306,25 @@ export default {
   flex-direction: column;
   justify-content: center;
 }
+.pop-name {
+  display: flex;
+}
+.p-name {
+  color: black;
+  font-size: 15px;
+}
+.common {
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pop span {
+  font-size: 12px;
+  color: #919191;
+}
 .center {
-  width: 500px;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -335,7 +345,6 @@ export default {
 /* 进度条 */
 .block {
   display: flex;
-  /* flex-direction: column; */
   justify-content: space-between;
 }
 .slider {
@@ -350,9 +359,8 @@ export default {
 }
 .right {
   text-align: center;
-  width: 210px;
-  line-height: 81px;
-  z-index: 10000;
+  width: 20%;
+  line-height: 70px;
   display: flex;
   justify-content: center;
 }
@@ -360,23 +368,6 @@ export default {
   height: 20px;
   margin: 0 15px;
   cursor: pointer;
-}
-.pop-name {
-  display: flex;
-}
-.p-name {
-  color: black;
-  font-size: 15px;
-}
-.common {
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.pop span {
-  font-size: 12px;
-  color: #919191;
 }
 .sound {
   display: none;

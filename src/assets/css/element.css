@@ -1,6 +1,5 @@
 .el-table .cell {
   white-space: nowrap;
-  /* font-size: 13px; */
 } 
 
 .active-row{
@@ -30,6 +29,12 @@
 .el-dialog__wrapper{
   top: 50px;
 }
+.el-loading-spinner{
+  top: 380px;
+}
+.el-loading-mask{
+  background-color: unset;
+}
 .el-loading-spinner .el-loading-text{
   color: black;
   font-weight: 300;
@@ -42,4 +47,33 @@
 .el-table th.el-table__cell.is-leaf {
     border-bottom: none;
 }
-
+.el-menu{
+  border-right: none;
+}
+.el-menu-item:focus, .el-menu-item:hover{
+  background-color: rgba(128, 128, 128, 0.096);
+}
+.el-menu-item.is-active{
+  font-weight: 600;
+  font-size: 16px;
+}
+.el-menu-item{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.el-menu.el-menu--horizontal{
+  border-bottom: none;
+}
+.el-menu--horizontal>.el-menu-item.is-active{
+  border-bottom: 2px solid #ff4059
+}
+.el-tabs__item.is-active{
+  color: #000;
+}
+.el-tabs__active-bar{
+  background-color: #ff4059;
+}
+.el-tabs__item:hover{
+  color: rgba(0, 0, 0, 0.701);
+}

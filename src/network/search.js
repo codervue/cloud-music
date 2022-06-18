@@ -15,21 +15,22 @@ export function searchSug(keywords) {
         }
     })
 }
-//搜索结果
-export function searchResult(keywords) {
-    return request({
-        url: "/cloudsearch",
-        params: {
-            keywords
-        }
-    })
-}
 //搜索细节匹配
 export function searchDetail(keywords) {
     return request({
         url: "/search/multimatch",
         params: {
             keywords
+        }
+    })
+}
+//搜索全部结果
+export function searchResult({ keywords, type }) {
+    return request({
+        url: "/cloudsearch",
+        params: {
+            keywords,
+            type
         }
     })
 }

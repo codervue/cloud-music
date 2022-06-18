@@ -15,7 +15,7 @@
       </div>
 
       <div class="login">
-        <div class="click" v-if="!isLogin">
+        <div class="click" v-if="!$store.state.isLogin">
           <span @click="loginClick">登录</span>
         </div>
         <div class="user" v-else>
@@ -48,58 +48,40 @@
       </div>
     </div>
     <!-- 登入框 -->
-    <login ref="login" @getUserInfo="getUserInfo"></login>
+    <login ref="login"></login>
   </div>
 </template>
 
 <script>
-import Login from "@/components/content/login/Login.vue";
-import Search from "@/components/content/search/Search.vue";
-import { getUserInfo } from "@/network/login";
+import Login from "@/components/login/Login.vue";
+import Search from "@/components/search/Search.vue";
 
 export default {
   name: "",
   data() {
     return {
-      profile: "",
       isShowClothes: false,
     };
   },
-  created() {
-    //从本地读取用户信息
-    let userId = localStorage.getItem("userId");
-    this.getUserInfo(userId);
-  },
+  created() {},
   computed: {
-    isLogin() {
-      return this.$store.state.isLogin;
+    profile() {
+      return this.$store.state.userInfo;
     },
   },
   components: { Login, Search },
 
   methods: {
-    getUserInfo(userId) {
-      if (!userId) return;
-      getUserInfo(userId).then((res) => {
-        this.profile = res.profile;
-        //将登入状态提交到vuex
-        this.$store.commit("isLogin", true);
-        //获取用户喜欢音乐列表
-        this.$store.dispatch("likedMusic");
-      });
-    },
     //登入点击
     loginClick() {
       this.$refs.login.dialogVisible = true;
     },
     //退出登入点击
     logOut() {
-      //删除本地用户id
-      window.localStorage.removeItem("userId");
+      this.$store.dispatch("logOut");
       //路由跳转
       this.$router.replace("/find");
-      //提交退出状态
-      this.$store.commit("isLogin", false);
+      //提示信息
       this.$message({
         message: "退出成功",
         type: "success",
@@ -111,9 +93,7 @@ export default {
     },
     //logo点击回调
     refreshClick() {
-      if (this.$router.path !== "/find") {
-        this.$router.replace("/find");
-      }
+      this.$router.replace("/find");
     },
     //点击颜色框的显隐
     changColorClick() {
@@ -139,20 +119,17 @@ export default {
 
 <style scoped="scoped">
 #nav-bar {
-  height: 50px;
+  height: 60px;
   background-color: #e13e3e;
   display: flex;
+  line-height: 60px;
 }
 .left {
   width: 25%;
-  line-height: 50px;
 }
 .left img {
+  width: 25px;
   height: 25px;
-  vertical-align: middle;
-  padding-left: 15px;
-  padding-bottom: 5px;
-  /* 一行显示 */
 }
 .left span {
   color: #fff;
@@ -164,7 +141,6 @@ export default {
 }
 .center {
   width: 25%;
-  line-height: 50px;
   display: flex;
 }
 .input {
@@ -173,9 +149,9 @@ export default {
 
 .right {
   width: 25%;
-  line-height: 50px;
 }
 .right img {
+  width: 20px;
   height: 20px;
   vertical-align: middle;
   padding: 0 10px;
@@ -186,7 +162,6 @@ span {
 .el-dropdown-link {
   cursor: pointer;
   color: #409eff;
-  line-height: 50px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -194,12 +169,10 @@ span {
 .login {
   width: 25%;
   text-align: center;
-  line-height: 50px;
 }
 .user span {
   font-size: 7px;
   color: #fff;
-  vertical-align: middle;
 }
 .user img {
   height: 20px;
@@ -209,7 +182,6 @@ span {
   font-size: 15px;
   color: #fff;
   cursor: pointer;
-  vertical-align: middle;
 }
 .click span:hover {
   color: rgb(221, 150, 159);

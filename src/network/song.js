@@ -1,32 +1,24 @@
 import { request } from "./index";
 
 
-//登入成功后，获取用户歌单
-export function getUserPlayList(uid) {
-    return request({
-        url: "/user/playlist",
-        params: {
-            uid,
-        }
-    })
-}
-
 //根据歌单id获取歌单详情
-export function getPlayListDetail(id) {
+export function getPlayListDetail(id, timestamp = Date.now()) {
     return request({
         url: "/playlist/detail",
         params: {
             id,
+            timestamp
         }
     })
 }
 
 //根据用户歌单id获取歌曲
-export function getSongs(id) {
+export function getSongs(id, timestamp = Date.now()) {
     return request({
         url: "/playlist/track/all",
         params: {
             id,
+            timestamp
         }
     })
 }
@@ -68,15 +60,7 @@ export function simiSongs(id) {
         }
     })
 }
-//用户喜欢的音乐
-export function getLikedMusicList(uid) {
-    return request({
-        url: "/likelist",
-        params: {
-            uid
-        }
-    })
-}
+
 //喜欢该音乐
 export function likeThisMusic(id, like) {
     return request({

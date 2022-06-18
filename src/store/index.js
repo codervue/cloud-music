@@ -1,48 +1,38 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import { getLikedMusicList } from "@/network/song"
+import { getUserInfo, getState, getUserPlayList, getLikedMusicList, logOut } from "@/network/user"
 
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        listDetailId: "",
-        listDetail: "",
+        userInfo: {},
+        userPlayList: [],
         songsId: "",
-        songsUrl: "",
         songsDetail: "",
         isPlay: false,
         isLogin: false,
-        isShowSongsDetail: false,
+        isShowSongsDetail: "",
         currentTime: "",
-        isOpen: false,
-        drawerList: [],
-        playAllFunction: "",
-        searchItem: "",
-        searchFunction: "",
-        videoListId: "",
-        videoId: "",
+        recentList: [],
+        playList: [],
         isVideo: false,
         likedMusicList: [],
         likedFunction: {}
     },
     mutations: {
-        //歌单详情id
-        listDetailId(state, payload) {
-            state.listDetailId = payload
+        //用户信息
+        userInfo(state, payload) {
+            state.userInfo = payload
         },
-        //歌单详情
-        listDetail(state, payload) {
-            state.listDetail = payload
+        //用户歌单列表
+        userPlayList(state, payload) {
+            state.userPlayList = payload
         },
         //歌曲id
         songsId(state, payload) {
             state.songsId = payload
-        },
-        //歌曲播放地址
-        songsUrl(state, payload) {
-            state.songsUrl = payload
         },
         //歌曲详情
         songsDetail(state, payload) {
@@ -56,46 +46,26 @@ const store = new Vuex.Store({
         isLogin(state, payload) {
             state.isLogin = payload
         },
-        //歌曲详情卡片状态
-        isShowSongsDetail(state) {
-            state.isShowSongsDetail = !state.isShowSongsDetail
+        //歌曲详情卡片和播放列表的切换
+        isShowSongsDetail(state, payload = { isShow: true, type: "musicdetail", direction: "btt", size: "100%" }) {
+            state.isShowSongsDetail = payload
         },
         //当前播放时间
         currentTime(state, payload) {
             state.currentTime = payload
         },
-        //点击抽屉回调
-        isOpen(state) {
-            state.isOpen = !state.isOpen
-        },
-        //抽屉保存歌曲
-        drawerList(state, payload) {
+        //最近播放
+        recentList(state, payload) {
             //查询是否有相同歌曲
-            const oldId = state.drawerList.find(item => item.id === payload.id)
+            const oldId = state.recentList.find(item => item.id === payload.id)
             //如果没有才提交到数组
             if (!oldId) {
-                state.drawerList.push(payload)
+                state.recentList.push(payload)
             }
         },
-        //播放全部函数
-        playAllFunction(state, payload) {
-            state.playAllFunction = payload
-        },
-        //搜索结果值
-        searchItem(state, payload) {
-            state.searchItem = payload
-        },
-        //搜索函数
-        searchFunction(state, payload) {
-            state.searchFunction = payload
-        },
-        //分类视频id
-        videoListId(state, payload) {
-            state.videoListId = payload
-        },
-        //播放视频id
-        videoId(state, payload) {
-            state.videoId = payload
+        //播放列表
+        playList(state, payload) {
+            state.playList = payload
         },
         //video和mv的切换
         isVideo(state, payload) {
@@ -121,12 +91,51 @@ const store = new Vuex.Store({
         }
     },
     actions: {
+        //获取用户信息
+        getUserInfo({ commit, dispatch }) {
+            let userId = localStorage.getItem("userId");
+            if (!userId) return;
+            getUserInfo(userId).then((res) => {
+                if (res.code !== 200) return
+                commit("userInfo", res.profile)
+                dispatch("getUserList")
+                dispatch("getState")
+                dispatch("likedMusic")
+            });
+        },
+        //获取用户歌单
+        getUserList(context) {
+            let userId = localStorage.getItem("userId");
+            getUserPlayList(userId).then(res => {
+                if (res.code !== 200) return
+                context.commit("userPlayList", res.playlist)
+            })
+        },
+        //获取登录状态
+        getState(context) {
+            getState().then(res => {
+                if (res.data.code !== 200) return
+                context.commit("isLogin", true)
+            })
+        },
+        //获取用户喜欢音乐列表
         likedMusic(context) {
             let userId = localStorage.getItem("userId")
             getLikedMusicList(userId).then(res => {
+                if (res.code !== 200) return
                 context.commit("getLikedMusic", res.ids)
             })
         },
+        //退出登录
+        logOut(context) {
+            logOut().then(res => {
+                if (res.code !== 200) return
+                //删除本地用户id
+                localStorage.removeItem("userId");
+                //提交登录状态
+                context.commit("isLogin", false)
+            })
+        }
     }
 })
 
