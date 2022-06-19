@@ -100,6 +100,22 @@ export default {
       comment: {},
     };
   },
+  created() {
+    let vid = this.$route.params.vid;
+    if (this.$store.state.isVideo) {
+      this.videoDetail(vid);
+      this.videoUrl(vid);
+      this.relateVideo(vid);
+      //热门评论
+      this.hotComments(vid, 5);
+    } else {
+      this.mvDetail(vid);
+      this.mvUrl(vid);
+      this.relateMv(vid);
+      //热门评论
+      this.hotComments(vid, 1);
+    }
+  },
   components: { Comment },
   methods: {
     //视频详情
@@ -149,27 +165,7 @@ export default {
       });
     },
   },
-  watch: {
-    "$route.params.vid": {
-      immediate: true,
-      handler: function (vid) {
-        if (!vid) return;
-        if (this.$store.state.isVideo) {
-          this.videoDetail(vid);
-          this.videoUrl(vid);
-          this.relateVideo(vid);
-          //热门评论
-          this.hotComments(vid, 5);
-        } else {
-          this.mvDetail(vid);
-          this.mvUrl(vid);
-          this.relateMv(vid);
-          //热门评论
-          this.hotComments(vid, 1);
-        }
-      },
-    },
-  },
+  watch: {},
 };
 </script>
 

@@ -23,6 +23,7 @@ const AlbumDetail = () => import("@/components/detail/AlbumDetail")
 const ArtistDetail = () => import("@/components/detail/ArtistDetail")
 const SearchDetail = () => import("@/components/detail/SearchDetail")
 const VideoDetail = () => import("@/components/detail/VideoDetail")
+const UserDetail = () => import("@/components/detail/UserDetail")
 
 const MyRecommend = () => import("@/components/recommend/MyRecommend")
 const Recently = () => import("@/components/recent/Recently")
@@ -105,6 +106,10 @@ const routes = [{
 {
     path: '/videodetail/:vid',
     component: VideoDetail
+},
+{
+    path: '/userdetail/:id',
+    component: UserDetail
 },
 {
     path: '/recently',

@@ -4,7 +4,7 @@
       class="album"
       v-for="(item, index) in list"
       :key="index"
-      @click="itemClick(item.id)"
+      @click="itemClick(item.id || item.userId)"
     >
       <div class="left">
         <div class="image" v-if="item.picUrl">
@@ -13,7 +13,11 @@
         <div class="image" v-if="item.coverImgUrl">
           <img v-lazy="item.coverImgUrl" alt="" />
         </div>
-        <div class="name">{{ item.name }}</div>
+        <div class="image" v-if="item.backgroundUrl">
+          <img v-lazy="item.backgroundUrl" alt="" />
+        </div>
+        <div class="name" v-if="item.name">{{ item.name }}</div>
+        <div class="name" v-if="item.nickname">{{ item.nickname }}</div>
       </div>
       <div class="right">
         <div class="count" v-if="item.trackCount">{{ item.trackCount }}首</div>

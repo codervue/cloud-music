@@ -2,11 +2,13 @@
   <div class="container">
     <div
       class="box"
-      v-for="(item, index) in list"
+      v-for="item in list"
       :key="item.id"
-      @click="itemClick(index)"
+      @click="itemClick(item.id)"
     >
-      <div class="image"><img v-lazy="item.picUrl" alt="" /></div>
+      <div class="image">
+        <img v-lazy="item.picUrl || item.coverImgUrl" alt="" />
+      </div>
       <p class="word">{{ item.name }}</p>
     </div>
   </div>
@@ -23,10 +25,8 @@ export default {
     return {};
   },
   methods: {
-    itemClick(index) {
-      this.$router
-        .push("/listdetail/" + this.list[index].id)
-        .catch((err) => {});
+    itemClick(id) {
+      this.$emit("itemClick", id);
     },
   },
 };
@@ -36,21 +36,23 @@ export default {
 .container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+}
+.box {
+  width: 20%;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .image img {
-  height: 150px;
+  width: 100%;
+  height: 140px;
   border-radius: 5px;
+  cursor: pointer;
 }
 .word {
-  width: 120px;
+  width: 100%;
   font-size: 12px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-.box {
-  text-align: center;
-  cursor: pointer;
 }
 </style>

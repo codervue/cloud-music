@@ -71,6 +71,12 @@
       <el-tab-pane label="MV" name="fifth">
         <mv-list :list="searchList.mvList"></mv-list>
       </el-tab-pane>
+      <el-tab-pane label="用户" name="six">
+        <flex-list
+          :list="searchList.userList"
+          @itemClick="userListClick"
+        ></flex-list>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -92,7 +98,7 @@ export default {
         keywords: "",
         type: 1,
       },
-      typeInfo: [1, 10, 100, 1000, 1004],
+      typeInfo: [1, 10, 100, 1000, 1004, 1002],
       detail: "",
       searchList: {
         musicList: [],
@@ -100,6 +106,7 @@ export default {
         artistList: [],
         playList: [],
         mvList: [],
+        userList: [],
       },
     };
   },
@@ -109,12 +116,17 @@ export default {
     MvList,
     FlexList,
   },
-  created() {},
+  created() {
+    let value = this.$route.params.value;
+    this.searchInfo.keywords = value;
+    this.searchDetail(value);
+    this.searchResult();
+  },
   mounted() {},
   methods: {
     //搜索细节
-    searchDetail(item) {
-      searchDetail(item).then((res) => {
+    searchDetail(value) {
+      searchDetail(value).then((res) => {
         this.detail = res.result;
       });
     },
@@ -139,6 +151,9 @@ export default {
           case "4":
             this.searchList.mvList = Object.freeze(res.result.mvs);
             break;
+          case "5":
+            this.searchList.userList = Object.freeze(res.result.userprofiles);
+            break;
         }
       });
     },
@@ -161,18 +176,12 @@ export default {
     albumClick(id) {
       this.$router.push("/albumdetail/" + id).catch((error) => {});
     },
-  },
-  watch: {
-    "$route.params.value": {
-      immediate: true,
-      handler: function (value) {
-        if (!value) return;
-        this.searchInfo.keywords = value;
-        this.searchDetail(value);
-        this.searchResult();
-      },
+    //用户点击
+    userListClick(id) {
+      this.$router.push("/userdetail/" + id).catch((error) => {});
     },
   },
+  watch: {},
 };
 </script>
 

@@ -37,7 +37,7 @@
         </div>
 
         <div class="pop">
-          <span class="common" @click="singerClick(songsDetail.ar[0].name)">
+          <span class="common" @click="singerClick(songsDetail.ar[0].id)">
             {{ songsDetail.ar[0].name }}
           </span>
         </div>
@@ -243,10 +243,12 @@ export default {
     },
     //点击歌名回调
     popClick(item) {
-      // this.$router.push("/searchdetail/" + item).catch((err) => {});
+      this.$router.push("/searchdetail/" + item).catch((err) => {});
     },
     //点击歌手的回调
-    singerClick(item) {},
+    singerClick(id) {
+      this.$router.push("/artistdetail/" + id).catch((err) => {});
+    },
     //是否点亮爱心
     isLiked(id) {
       return this.$store.state.likedMusicList.find((uid) => uid === id);

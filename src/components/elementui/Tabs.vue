@@ -44,7 +44,7 @@ export default {
 .top {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .title {
   line-height: 30px;
@@ -56,14 +56,15 @@ export default {
   border-radius: 15px;
 }
 .category span {
-  margin: 0 10px;
   font-size: 12px;
   color: #919191;
   cursor: pointer;
+  padding: 2px 10px;
 }
 .active {
   /* 权重不够，颜色不生效 */
-  color: red !important;
-  background-color: rgb(238, 175, 187);
+  color: #ec4141 !important;
+  background-color: #fdf5f5;
+  border-radius: 13px;
 }
 </style>

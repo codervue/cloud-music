@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <div class="box">
-      <div class="card" v-for="(item, index) in videos" :key="index">
-        <div class="image" @click="itemClick(item.data.vid)">
-          <img v-lazy="item.data.coverUrl + '?param=250y140'" alt="" />
-        </div>
-        <div class="word">{{ item.data.title || item.data.name }}</div>
-        <div class="name" v-if="item.data.creator">
-          by{{ item.data.creator.nickname }}
-        </div>
+  <div class="box">
+    <div class="card" v-for="(item, index) in videos" :key="index">
+      <div class="image" @click="itemClick(item.data.vid)">
+        <img v-lazy="item.data.coverUrl + '?param=250y140'" alt="" />
+      </div>
+      <div class="word">{{ item.data.title || item.data.name }}</div>
+      <div class="name" v-if="item.data.creator">
+        by{{ item.data.creator.nickname }}
       </div>
     </div>
   </div>
@@ -37,28 +35,31 @@ export default {
 
 <style scoped='scoped'>
 .box {
-  margin: 10px 0;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
+.card {
+  width: 33.3%;
+  padding: 10px;
+  box-sizing: border-box;
+}
 .image img {
+  width: 100%;
   height: 140px;
   border-radius: 5px;
   cursor: pointer;
 }
 .word {
-  width: 250px;
+  width: 100%;
   font-size: 12px;
   color: #666;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-top: 10px;
+  margin: 3px 0;
 }
 .name {
   font-size: 12px;
   color: #9191916c;
-  margin-bottom: 20px;
 }
 </style>

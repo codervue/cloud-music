@@ -8,11 +8,9 @@
       <!-- 左侧侧边栏 -->
       <sider></sider>
       <!-- 右侧浏览区 -->
-      <transition name="el-zoom-in-top" mode="out-in"
-        ><!--加mode解决了我找啦好久的bug，因为动画淡出淡入默认是同时执行的，mode给了一个执行先后顺序的效果-->
-        <keep-alive exclude="videodetail">
-          <router-view class="view" />
-        </keep-alive>
+      <transition name="el-zoom-in-top" mode="out-in">
+        <!--加mode解决了我找啦好久的bug，因为动画淡出淡入默认是同时执行的，mode给了一个执行先后顺序的效果-->
+        <router-view class="view" />
       </transition>
     </div>
     <!-- 底部控制栏 -->

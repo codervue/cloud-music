@@ -1,5 +1,5 @@
 <template>
-  <div class="list-detail" v-if="result">
+  <div class="list-detail" v-if="result.playlist">
     <div class="top">
       <div class="left">
         <img v-lazy="result.playlist.coverImgUrl" alt="" />
@@ -11,7 +11,11 @@
         </div>
         <div class="second">
           <img :src="result.playlist.creator.backgroundUrl" alt="" />
-          <span class="nickname">{{ result.playlist.creator.nickname }}</span>
+          <span
+            class="nickname"
+            @click="userClick(result.playlist.creator.userId)"
+            >{{ result.playlist.creator.nickname }}</span
+          >
           <span class="create-time"
             >{{ result.playlist.createTime | dateFormat }}创建</span
           >
@@ -57,6 +61,10 @@ export default {
       result: "",
     };
   },
+  created() {
+    let id = this.$route.params.id;
+    this.getListDetail(id);
+  },
   components: {
     TableList,
     RowList,
@@ -69,14 +77,14 @@ export default {
         this.result = res;
       });
     },
+    userClick(id) {
+      this.$router.push("/userdetail/" + id);
+    },
   },
   watch: {
-    "$route.params.id": {
-      immediate: true,
-      handler: function (id) {
-        if (!id) return;
-        this.getListDetail(id);
-      },
+    //监听
+    "$route.params.id"(id) {
+      this.getListDetail(id);
     },
   },
 };
@@ -84,6 +92,7 @@ export default {
 
 <style scoped='scoped'>
 .left img {
+  width: 200px;
   height: 200px;
   border-radius: 10px;
 }
@@ -122,6 +131,7 @@ export default {
   color: #6191c2;
   font-size: 13px;
   margin: 0 10px;
+  cursor: pointer;
 }
 .five {
   margin: 5px 0;

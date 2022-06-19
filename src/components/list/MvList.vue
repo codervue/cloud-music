@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <div class="new">
-      <div v-for="(item, index) in list" :key="index">
-        <div class="image" @click="itemClick(item.id)">
-          <img v-lazy="item.cover + '?param=250y140'" alt="" />
-        </div>
-        <div class="name">{{ item.name }}</div>
-        <div class="singer">{{ item.artistName }}</div>
+  <div class="new">
+    <div class="box" v-for="(item, index) in list" :key="index">
+      <div class="image" @click="itemClick(item.id)">
+        <img v-lazy="item.cover || item.imgurl + '?param=250y140'" alt="" />
       </div>
+      <div class="name">{{ item.name }}</div>
+      <div class="singer">{{ item.artistName }}</div>
     </div>
   </div>
 </template>
@@ -34,22 +32,26 @@ export default {
 <style scoped='scoped'>
 .new {
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
 }
+.box {
+  width: 33.3%;
+  padding: 10px;
+  box-sizing: border-box;
+}
 .image img {
-  width: 250px;
+  width: 100%;
   height: 140px;
   border-radius: 5px;
   cursor: pointer;
 }
 .name {
-  width: 250px;
+  width: 100%;
   font-size: 13px;
+  margin: 3px 0;
 }
 .singer {
   font-size: 12px;
   color: #666666;
-  margin: 5px 0;
 }
 </style>

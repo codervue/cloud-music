@@ -6,7 +6,7 @@
       </el-carousel-item>
     </el-carousel>
     <p class="recommend-a"><b>推荐歌单></b></p>
-    <box-list :list="recommend" />
+    <box-list :list="recommend" @itemClick="itemClick" />
   </div>
 </template>
 
@@ -35,12 +35,15 @@ export default {
         this.recommend = res.result;
       });
     },
+    itemClick(id) {
+      this.$router.push("/listdetail/" + id);
+    },
   },
 };
 </script>
 
 <style scoped='scoped'>
-.recommend{
+.recommend {
   margin-top: 20px;
 }
 .el-image {
