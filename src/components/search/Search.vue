@@ -47,7 +47,7 @@
         <div class="singer">
           <h4>歌手</h4>
           <ul class="box" v-for="(item, index) in singer" :key="index">
-            <li class="box-item" @click="goDetail(item.name)">
+            <li class="box-item" @click="artistClick(item.id)">
               {{ item.name }}
             </li>
           </ul>
@@ -56,7 +56,7 @@
         <div class="album">
           <h4>专辑</h4>
           <ul class="box" v-for="(item, index) in albums" :key="index">
-            <li class="box-item" @click="albumClick(item)">
+            <li class="box-item" @click="albumClick(item.id)">
               {{ item.name }}-{{ item.artist.name }}
             </li>
           </ul>
@@ -152,6 +152,16 @@ export default {
     playListClick(item) {
       this.isShow = false;
       this.$router.push("/listdetail/" + item.id).catch((err) => {});
+    },
+    //点击歌手的回调
+    artistClick(id) {
+      this.isShow = false;
+      this.$router.push("/artistdetail/" + id);
+    },
+    //点击专辑的回调
+    albumClick(id) {
+      this.isShow = false;
+      this.$router.push("/albumdetail/" + id);
     },
   },
   mounted() {},
