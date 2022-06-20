@@ -81,12 +81,7 @@ export default {
       this.$router.push("/userdetail/" + id);
     },
   },
-  watch: {
-    //监听
-    // "$route.params.id"(id) {
-    //   this.getListDetail(id);
-    // },
-  },
+  watch: {},
 };
 </script>
 

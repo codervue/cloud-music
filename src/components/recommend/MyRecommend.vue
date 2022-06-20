@@ -1,7 +1,8 @@
 <template>
   <div>
-    <tab-menu :menuList="menuList" :activeIndex="activeIndex"></tab-menu>
-    <transition name="el-zoom-in-center">
+    <tab-menu :menuList="menuList"></tab-menu>
+
+    <transition mode="out-in">
       <keep-alive>
         <router-view />
       </keep-alive>
@@ -14,7 +15,6 @@ import TabMenu from "@/components/elementui/TabMenu";
 export default {
   data() {
     return {
-      activeIndex: "/myrecommend/recommendmusic",
       menuList: [
         { path: "/myrecommend/recommendmusic", title: "推荐音乐" },
         { path: "/myrecommend/recommendlist", title: "推荐歌单" },

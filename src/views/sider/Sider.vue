@@ -1,6 +1,11 @@
 <template>
   <div class="sider">
-    <el-menu active-text-color="#000" router :default-active="activeMenu">
+    <el-menu
+      active-text-color="#000"
+      router
+      :default-active="activePath"
+      @select="select"
+    >
       <!-- 导航栏 -->
       <el-menu-item
         :index="item.path"
@@ -43,7 +48,6 @@
 export default {
   data() {
     return {
-      activeMenu: "/find",
       menuList: [
         { path: "/find", title: "发现音乐" },
         { path: "/video", title: "视频", login: false },
@@ -52,7 +56,12 @@ export default {
         { path: "/myrecommend", title: "每日推荐", login: false },
         { path: "/recently", title: "最近播放" },
       ],
+      activePath: "/find",
     };
+  },
+  created() {
+    if (sessionStorage.getItem("currentPath"))
+      this.activePath = sessionStorage.getItem("currentPath");
   },
   computed: {
     playlist() {
@@ -62,15 +71,13 @@ export default {
       return this.$store.state.isLogin;
     },
   },
-  methods: {},
-  watch: {
-    //项目bug：浏览器刷新样式的回滚
-    //监听路由，浏览器刷新时当前导航栏样式回滚
-    // "$route.path"(val) {
-    //   console.log(val);
-    //   this.activeMenu = val;
-    // },
+  methods: {
+    select(e) {
+      //存储页面刷新前的路径，使刷新后样式能够回滚
+      sessionStorage.setItem("currentPath", e);
+    },
   },
+  watch: {},
 };
 </script>
 

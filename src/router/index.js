@@ -33,106 +33,106 @@ const RecommendMusic = () => import("@/components/recommend/childcomps/Recommend
 const RecommendList = () => import("@/components/recommend/childcomps/RecommendList")
 
 
+const routes = [
+    {
+        path: "/",
+        redirect: "/find"
+    },
+    {
+        path: '/find',
+        component: Find,
+        children: [
+            {
+                path: "/",
+                redirect: "personrecommend"
+            },
+            {
+                path: "personrecommend",
+                component: PersonRecommend
+            },
+            {
+                path: "songmenu",
+                component: SongMenu
+            },
+            {
+                path: "rank",
+                component: Rank
+            },
+            {
+                path: "singer",
+                component: Singer
+            },
+            {
+                path: "newsongs",
+                component: NewSongs
+            }
+        ]
 
-const routes = [{
-    path: '',
-    redirect: "/find"
-},
-{
-    path: '/find',
-    component: Find,
-    children: [
-        {
-            path: "",
-            redirect: "personrecommend"
-        },
-        {
-            path: "personrecommend",
-            component: PersonRecommend
-        },
-        {
-            path: "songmenu",
-            component: SongMenu
-        },
-        {
-            path: "rank",
-            component: Rank
-        },
-        {
-            path: "singer",
-            component: Singer
-        },
-        {
-            path: "newsongs",
-            component: NewSongs
-        }
-    ]
-
-},
-{
-    path: '/video',
-    component: Video,
-    children: [
-        {
-            path: "",
-            redirect: "videos"
-        },
-        {
-            path: "videos",
-            component: Videos
-        },
-        {
-            path: "mv",
-            component: MV
-        }
-    ]
-},
-{
-    path: '/listdetail/:id',
-    component: ListDetail
-},
-{
-    path: '/albumdetail/:id',
-    component: AlbumDetail
-},
-{
-    path: '/artistdetail/:id',
-    component: ArtistDetail
-},
-{
-    path: '/SearchDetail/:value',
-    component: SearchDetail
-},
-{
-    path: '/videodetail/:vid',
-    component: VideoDetail
-},
-{
-    path: '/userdetail/:id',
-    component: UserDetail
-},
-{
-    path: '/recently',
-    component: Recently
-},
-{
-    path: '/myrecommend',
-    component: MyRecommend,
-    children: [
-        {
-            path: "",
-            redirect: "recommendmusic"
-        },
-        {
-            path: "recommendmusic",
-            component: RecommendMusic
-        },
-        {
-            path: "recommendlist",
-            component: RecommendList
-        }
-    ]
-},
+    },
+    {
+        path: '/video',
+        component: Video,
+        children: [
+            {
+                path: "/",
+                redirect: "videos"
+            },
+            {
+                path: "videos",
+                component: Videos
+            },
+            {
+                path: "mv",
+                component: MV
+            }
+        ]
+    },
+    {
+        path: '/listdetail/:id',
+        component: ListDetail
+    },
+    {
+        path: '/albumdetail/:id',
+        component: AlbumDetail
+    },
+    {
+        path: '/artistdetail/:id',
+        component: ArtistDetail
+    },
+    {
+        path: '/SearchDetail/:value',
+        component: SearchDetail
+    },
+    {
+        path: '/videodetail/:vid',
+        component: VideoDetail
+    },
+    {
+        path: '/userdetail/:id',
+        component: UserDetail
+    },
+    {
+        path: '/recently',
+        component: Recently
+    },
+    {
+        path: '/myrecommend',
+        component: MyRecommend,
+        children: [
+            {
+                path: "/",
+                redirect: "recommendmusic"
+            },
+            {
+                path: "recommendmusic",
+                component: RecommendMusic
+            },
+            {
+                path: "recommendlist",
+                component: RecommendList
+            }
+        ]
+    },
 ]
 
 //创建路由

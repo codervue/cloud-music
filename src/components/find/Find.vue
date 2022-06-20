@@ -1,7 +1,7 @@
 <template>
   <div id="find">
-    <tab-menu :menuList="menuList" :activeIndex="activeIndex"></tab-menu>
-    <transition name="el-zoom-in-center">
+    <tab-menu :menuList="menuList"></tab-menu>
+    <transition mode="out-in">
       <keep-alive>
         <router-view />
       </keep-alive>
@@ -16,7 +16,6 @@ export default {
   name: "",
   data() {
     return {
-      activeIndex: "/find/personrecommend",
       menuList: [
         { path: "/find/personrecommend", title: "个性推荐" },
         { path: "/find/songmenu", title: "歌单" },

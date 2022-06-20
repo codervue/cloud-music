@@ -108,15 +108,7 @@ export default {
       this.$router.push("/artistdetail/" + id);
     },
   },
-  watch: {
-    // "$route.params.id"(id) {
-    //   this.getArtist(id);
-    // },
-  },
-  // beforeRouteUpdate(to, from) {
-  //   console.log(to);
-  //   console.log(from);
-  // },
+  watch: {},
 };
 </script>
 

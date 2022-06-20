@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-menu
-      :default-active="activeIndex"
+      :default-active="$route.path"
       class="el-menu-demo"
       mode="horizontal"
       router
@@ -11,8 +11,9 @@
         :index="item.path"
         v-for="item in menuList"
         :key="item.path"
-        >{{ item.title }}</el-menu-item
       >
+        {{ item.title }}
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -22,9 +23,6 @@ export default {
   props: {
     menuList: {
       type: Array,
-    },
-    activeIndex: {
-      type: String,
     },
   },
   data() {
