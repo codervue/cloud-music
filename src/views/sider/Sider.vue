@@ -82,10 +82,6 @@ export default {
 </script>
 
 <style scoped='scoped'>
-.sider {
-  width: 20%;
-  border-right: solid 1px rgba(223, 218, 218, 0.932);
-}
 .iconfont {
   /* 图标与文字对齐 */
   vertical-align: 0px;

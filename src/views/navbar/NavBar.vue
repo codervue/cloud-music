@@ -48,7 +48,7 @@
       </div>
     </div>
     <!-- 登入框 -->
-    <login ref="login"></login>
+    <!-- <login ref="login"></login> -->
   </div>
 </template>
 

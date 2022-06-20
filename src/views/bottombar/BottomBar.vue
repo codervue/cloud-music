@@ -285,11 +285,8 @@ export default {
 
 <style scoped="scoped">
 #bottom-bar {
-  width: 100%;
-  height: 70px;
   display: flex;
   border-top: solid 1px rgba(223, 218, 218, 0.932);
-  background-color: #fff;
 }
 .left {
   display: flex;

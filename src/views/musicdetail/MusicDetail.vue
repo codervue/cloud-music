@@ -102,26 +102,20 @@ export default {
       getLyric(id).then((res) => {
         //处理歌词
         //去除\n
-        // console.log(res);
         let arr = res.lrc.lyric.split("\n");
         let time = "";
         let value = "";
         let result = [];
-        // console.log(arr);
-        // //拆分数组
+        //拆分数组
         arr.forEach((item) => {
           time = item.split("]")[0];
           value = item.split("]")[1];
-          // console.log(time);
           //time是一个字符串
           var t = time.slice(1).split(":");
-          // console.log(t);
           //去除空行并将结果压入数组,
-          // if (value != "") {
           result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]), value]);
         });
         //结果存储
-        // console.log(result);
         this.lyric = result;
       });
     },

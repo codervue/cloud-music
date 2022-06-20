@@ -2,11 +2,9 @@
   <div>
     <tab-menu :menuList="menuList"></tab-menu>
 
-    <transition mode="out-in">
-      <keep-alive>
-        <router-view />
-      </keep-alive>
-    </transition>
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 

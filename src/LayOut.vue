@@ -1,23 +1,30 @@
 <template>
   <!-- 布局组件 -->
   <div id="lay-out">
-    <!-- 顶部区域 -->
-    <nav-bar></nav-bar>
-    <!-- 中心区域 -->
-    <div class="center">
-      <!-- 左侧侧边栏 -->
-      <sider></sider>
-      <!-- 右侧浏览区 -->
-      <transition mode="out-in">
-        <!--加mode解决了我找啦好久的bug，因为动画淡出淡入默认是同时执行的，mode给了一个执行先后顺序的效果-->
-        <router-view class="view" :key="$route.fullPath" />
-        <!-- 动态绑定key值：解决相同路由之间的跳转数据不刷新问题 -->
-      </transition>
-    </div>
-    <!-- 底部控制栏 -->
-    <bottom-bar></bottom-bar>
+    <el-container>
+      <el-header>
+        <!-- 导航栏 -->
+        <nav-bar></nav-bar>
+      </el-header>
+      <el-container>
+        <el-aside width="20%">
+          <!-- 侧边栏 -->
+          <sider />
+        </el-aside>
+        <el-main>
+          <el-collapse-transition>
+            <!-- 浏览区 -->
+            <router-view :key="$route.fullPath" />
+          </el-collapse-transition>
+        </el-main>
+      </el-container>
+      <el-footer height="70px">
+        <!-- 底部控制栏 -->
+        <bottom-bar></bottom-bar>
+      </el-footer>
+    </el-container>
     <!-- 抽屉 -->
-    <drawer></drawer>
+    <drawer />
   </div>
 </template>
 
@@ -47,23 +54,7 @@ export default {
   position: relative;
   /* 禁止用户鼠标在页面上选中文字/图片等 */
   user-select: none;
-  /* 隐藏歌曲详情卡片*/
-  overflow: hidden;
   /* 盒子阴影 */
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-}
-.center {
-  height: 540px;
-  display: flex;
-}
-
-.view {
-  width: 80%;
-  /*竖直滚动 */
-  overflow-y: scroll;
-  padding: 10px;
-}
-.view::-webkit-scrollbar {
-  display: none;
 }
 </style>

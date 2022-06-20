@@ -28,7 +28,12 @@ import {
     SkeletonItem,
     MessageBox,
     Tabs,
-    TabPane
+    TabPane,
+    Container,
+    Header,
+    Main,
+    Aside,
+    Footer,
 } from "element-ui"
 
 
@@ -59,6 +64,11 @@ Vue.use(Skeleton);
 Vue.use(SkeletonItem);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Container);
+Vue.use(Header);
+Vue.use(Main);
+Vue.use(Aside);
+Vue.use(Footer);
 // Vue.use(Message);//不需要use，只要引用就行，否则弹出空白的消息提示框
 
 
