@@ -17,7 +17,7 @@
     <!-- 导航栏 -->
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="专辑" name="first">
-        <flex-list :list="album" @itemClick="itemClick"></flex-list>
+        <flex-list :list="album" @itemClick="albumClick"></flex-list>
       </el-tab-pane>
       <el-tab-pane label="MV" name="second">
         <mv-list :list="mvs"></mv-list>
@@ -27,7 +27,7 @@
         <span class="word" v-if="data.artist">{{ data.artist.briefDesc }}</span>
       </el-tab-pane>
       <el-tab-pane label="相似歌手" name="fourth">
-        <box-list :list="simi" @itemClick="itemClick"></box-list>
+        <box-list :list="simi" @itemClick="simiClick"></box-list>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -100,11 +100,11 @@ export default {
       }
     },
     //点击专辑回调
-    itemClick(id) {
+    albumClick(id) {
       this.$router.push("/albumdetail/" + id);
     },
     //点击相似歌手回调
-    itemClick(id) {
+    simiClick(id) {
       this.$router.push("/artistdetail/" + id);
     },
   },
@@ -113,10 +113,10 @@ export default {
     //   this.getArtist(id);
     // },
   },
-  beforeRouteUpdate(to, from) {
-    console.log(to);
-    console.log(from);
-  },
+  // beforeRouteUpdate(to, from) {
+  //   console.log(to);
+  //   console.log(from);
+  // },
 };
 </script>
 

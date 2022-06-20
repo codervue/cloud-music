@@ -10,7 +10,8 @@
       <!-- 右侧浏览区 -->
       <transition name="el-zoom-in-top" mode="out-in">
         <!--加mode解决了我找啦好久的bug，因为动画淡出淡入默认是同时执行的，mode给了一个执行先后顺序的效果-->
-        <router-view class="view" />
+        <router-view class="view" :key="$route.fullPath" />
+        <!-- 动态绑定key值：解决相同路由直接的跳转数据不刷新问题 -->
       </transition>
     </div>
     <!-- 底部控制栏 -->

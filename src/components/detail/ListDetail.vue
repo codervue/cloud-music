@@ -83,9 +83,9 @@ export default {
   },
   watch: {
     //监听
-    "$route.params.id"(id) {
-      this.getListDetail(id);
-    },
+    // "$route.params.id"(id) {
+    //   this.getListDetail(id);
+    // },
   },
 };
 </script>
