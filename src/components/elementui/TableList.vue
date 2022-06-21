@@ -21,7 +21,7 @@
       </el-table-column>
 
       <!-- 爱心 -->
-      <el-table-column label="" width="40" v-if="isShow">
+      <el-table-column label="操作" width="45" v-if="isShow">
         <template slot-scope="scope">
           <!-- 未喜欢-->
           <span
@@ -38,11 +38,23 @@
         </template>
       </el-table-column>
 
-      <el-table-column
-        prop="name"
-        label="标题"
-        :width="length1"
-      ></el-table-column>
+      <el-table-column prop="name" label="标题" :width="length1">
+        <template v-slot="{ row }">
+          <div class="el-name">
+            <span>{{ row.name }}</span>
+            <span class="common" v-if="row.alia.length !== 0">
+              ({{ row.alia[0] }})
+            </span>
+            <span v-if="row.fee == 1" class="vip-tag">VIP</span>
+            <span
+              v-if="row.mv !== 0"
+              class="vip-tag pointer"
+              @click="toMvDeTail(row.mv)"
+              >MV<i class="el-icon-caret-right"></i
+            ></span>
+          </div>
+        </template>
+      </el-table-column>
 
       <el-table-column prop="ar[0].name" label="歌手" :width="length2">
       </el-table-column>
@@ -130,6 +142,10 @@ export default {
         this.$store.commit("setMusic", { type: "取消喜欢", data: id });
       }
     },
+    //点击mv跳转
+    toMvDeTail(id) {
+      this.$router.push("/videodetail/" + id);
+    },
   },
 };
 </script>
@@ -144,5 +160,27 @@ export default {
 }
 .aixin {
   cursor: pointer;
+}
+.vip-tag {
+  border: solid 1px #fe2e2e;
+  border-radius: 2px;
+  color: #fe2e2e;
+  display: inline-block;
+  margin-left: 5px;
+  height: 13px;
+  line-height: 13px;
+}
+.pointer {
+  cursor: pointer;
+}
+.el-name {
+  display: flex;
+  align-items: center;
+}
+.common {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #969697;
 }
 </style>

@@ -42,7 +42,6 @@
           </span>
         </div>
       </div>
-      <!-- <span class="love"></span> -->
     </div>
 
     <div class="left" v-else>
@@ -238,7 +237,7 @@ export default {
         isShow: true,
         type: "playlist",
         direction: "rtl",
-        size: "30%",
+        size: "40%",
       });
     },
     //点击歌名回调

@@ -19,3 +19,9 @@ Vue.filter('dateFormat', function (time) {
     day = day < 10 ? '0' + day : day
     return year + '-' + mouth + '-' + day
 })
+/* 播放数量的过滤器 */
+Vue.filter('countFormat', function (count) {
+    if (typeof count === 'undefined') return 0
+    if (count < 10000) return count
+    else return Math.floor(count / 10000) + '万'
+})

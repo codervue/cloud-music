@@ -8,6 +8,13 @@
     >
       <div class="image">
         <img v-lazy="item.picUrl || item.coverImgUrl" alt="" />
+        <div class="playcount" v-if="item.playCount">
+          <i class="iconfont icon-bofang"></i>
+          {{ item.playCount | countFormat }}
+        </div>
+        <div class="btn" v-if="item.playCount">
+          <i class="iconfont icon-bofang"></i>
+        </div>
       </div>
       <p class="word">{{ item.name }}</p>
     </div>
@@ -42,6 +49,9 @@ export default {
   padding: 10px;
   box-sizing: border-box;
 }
+.image {
+  position: relative;
+}
 .image img {
   width: 100%;
   height: 140px;
@@ -54,5 +64,37 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.playcount {
+  font-size: 12px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #ffffff;
+}
+.playcount i {
+  font-size: 12px;
+  color: aliceblue;
+}
+.btn {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  right: 5px;
+  bottom: 10px;
+  text-align: center;
+  line-height: 30px;
+  opacity: 0;
+  transition: all 1s;
+  cursor: pointer;
+}
+.image:hover .btn {
+  opacity: 1;
+}
+.btn i {
+  font-size: 17px;
+  color: red;
 }
 </style>

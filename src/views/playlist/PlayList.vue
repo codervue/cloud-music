@@ -4,8 +4,8 @@
     <div class="list">播放列表({{$store.state.playList.length}})</div>
     <table-list
       :result="result"
-      :length1="90"
-      :length2="90"
+      :length1="200"
+      :length2="100"
       :isShow="false"
     ></table-list>
   </div>
