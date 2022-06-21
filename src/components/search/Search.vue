@@ -36,7 +36,10 @@
           </div>
         </div>
         <div class="song">
-          <h4>单曲</h4>
+          <h4>
+            <iconpark-icon icon-id="317784" color="gray"></iconpark-icon>
+            单曲
+          </h4>
           <ul class="box" v-for="(item, index) in songs" :key="index">
             <li class="box-item" @click="songsClick(item)">
               {{ item.name + "-" + item.artists[0].name }}
@@ -45,7 +48,10 @@
         </div>
         <!-- 歌手 -->
         <div class="singer">
-          <h4>歌手</h4>
+          <h4>
+            <iconpark-icon icon-id="317783" color="gray"></iconpark-icon>
+            歌手
+          </h4>
           <ul class="box" v-for="(item, index) in singer" :key="index">
             <li class="box-item" @click="artistClick(item.id)">
               {{ item.name }}
@@ -54,7 +60,10 @@
         </div>
         <!-- 专辑 -->
         <div class="album">
-          <h4>专辑</h4>
+          <h4>
+            <iconpark-icon icon-id="317785" color="gray"></iconpark-icon>
+            专辑
+          </h4>
           <ul class="box" v-for="(item, index) in albums" :key="index">
             <li class="box-item" @click="albumClick(item.id)">
               {{ item.name }}-{{ item.artist.name }}
@@ -197,5 +206,11 @@ export default {
 .search >>> .el-input__inner {
   border-radius: 25px;
   border: none;
+}
+iconpark-icon {
+  vertical-align: middle;
+}
+.icon-gedan {
+  vertical-align: middle;
 }
 </style>

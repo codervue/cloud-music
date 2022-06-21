@@ -8,8 +8,12 @@
         <div class="top">
           <div class="name">{{ userInfo.profile.nickname }}</div>
           <span class="level">LV{{ userInfo.level }}</span>
-          <span></span>
-          <span></span>
+          <span v-if="userInfo.profile.gender == 1">
+            <iconpark-icon icon-id="317727" color="#026bd0"></iconpark-icon>
+          </span>
+          <span v-if="userInfo.profile.gender == 2">
+            <iconpark-icon icon-id="317728" color="red"></iconpark-icon>
+          </span>
         </div>
         <div class="bottom">
           <div class="fans">
@@ -108,7 +112,7 @@ export default {
   font-size: 12px;
   padding: 2px;
   color: red;
-  margin: 7px 0;
+  margin: 7px 10px;
   display: inline-block;
 }
 .fans {
