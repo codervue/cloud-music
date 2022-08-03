@@ -12,10 +12,11 @@
           <sider />
         </el-aside>
         <el-main>
-          <el-collapse-transition>
+          <transition name="el-fade-in">
             <!-- 浏览区 -->
-            <router-view :key="$route.fullPath" />
-          </el-collapse-transition>
+            <!-- :key="$route.fullPath":使用此方法会造成导航切换样式问题 -->
+            <router-view />
+          </transition>
         </el-main>
       </el-container>
       <el-footer height="70px">
