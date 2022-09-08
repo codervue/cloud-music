@@ -1,6 +1,10 @@
 <template>
   <div>
-    <tab-menu :menuList="menuList"></tab-menu>
+    <TabMenu
+      :menuList="menuList"
+      :activeIndex="activeIndex"
+      :mode="'horizontal'"
+    ></TabMenu>
 
     <keep-alive>
       <router-view />
@@ -13,6 +17,7 @@ import TabMenu from "@/components/elementui/TabMenu";
 export default {
   data() {
     return {
+      activeIndex: "/myrecommend/recommendmusic",
       menuList: [
         { path: "/myrecommend/recommendmusic", title: "推荐音乐" },
         { path: "/myrecommend/recommendlist", title: "推荐歌单" },

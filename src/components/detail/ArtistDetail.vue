@@ -108,7 +108,8 @@ export default {
       this.$router.push("/artistdetail/" + id);
     },
   },
-  watch: {},
+  watch: {
+  },
 };
 </script>
 

@@ -191,7 +191,7 @@ export default {
     appearSound() {
       let div = document.getElementsByClassName("sound")[0];
       div.style.display = "block";
-      //3s后消失，(移出消失效果有点不优雅，暂且搁置)
+      //3s后消失，(移出消失效果有点不优雅，暂且这样)
       setTimeout(() => {
         div.style.display = "none";
       }, 3000);

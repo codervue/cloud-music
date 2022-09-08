@@ -7,10 +7,8 @@
       :modal="false"
       :size="isShowSongsDetail.size"
     >
-      <music-detail
-        v-if="isShowSongsDetail.type === 'musicdetail'"
-      ></music-detail>
-      <play-list v-if="isShowSongsDetail.type === 'playlist'"></play-list>
+    <!-- 动态切换组件 -->
+      <component :is="currentComponent"></component>
     </el-drawer>
   </div>
 </template>
@@ -27,6 +25,11 @@ export default {
   computed: {
     isShowSongsDetail() {
       return this.$store.state.isShowSongsDetail;
+    },
+    currentComponent() {
+      return this.$store.state.isShowSongsDetail.type === "musicdetail"
+        ? "MusicDetail"
+        : "PlayList";
     },
   },
   components: {

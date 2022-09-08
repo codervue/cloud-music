@@ -54,6 +54,7 @@
   background-color: rgba(128, 128, 128, 0.096);
 }
 .el-menu-item.is-active{
+  color: black;
   font-weight: 600;
   font-size: 16px;
 }
@@ -95,5 +96,8 @@
 }
 .el-footer{
   padding: 0;
+}
+.el-pagination{
+  text-align: center;
 }
 

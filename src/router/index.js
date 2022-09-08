@@ -52,6 +52,7 @@ const routes = [
             },
             {
                 path: "songmenu",
+                
                 component: SongMenu
             },
             {
@@ -88,6 +89,24 @@ const routes = [
         ]
     },
     {
+        path: '/myrecommend',
+        component: MyRecommend,
+        children: [
+            {
+                path: "/",
+                redirect: "recommendmusic"
+            },
+            {
+                path: "recommendmusic",
+                component: RecommendMusic
+            },
+            {
+                path: "recommendlist",
+                component: RecommendList
+            }
+        ]
+    },
+    {
         path: '/listdetail/:id',
         component: ListDetail
     },
@@ -114,24 +133,6 @@ const routes = [
     {
         path: '/recently',
         component: Recently
-    },
-    {
-        path: '/myrecommend',
-        component: MyRecommend,
-        children: [
-            {
-                path: "/",
-                redirect: "recommendmusic"
-            },
-            {
-                path: "recommendmusic",
-                component: RecommendMusic
-            },
-            {
-                path: "recommendlist",
-                component: RecommendList
-            }
-        ]
     },
 ]
 

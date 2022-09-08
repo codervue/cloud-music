@@ -1,6 +1,10 @@
 <template>
   <div id="find">
-    <tab-menu :menuList="menuList"></tab-menu>
+    <TabMenu
+      :menuList="menuList"
+      :activeIndex="activeIndex"
+      :mode="'horizontal'"
+    ></TabMenu>
     <keep-alive>
       <router-view />
     </keep-alive>
@@ -14,6 +18,7 @@ export default {
   name: "",
   data() {
     return {
+      activeIndex: "/find/personrecommend",
       menuList: [
         { path: "/find/personrecommend", title: "个性推荐" },
         { path: "/find/songmenu", title: "歌单" },
@@ -23,7 +28,9 @@ export default {
       ],
     };
   },
-
+  mounted() {
+    this.activeIndex = this.$route.path;
+  },
   components: { TabMenu },
 
   methods: {},

@@ -91,6 +91,7 @@ export default {
   name: "videodetail",
   data() {
     return {
+      vid: "",
       url: "",
       result: "",
       data: "",
@@ -101,17 +102,13 @@ export default {
     };
   },
   created() {
-    let vid = this.$route.params.vid;
+    this.vid = this.$route.params.vid;
     if (this.$store.state.isVideo) {
-      this.videoDetail(vid);
-      this.videoUrl(vid);
-      this.relateVideo(vid);
+      this.videoDetail();
       //热门评论
       this.hotComments(vid, 5);
     } else {
-      this.mvDetail(vid);
-      this.mvUrl(vid);
-      this.relateMv(vid);
+      this.mvDetail();
       //热门评论
       this.hotComments(vid, 1);
     }
@@ -119,37 +116,27 @@ export default {
   components: { Comment },
   methods: {
     //视频详情
-    videoDetail(id) {
+    videoDetail() {
+      let id = this.id;
       videoDetail(id).then((res) => {
         this.result = Object.freeze(res.data);
       });
-    },
-    //videoUrl
-    videoUrl(id) {
       videoUrl(id).then((res) => {
         this.url = Object.freeze(res.urls[0].url);
       });
-    },
-    //mv详情
-    mvDetail(id) {
-      mvDetail(id).then((res) => {
-        this.data = Object.freeze(res.data);
-      });
-    },
-    //mvUrl
-    mvUrl(id) {
-      mvUrl(id).then((res) => {
-        this.mUrl = Object.freeze(res.data.url);
-      });
-    },
-    //相关视频
-    relateVideo(id) {
       relateVideo(id).then((res) => {
         this.relateV = Object.freeze(res.data);
       });
     },
-    //相关mv
-    relateMv(id) {
+    //mv详情
+    mvDetail() {
+      let id = this.id;
+      mvDetail(id).then((res) => {
+        this.data = Object.freeze(res.data);
+      });
+      mvUrl(id).then((res) => {
+        this.mUrl = Object.freeze(res.data.url);
+      });
       relateMv(id).then((res) => {
         this.relateM = Object.freeze(res.mvs);
       });

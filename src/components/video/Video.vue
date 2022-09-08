@@ -1,6 +1,10 @@
 <template>
   <div class="video">
-    <tab-menu :menuList="menuList"></tab-menu>
+    <TabMenu
+      :menuList="menuList"
+      :activeIndex="activeIndex"
+      :mode="'horizontal'"
+    ></TabMenu>
 
     <transition mode="out-in">
       <keep-alive>
@@ -17,6 +21,7 @@ export default {
   name: "",
   data() {
     return {
+      activeIndex: "/video/videos",
       menuList: [
         { path: "/video/videos", title: "视频" },
         { path: "/video/mv", title: "MV" },

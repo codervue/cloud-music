@@ -58,12 +58,13 @@ export default {
   name: "listdetail",
   data() {
     return {
+      id: "",
       result: "",
     };
   },
   created() {
-    let id = this.$route.params.id;
-    this.getListDetail(id);
+    this.id = this.$route.params.id;
+    this.getListDetail();
   },
   components: {
     TableList,
@@ -71,8 +72,8 @@ export default {
   },
   methods: {
     //获取歌单详情
-    getListDetail(id) {
-      getPlayListDetail(id).then((res) => {
+    getListDetail() {
+      getPlayListDetail(this.id).then((res) => {
         //存储结果
         this.result = res;
       });
@@ -81,7 +82,9 @@ export default {
       this.$router.push("/userdetail/" + id);
     },
   },
-  watch: {},
+  watch: {
+  
+  },
 };
 </script>
 

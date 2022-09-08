@@ -107,6 +107,8 @@ export default {
         playList: [],
         mvList: [],
         userList: [],
+        loading: false,
+        value: "",
       },
     };
   },
@@ -117,16 +119,16 @@ export default {
     FlexList,
   },
   created() {
-    let value = this.$route.params.value;
-    this.searchInfo.keywords = value;
-    this.searchDetail(value);
+    this.value = this.$route.params.value;
+    this.searchInfo.keywords = this.value;
+    this.searchDetail();
     this.searchResult();
   },
   mounted() {},
   methods: {
     //搜索细节
-    searchDetail(value) {
-      searchDetail(value).then((res) => {
+    searchDetail() {
+      searchDetail(this.value).then((res) => {
         this.detail = res.result;
       });
     },
@@ -181,7 +183,9 @@ export default {
       this.$router.push("/userdetail/" + id).catch((error) => {});
     },
   },
-  watch: {},
+  watch: {
+    
+  },
 };
 </script>
 

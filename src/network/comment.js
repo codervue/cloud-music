@@ -1,11 +1,12 @@
 import { request } from "./index"
 
 //获取评论
-export function getComment(id, timestamp = Date.now()) {
+export function getComment(id, offset, timestamp = Date.now()) {
     return request({
         url: "/comment/music",
         params: {
             id,
+            offset,
             timestamp
         }
     })

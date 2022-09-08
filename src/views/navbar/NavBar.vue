@@ -1,54 +1,56 @@
 <template>
   <div>
-    <div id="nav-bar">
-      <div class="left">
-        <span><i class="iconfont icon-wangyiyunyinle"></i></span>
-        <span class="change" @click="refreshClick">网 抑 云 音 乐</span>
-      </div>
-
-      <div class="center">
-        <span class="back" @click="backClick"
-          ><img src="@/assets/img/back.svg" alt=""
-        /></span>
-        <!-- 搜索框 -->
-        <search></search>
-      </div>
-
-      <div class="login">
-        <div class="click" v-if="!$store.state.isLogin">
-          <span @click="loginClick">登录</span>
+    <div>
+      <div id="nav-bar">
+        <div class="left">
+          <span><i class="iconfont icon-wangyiyunyinle"></i></span>
+          <span class="change" @click="refreshClick">网 抑 云 音 乐</span>
         </div>
-        <div class="user" v-else>
-          <img :src="profile.avatarUrl" alt="" />
-          <el-dropdown @command="logOut">
-            <span class="el-dropdown-link">{{ profile.nickname }}</span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>退出登入</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+
+        <div class="center">
+          <span class="back" @click="backClick"
+            ><img src="@/assets/img/back.svg" alt=""
+          /></span>
+          <!-- 搜索框 -->
+          <search></search>
+        </div>
+
+        <div class="login">
+          <div class="click" v-if="!$store.state.isLogin">
+            <span @click="loginClick">登录</span>
+          </div>
+          <div class="user" v-else>
+            <img :src="profile.avatarUrl" alt="" />
+            <el-dropdown @command="logOut">
+              <span class="el-dropdown-link">{{ profile.nickname }}</span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>退出登入</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+        </div>
+
+        <div class="right">
+          <span @click="changColorClick" title="更换主题颜色"
+            ><img src="@/assets/img/close.svg" alt=""
+          /></span>
+          <span><img src="@/assets/img/set.svg" alt="" /></span>
+          <span><img src="@/assets/img/message.svg" alt="" /></span>
+          <span><img src="@/assets/img/zuixiaohua.svg" alt="" /></span>
+          <span><img src="@/assets/img/zuidahua.svg" alt="" /></span>
+          <span><img src="@/assets/img/guanbi.svg" alt="" /></span>
+        </div>
+
+        <!-- 换肤框 -->
+        <div class="clothes" v-if="isShowClothes">
+          <div class="red" title="红色" @click="redClick"></div>
+          <div class="blue" title="蓝色" @click="blueClick"></div>
+          <div class="gray" title="灰色" @click="grayClick"></div>
         </div>
       </div>
-
-      <div class="right">
-        <span @click="changColorClick" title="更换主题颜色"
-          ><img src="@/assets/img/close.svg" alt=""
-        /></span>
-        <span><img src="@/assets/img/set.svg" alt="" /></span>
-        <span><img src="@/assets/img/message.svg" alt="" /></span>
-        <span><img src="@/assets/img/zuixiaohua.svg" alt="" /></span>
-        <span><img src="@/assets/img/zuidahua.svg" alt="" /></span>
-        <span><img src="@/assets/img/guanbi.svg" alt="" /></span>
-      </div>
-
-      <!-- 换肤框 -->
-      <div class="clothes" v-if="isShowClothes">
-        <div class="red" title="红色" @click="redClick"></div>
-        <div class="blue" title="蓝色" @click="blueClick"></div>
-        <div class="gray" title="灰色" @click="grayClick"></div>
-      </div>
+      <!-- 登入框 -->
+      <login ref="login"></login>
     </div>
-    <!-- 登入框 -->
-    <login ref="login"></login>
   </div>
 </template>
 

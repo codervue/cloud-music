@@ -37,4 +37,7 @@ export default {
 .title {
   margin-left: 5px;
 }
+h4{
+  margin: 10px 0;
+}
 </style>

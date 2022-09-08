@@ -44,6 +44,7 @@
           :typeId="$store.state.songsId"
           :commentType="0"
         ></comment>
+        <pagination />
       </div>
     </div>
     <!-- 当无音乐时展示 -->
@@ -76,15 +77,21 @@ import Comment from "@/components/content/Comment";
 
 import { getComment } from "@/network/comment";
 import { getLyric, simiSongs } from "@/network/song";
+import Pagination from "@/components/elementui/Pagination.vue";
 export default {
+  name: "musicdetail",
   data() {
     return {
+      musicId: "",
       lyric: [],
       comment: {},
       songs: [],
-      timer: "",
       loading: false,
+      page: 1,
     };
+  },
+  provide() {
+    return { currentChange: this.currentChange };
   },
   computed: {
     songsDetail() {
@@ -94,12 +101,13 @@ export default {
   components: {
     Lyric,
     Comment,
+    Pagination,
     // GoTop,
   },
   methods: {
     //请求歌词
-    getLyric(id) {
-      getLyric(id).then((res) => {
+    getLyric() {
+      getLyric(this.musicId).then((res) => {
         //处理歌词
         //去除\n
         let arr = res.lrc.lyric.split("\n");
@@ -120,14 +128,18 @@ export default {
       });
     },
     //评论数据
-    getComment(id) {
-      getComment(id).then((res) => {
+    getComment() {
+      getComment(this.musicId, (this.page - 1) * 20).then((res) => {
         this.comment = res;
       });
     },
+    currentChange(val) {
+      this.page = val;
+      this.getComment();
+    },
     //相似歌曲
-    simiSongs(id) {
-      simiSongs(id).then((res) => {
+    simiSongs() {
+      simiSongs(this.musicId).then((res) => {
         this.songs = res.songs;
       });
     },
@@ -142,16 +154,17 @@ export default {
       this.songs = [];
     },
     //请求数据
-    getData(id) {
-      this.getLyric(id);
-      this.getComment(id);
-      this.simiSongs(id);
+    getData() {
+      this.getLyric();
+      this.getComment();
+      this.simiSongs();
     },
   },
   watch: {
     "$store.state.songsId": {
       immediate: true,
       handler: function (id) {
+        this.musicId = id;
         let show = this.$store.state.isShowSongsDetail.isShow;
         //当音乐卡片未打开时，不请求内容,提升性能
         if (id && show) {
@@ -159,7 +172,7 @@ export default {
           this.clearContent();
           this.loading = true;
           setTimeout(() => {
-            this.getData(id);
+            this.getData();
             this.loading = false;
           }, 500);
         }
@@ -171,7 +184,7 @@ export default {
         let id = this.$store.state.songsId;
         //立即监听，在id不为空时，才去请求内容，所以先做判断
         if (id && show) {
-          this.getData(id);
+          this.getData();
         }
       },
     },

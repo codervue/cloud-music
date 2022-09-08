@@ -81,11 +81,7 @@
           </div>
         </div>
       </div>
-      <div class="more"><span @click="moreComment">更多精彩评论>>></span></div>
     </div>
-
-    <!-- 热门评论 -->
-    <!-- 外层需包裹一个div否则会因为：key中的index相同而报错 -->
     <div v-if="comment.hotComments">
       <h3>热门评论</h3>
       <div
@@ -259,7 +255,7 @@ h3 {
 .word {
   /* 解决非文字文本不自动换行的问题 */
   word-break: break-all;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 .right {
   width: 95%;

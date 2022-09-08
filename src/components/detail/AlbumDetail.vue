@@ -42,21 +42,22 @@ import TableList from "@/components/elementui/TableList";
 export default {
   data() {
     return {
+      id: "",
       detail: {},
       songs: [],
     };
   },
   created() {
-    let id = this.$route.params.id;
-    this.getAlbum(id);
+    this.id = this.$route.params.id;
+    this.getAlbum();
   },
   components: {
     RowList,
     TableList,
   },
   methods: {
-    getAlbum(id) {
-      getAlbum(id).then((res) => {
+    getAlbum() {
+      getAlbum().then((res) => {
         this.detail = res.album;
         this.songs = res.songs;
       });
